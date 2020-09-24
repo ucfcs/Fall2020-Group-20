@@ -34,8 +34,4 @@ Words are nice.
 *Bash script missing*
 
 ### Resources
-- [PHP Router](https://www.taniarascia.com/the-simplest-php-router/)
-- [Project Description](http://www.cs.ucf.edu/~kienhua/classes/COP4710/Projects/ProjDescription.pdf)
-- [Markdown is dumb and apparently <ins>this</ins> needs an html tag](https://github.com/jch/html-pipeline/blob/master/lib/html/pipeline/sanitization_filter.rb)
-- [Job Scheduling](https://stackoverflow.com/questions/6711366/how-can-i-trigger-events-in-a-future-time-in-php)
-- [Email Trigger](https://stackoverflow.com/questions/10755469/send-e-mail-from-a-trigger)
+- [StarData](https://github.com/TorchCraft/StarData)
