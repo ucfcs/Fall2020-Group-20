@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="media/logo.png" alt="Everglades Analytics" width="256px" />
+  <img src="media/logo.png" alt="Everglades Analytics" width="512px" />
 </p>
 <br/><br/>
 
