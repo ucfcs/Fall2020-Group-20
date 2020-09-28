@@ -34,5 +34,5 @@ Words are nice.
 *Bash script missing*
 
 ### Resources
-- [Research papers](/research_papers)
+- [Readings](/readings)
 - [StarData](https://github.com/TorchCraft/StarData)
