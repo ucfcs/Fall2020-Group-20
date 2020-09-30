@@ -37,6 +37,7 @@
     \normalsize
     \vspace*{.25in}
     
+    % First name alphabetical order 
     % Elaine Ng, Ian Pleau, Manuel Vasquez, Ossama Amer, Thomas Lukas
     
     \authorname{Elaine Ng}{Computer Science (BS)}{Statistics (BS)}
@@ -54,6 +55,7 @@
     \noindent\rule{.5\linewidth}{.4pt}
     \vspace*{.4in}
 
+    % flushes logos to bottom
     % \begin{bottom}
         \begin{minipage}[c]{.35\linewidth}
             \centering
@@ -80,10 +82,13 @@
 % \chapter{Executive Summary}
 % \section{Goals and Objectives}
 
-
-
 \chapter{Technical Content}
-% \section{Project Overview}
+\section{Project Overview}
+
+The Everglades Agent Behavior Analytics project is a project with the goal to set the baseline for accurate analysis of RTS (Real-Time Strategy) data that is used to learn and infer better strategies for the future. The origin of the use of this analysis is the Everglades RTS game that Lockheed Martin has developed and is being worked on by another team. Due to the current lack of meaningful data, it was important to focus on a similar RTS to get meaningful data and that is where StarCraft comes in. StarCraft as a game is a very complex real-time strategy game, it features three primary archetypes or races to play as, Zerg, Terran, or Protoss, within these races it has thousands of different strategies and ways to play the game and therefore has received a massive following over its long tenure as a popular game. With its massive popularity comes a large data set that is out there known as StarData through this it is possible to completely analyze over 60,000 games of StarCraft data for use.
+
+Everglades as an RTS game has the goals of having specific unit compositions, strategies, base layouts, and more all features that are present in StarCraft which makes it the perfect Game for effective crossover data. The current overarching goal of the project is to utilize statistics, supervised learning, and unsupervised learning to study Behaviors that Lead to Wins, Losses, and other major events that can occur within the StarCraft game. The starting Objectives will be to use the database of info and start setting up some initial learning patterns given the data to focus on Wins and Losses. As the project progresses smaller objectives such as unit compositions will become an objective with setting up algorithms that make these possible.  The function of gathering all this data is overall to have a good basis for further gathering and development of data. With this starting point once the Everglades project has data that is needing to be analyzed the methodology and tools are already developed and ready to go and only need slight changes to switch from being a StarCraft data set to the everglades data.
+
 \section{Personal Motivations}
 
 \msection{Elaine Ng}
@@ -107,10 +112,6 @@ Due to my interest in Data Science, I was ecstatic to participate in this projec
 \msection{Thomas Lukas}
 
 When the initial project was presented, I was immediately hooked with the idea of a strategy game that can be used as a foundation to teach the process of creating and training AI. Strategy board games and video games have always been a big part of my life growing up, I always tried my hardest to discover and sometimes attempt to create a new “meta” that can balance the odds in my favor. Working with StarCraft data, I am more than excited to see the mathematical representation that each “meta” strategy implemented by the factions will look like in the grand scheme of things. I am eagerly looking forward to getting the results and seeing what strategies could be potentially translated to the EVERGLADES project for future teams in senior design around the nation.
-
-The Everglades Agent Behavior Analytics project is a project with the goal to set the baseline for accurate analysis of RTS (Real-Time Strategy) data that is used to learn and infer better strategies for the future. The origin of the use of this analysis is the Everglades RTS game that Lockheed Martin has developed and is being worked on by another team. Due to the current lack of meaningful data, it was important to focus on a similar RTS to get meaningful data and that is where StarCraft comes in. StarCraft as a game is a very complex real-time strategy game, it features three primary archetypes or races to play as, Zerg, Terran, or Protoss, within these races it has thousands of different strategies and ways to play the game and therefore has received a massive following over its long tenure as a popular game. With its massive popularity comes a large data set that is out there known as StarData through this it is possible to completely analyze over 60,000 games of StarCraft data for use.
-
-Everglades as an RTS game has the goals of having specific unit compositions, strategies, base layouts, and more all features that are present in StarCraft which makes it the perfect Game for effective crossover data. The current overarching goal of the project is to utilize statistics, supervised learning, and unsupervised learning to study Behaviors that Lead to Wins, Losses, and other major events that can occur within the StarCraft game. The starting Objectives will be to use the database of info and start setting up some initial learning patterns given the data to focus on Wins and Losses. As the project progresses smaller objectives such as unit compositions will become an objective with setting up algorithms that make these possible.  The function of gathering all this data is overall to have a good basis for further gathering and development of data. With this starting point once the Everglades project has data that is needing to be analyzed the methodology and tools are already developed and ready to go and only need slight changes to switch from being a StarCraft data set to the everglades data.
 
 \section{Broader Impacts}
 
@@ -185,14 +186,15 @@ Expanding on Elaine’s idea of delving into a more statistical direction, I thi
 Initial building and unit decisions are among the most important parts of the game, especially if one of the races in the match is Zerg. Zerg players tend to be overly aggressive in their unit creation and attack tactics so if the opposing player does not implement the correct counter strategy, the Zerg player will snowball into a victory. We believe that if our algorithm can identify the early strategies of both players it can accurately predict a quick win depending on if a player is getting countered perfectly. One problem that can arise however is that since this will be human vs human matches, there is always the chance for the player with the superior strategy to blunder in execution and lose the game.
 
 % \section{Distribution of Work}
+
 \section{Project Block Diagram}
-% \begin{minipage}[c]{.3\linewidth}
-    % \centering
-    \begin{center}
-        \includegraphics[width=.9\linewidth]{media/block_diagram.png}
-        \captionof{figure}{Working project block diagram as of September 30, 2020.}
-    \end{center}
-% \end{minipage}
+\begin{center}
+    \includegraphics[width=.9\linewidth]{media/block_diagram.png}
+    
+    % just ignore its whinning
+    % tHe OpTiOn `hYcAp=TrUe` wIlL bE iGnOrEd
+    \captionof{figure}{Working project block diagram as of September 30, 2020.}
+\end{center}
 
 \chapter{Administrative Content}
 \section{Project Budget}
