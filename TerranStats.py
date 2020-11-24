@@ -81,7 +81,10 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
 						pt_dict['viking']+=1
 			
 				if replay.players[1].pid == event.control_pid and replay.players[1].pick_race[0] == 'T':
-					if event.unit.name.lower() in pt_dict2:
+					if event.unit.name.lower() == 'orbitalcommand':
+						pt_dict2['orbitalcommand']+=1
+						pt_dict2['commandcenter']+=1
+					elif event.unit.name.lower() in pt_dict2:
 						pt_dict2[event.unit.name.lower()] +=1
 					elif event.unit_type_name.lower() in pt_dict2:
 						pt_dict2[event.unit_type_name.lower()] +=1
