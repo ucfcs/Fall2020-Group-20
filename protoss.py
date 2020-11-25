@@ -25,7 +25,7 @@ protoss_dict = {'adept': 0, 'archon': 0, 'assimilator': 0, 'carrier': 0, 'coloss
                 'zealot': 0}
 
 for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=True)):
-    if pp > 20:
+    if pp > 50:
       break
     if replay.players[0].pick_race[0] == 'P' or replay.players[1].pick_race[0] == 'P':
         pp += 1
@@ -90,20 +90,20 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
                     elif event.unit_type_name.lower() == 'disruptorphased':
                       pp_dict1['disruptor'] +=1
                     elif event.unit_type_name.lower() == 'changelingzealot':
-                      pp_dict2['zealot'] +=1
+                      pp_dict1['zealot'] +=1
                 
             #Player 2's unit born
                 if replay.players[1].pid == event.control_pid and replay.players[1].pick_race[0] == 'P':
                     if event.unit_type_name.lower() in pp_dict2:
                         pp_dict2[event.unit_type_name.lower()] +=1
                     elif event.unit_type_name.lower() in pp_dict1:
-                      pp_dict1[event.unit_type_name.lower()] +=1
+                      pp_dict2[event.unit_type_name.lower()] +=1
                     elif event.unit_type_name.lower() == 'adeptphaseshift':
-                      pp_dict1['adept'] +=1
+                      pp_dict2['adept'] +=1
                     elif event.unit_type_name.lower() == 'disruptorphased':
-                      pp_dict1['disruptor'] +=1
+                      pp_dict2['disruptor'] +=1
                     elif event.unit_type_name.lower() == 'changelingzealot':
-                      pp_dict1['zealot'] +=1
+                      pp_dict2['zealot'] +=1
                     
                    
             #UnitDiedEvent
@@ -141,8 +141,6 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
                         pp_dict1[event.unit.name.lower()] +=1
                     elif event.unit_type_name.lower() in pp_dict1:
                         pp_dict1[event.unit_type_name.lower()]+=1
-                    else:
-                      print(event.unit_type_name)
 
                 #Player 2
                 if replay.players[1].pid == event.control_pid and replay.players[1].pick_race[0] == 'P':
@@ -150,8 +148,6 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
                         pp_dict2[event.unit.name.lower()] +=1
                     elif event.unit_type_name.lower() in pp_dict2:
                         pp_dict2[event.unit_type_name.lower()]+=1
-                    else:
-                      print(event.unit_type_name)
 
 
 matsPP_df = pd.DataFrame(matsPP)
