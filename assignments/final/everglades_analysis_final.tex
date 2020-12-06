@@ -286,27 +286,63 @@ The resource pool of gold mineral patches will have an increased 140\% mineral i
 This can allow certain races and air troops to apply pressure from a safe location attacking opponents resource gathering and army.
 \end{itemize}
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/mapgeo.png}
+    \captionof{figure}{Example of StarCraft map showing the geography}
+\end{center}
+
 \subsection{Clustering Map Data}
 
 We will first determine the win/loss for each race’s matchups and try to find which general race benefits on 3 different sized maps. We will separate the maps into 3 main size categories: Small, medium, and large. By seeing which race benefits on each sized map we will be able to then go into more specific clustering and classifications to see what strategies implemented on those maps allow those races to have that win advantage.
 
 \subsection{Small Maps}
 
-Small maps typically imply that each player has to play at a pace much quicker than they would have to on a medium or large map. Expanding outside the initial base as soon as possible is key to avoid getting out-macroed, we will want to keep track of the number of bases each player has at every stage of the game. It is our prediction that rush strategies such as a "Zerg Rush" will be very common, and match length time will be significantly less than it would on a larger map scale. 
+Small maps typically imply that each player has to play at a pace much quicker than they would have to on a medium or large map. Expanding outside the initial base as soon as possible is key to avoid getting out-macroed, we will want to keep track of the number of bases each player has at every stage of the game. It is our prediction that rush strategies such as a "Zerg Rush" will be very common, and match length time will be significantly less than it would on a larger map scale.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/smallmap.png}
+    \captionof{figure}{Example of small map}
+\end{center} 
 
 \subsection{Medium Maps}
 
 Medium maps allow for a more balanced gameplay approach for each opponent, in theory this map size should represent a balanced win/loss rate per race and an abundance of different strategies and building decisions. It is our prediction that this will reveal our median match length time and provide no significant benefit to one race over another.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/mediumMap.png}
+    \captionof{figure}{Example of medium map}
+\end{center}
+
 \subsection{Large Maps}
 
 Large maps are where strategies involving strong "macro-builds" will see the most in gameplay. Since the distance and expansion sites are large, this allows players to build up a strong economy. However, what is pivotal in these times of match ups is the success of pressuring or countering pressure, we predict that the match length should have an extreme variable of either mostly short- or long-lasting match times. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LargeMap.png}
+    \captionof{figure}{Example of large map}
+\end{center}
 
 \subsection{Map Classification}
 
 The data set we are using for the project is a selection of pro games over the course of 2018-2020. In pro games it is usual for the tournaments to have a set pool of maps that are played on for each given stage of the tournament usually around 8-10 maps and furthermore it is common for the overall pool to be shared across tournaments as certain maps provide a more balanced experience for 1v1 gameplay and the best experience to the players. Due to the shared map pool the total map pool when the replays were compiled at 30 maps.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapList.png}
+    \captionof{figure}{Map List}
+\end{center}
+
 These maps are compiled into an array that stores each of the maps, then using the map information available from the map info which has been compiled by liquipedia it is possible to get the width and height of each of the maps in a number form of pixels. Ex.) DeathAura LE = 144 x 140. Pixels do not entirely give the full picture of map size but due to the maps having a low amount of extractable data from Blizzard this is what we found to be the most reasonable method of assigning a map size. Given the width and height, finding the area of the map and assigning that to a MapSize array was the next step and then appending the two maps together to make an array that mapped the ID of the map to the size. After assigning the maps there is a small algorithm to group each of the maps into evenly sized groups which essentially self classifies based off of relative map size where each map should be assigned.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapSorter.png}
+    \captionof{figure}{Map Sorter}
+\end{center}
 
 Using this assignment algorithm it is possible to add to our data CSV the map area and a relatively small medium or large classification to be used later for win prediction. The role that map classification will ultimately play in the win prediction is for initial prediction using the ability to see a map size could be useful in helping shape which race should have the highest initial win percentage given any matchup.
 
@@ -325,9 +361,27 @@ Finally spending all money on technology upgrades will lead to more powerful bui
 
 Some interesting data points that can be analyzed for the military would be, area of the map revealed, first unit production time, units per minute, resources spent on military, and finally supply. Supply is a 3rd pseudo resource that is gained by building a certain type of building/unit and allows for more units to be built up to a cap of 200 supply, the reason why this would be one of the best winning statistics to analyze is that supply is not a one to one ratio with units. Any unit in the game can be worth between one and eight supplies with more powerful or effective units generally being worth higher amounts of supply, because of this it is often viewed as the main statistic that correlates to army strength rather than units built. This becomes exceedingly important once a deeper look at the different races happens as different races tend to build extremely varying unit counts but may have similar army supply.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/SupplyGraph.png}
+    \captionof{figure}{Supply of losing player Source: “STARDATA: A StarCraft AI Research Dataset”}
+\end{center}
+
 When discussing the economy of the game the most important winning statistics to look at are the rates of acquisition of varying resources per minute. When looking at this statistic the race that the player is playing is also a key detail as some resources are more valuable for some races, for example zerg is generally considered a gas heavy race and thus will prioritize it for their mid to late game units whereas terran often will more heavily prioritize minerals. The other important economics-based stats to look at would be base improvement, this can be separated into two different parts buildings and workers. Workers are what is used to gather resources in StarCraft 2 it is important to note they can attack and be used to explore but generally the more workers produced the higher economical value a player will have. The other category will be the buildings that are gas producing buildings which are hard to quantify and number of bases owned, for each base a player is able to have a mineral field and two gas nodes. The number of bases expanded to is generally related to the map and the race but understanding the effects of base expansions can be an interesting note on winning strategies.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ratiogasoremined.png}
+    \captionof{figure}{Ratio of Minerals and Gas Mined per matchup source: “STARDATA: A StarCraft AI Research Dataset”}
+\end{center}
+
 For Research it is exceedingly difficult to classify numerically how each upgrade has an influence versus another player as each race has their own research options of which they are varied and unique to certain strategies. Because of this it may be hard to use research timings to identify winning strategies, but it could be used to determine specific unit strategies and time these to winning strategies to determine their influence on the game.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/medianupgrades.png}
+    \captionof{figure}{Median upgrade research time for zerg vs protoss matchups}
+\end{center}
 
 \subsection{Micro}
 
