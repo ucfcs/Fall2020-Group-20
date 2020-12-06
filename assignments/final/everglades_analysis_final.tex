@@ -288,7 +288,7 @@ This can allow certain races and air troops to apply pressure from a safe locati
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/mapgeo.png}
+    \includegraphics[width=.5\linewidth]{media/mapgeo.png}
     \captionof{figure}{Example of StarCraft map showing the geography}
 \end{center}
 
@@ -302,7 +302,7 @@ Small maps typically imply that each player has to play at a pace much quicker t
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/smallmap.png}
+    \includegraphics[width=.5\linewidth]{media/smallmap.png}
     \captionof{figure}{Example of small map}
 \end{center} 
 
@@ -312,7 +312,7 @@ Medium maps allow for a more balanced gameplay approach for each opponent, in th
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/mediumMap.png}
+    \includegraphics[width=.5\linewidth]{media/mediumMap.png}
     \captionof{figure}{Example of medium map}
 \end{center}
 
@@ -322,7 +322,7 @@ Large maps are where strategies involving strong "macro-builds" will see the mos
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/LargeMap.png}
+    \includegraphics[width=.5\linewidth]{media/LargeMap.png}
     \captionof{figure}{Example of large map}
 \end{center}
 
@@ -332,15 +332,16 @@ The data set we are using for the project is a selection of pro games over the c
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/MapList.png}
+    \includegraphics[width=.2\linewidth]{media/MapList.png}
     \captionof{figure}{Map List}
 \end{center}
 
 These maps are compiled into an array that stores each of the maps, then using the map information available from the map info which has been compiled by liquipedia it is possible to get the width and height of each of the maps in a number form of pixels. Ex.) DeathAura LE = 144 x 140. Pixels do not entirely give the full picture of map size but due to the maps having a low amount of extractable data from Blizzard this is what we found to be the most reasonable method of assigning a map size. Given the width and height, finding the area of the map and assigning that to a MapSize array was the next step and then appending the two maps together to make an array that mapped the ID of the map to the size. After assigning the maps there is a small algorithm to group each of the maps into evenly sized groups which essentially self classifies based off of relative map size where each map should be assigned.
 
+\pagebreak
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/MapSorter.png}
+    \includegraphics[width=.8\linewidth]{media/MapSorter.png}
     \captionof{figure}{Map Sorter}
 \end{center}
 
@@ -363,7 +364,7 @@ Some interesting data points that can be analyzed for the military would be, are
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/SupplyGraph.png}
+    \includegraphics[width=.7\linewidth]{media/SupplyGraph.png}
     \captionof{figure}{Supply of losing player Source: “STARDATA: A StarCraft AI Research Dataset”}
 \end{center}
 
@@ -379,7 +380,7 @@ For Research it is exceedingly difficult to classify numerically how each upgrad
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/medianupgrades.png}
+    \includegraphics[width=.6\linewidth]{media/medianupgrades.png}
     \captionof{figure}{Median upgrade research time for zerg vs protoss matchups}
 \end{center}
 
@@ -412,14 +413,12 @@ Knowledge of when to sacrifice micro for macro is another key component to an ex
 \subsection{STARDATA: A StarCraft AI Research Dataset}
 
 Although we will no longer be using this dataset, we can gather some insight from it. This paper explores the STARDATA dataset for StarCraft I: Brood War. As explained in the paper, there is more data about the Protoss race and also the \textit{Fighting Spirit} map. The data is broken up like the following.
-
 \begin{center}
     \begin{tabular}{cccccc}
         \hline PvZ & TvZ & PvT & TvT & PvP & ZvZ \\
         18016 & 14531 & 17385 & 2550 & 7015 & 6149 \\ \hline
     \end{tabular}
 \end{center}
-
 We can see that Protoss games are more popular than any other. Therefore this dataset is somewhat unbalanced, but it does make up for it by its quantity.
 
 This paper provides some of examples of learning and control tasks that can be addressed. Meaning that we can use some of these for our realtime win prediction engine.
@@ -483,9 +482,11 @@ This information is helpful for us in the way that it helps us have an idea of h
 Returning to the paper, they showed the outcome of their research and gave a warning that the assumption of the outcome of the game is the outcome for all features extracted could be incorrect. But they went ahead to learn whether a snapshot is likely to be a win or a loss. To do this, they fed the system with snapshots that contain the features and their associated outcomes. Since, the result is win or lose, they are able to do this with classifiers. They used a WEKA toolkit to evaluate the prediction accuracy of multiple different systems and Gradient Boosted Trees for determining confidence measures. They also used 70\% of the features extracted for training and 30\% for testing. The result was an average prediction of over 50\% of the snapshots during the early game. The earliest where they were able to predict all of the snapshots was after the match had been played out, and a prediction accuracy of 100\% at the last 4.9\% of the match.
 Seeing how for our project, we are also trying to predict match outcomes, we would probably use a classifier algorithm as well to predict match output.
 
- Before this publication, not all of us were familiar with the WEKA toolkit. Some quick research shows that WEKA is an abbreviation for Waikato Environment for Knowledge Analysis developed at the University of Waikato, New Zealand. In short, "Weka is tried and tested open source machine learning software that can be accessed through a graphical user interface, standard terminal applications, or a Java API. It is widely used for teaching, research, and industrial applications, contains a plethora of built-in tools for standard machine learning tasks, and additionally gives transparent access to well-known toolboxes such as scikit-learn, R, and Deeplearning4j" ("WEKA"). 
+Before this publication, not all of us were familiar with the WEKA toolkit. Some quick research shows that WEKA is an abbreviation for Waikato Environment for Knowledge Analysis developed at the University of Waikato, New Zealand. In short, "Weka is tried and tested open source machine learning software that can be accessed through a graphical user interface, standard terminal applications, or a Java API. It is widely used for teaching, research, and industrial applications, contains a plethora of built-in tools for standard machine learning tasks, and additionally gives transparent access to well-known toolboxes such as scikit-learn, R, and Deeplearning4j" ("WEKA"). 
 
-We planned on using scikit-learn to perform most of our data analysis, but this toolkit could be beneficial for us to learn how to use, since it appears to already have a lot of tools built in regarding machine learning and that could help us create the machine learning classification algorithm that we need for Goal\#4. They also used Gradient Boosted Trees, which is a machine learning technique for regression and classification problems. Considering how we are also dealing with regression and classification; we can look into Gradient Boosted Trees as one of the possible algorithms to apply to our dataset. They split their testing (70\%) and training (30\%) set, we are definitely going to split our data into a training and a testing set as well. Looking at their research results, it appears that it is indeed very difficult to be able to predict early game match outcomes. It is probably due to losing players making good late game decisions that turn the match around or winning players making mistakes during the later phases of the match. Especially, since the replays are collected from tournaments, it is hard to determine which player is winning since both players are professional and can make decisions that can drastically change the outcome of the game. For our machine learning classification algorithm, we need to be able to predict match outcomes at any state of the game, including early game. Noticing how they did not achieve as high accuracy as they would have liked, it makes us wonder what we can do to improve upon that to develop an algorithm that can predict match outcomes at any given time with higher accuracy.
+We planned on using scikit-learn to perform most of our data analysis, but this toolkit could be beneficial for us to learn how to use, since it appears to already have a lot of tools built in regarding machine learning and that could help us create the machine learning classification algorithm that we need for Goal\#4. They also used Gradient Boosted Trees, which is a machine learning technique for regression and classification problems. Considering how we are also dealing with regression and classification; we can look into Gradient Boosted Trees as one of the possible algorithms to apply to our dataset. They split their testing (70\%) and training (30\%) set, we are definitely going to split our data into a training and a testing set as well. Looking at their research results, it appears that it is indeed very difficult to be able to predict early game match outcomes.
+
+It is probably due to losing players making good late game decisions that turn the match around or winning players making mistakes during the later phases of the match. Especially, since the replays are collected from tournaments, it is hard to determine which player is winning since both players are professional and can make decisions that can drastically change the outcome of the game. For our machine learning classification algorithm, we need to be able to predict match outcomes at any state of the game, including early game. Noticing how they did not achieve as high accuracy as they would have liked, it makes us wonder what we can do to improve upon that to develop an algorithm that can predict match outcomes at any given time with higher accuracy.
 
 The last part of the paper talks mostly about what can be worked on in the future for their project that can maximize classification accuracy and minimizing over-fitting. It is also mentioned that their replays extractions were lacking some information such as, units, lots and income.
 Perhaps, if we are able to collect more information regarding the state of the game at a given time, we would be able to have a more comprehensive vector/snapshot that includes more variables that have an effect on match outcome. Such as, the amount of resources, vision, damage dealt etc. This paper focused mostly on TvT matchups, to be able to give more general answers to our research goals like "characteristics that determine win" and "metrics that predict agent’s performance", we should look at other matchups as well.
@@ -506,11 +507,15 @@ This code shows that even the more complex algorithms used for prediction were s
 
 These algorithms they tested with 12 different compositions with increasing complexities to find how their prediction models stacked up versus the actual matchups, there were solid improvements in their finding as they raised the complexity of the models and comparing each model it is clear that having more available data in StarCraft is crucial to accurate prediction. One interesting point to notice is their use of smart targeting lead to less accurate modeling than the random targeting that the earlier models had used.
 
-This paper highlights some limitations through their use of the combat model that are important to notice when working on our own models. Primarily the use of assumptions, from reading this paper any time an assumption is used in an RTS game it becomes extremely inaccurate, for example in this paper by assuming that armies are clumped it completely invalidates any data using units that have the ability to use AOE (Area of Affect attacks) for which they simulated several of these units and this may have lead to many of the inaccuracies experienced. In the use of data for win prediction within our data sets an example of how this could lead us astray is the overlord unit for zerg, this unit does not attack and has no abilities of note to use for combat but provides army supply to the zerg player if it was to be assumed that this was the only use we could safely cut overlord count from the models in order to further simplify the model. This would be an incorrect assumption though as sometimes the overlord is used to bait attacks or scout for the player despite its lacking stats.
+This paper highlights some limitations through their use of the combat model that are important to notice when working on our own models. Primarily the use of assumptions, from reading this paper any time an assumption is used in an RTS game it becomes extremely inaccurate, for example in this paper by assuming that armies are clumped it completely invalidates any data using units that have the ability to use AOE (Area of Affect attacks) for which they simulated several of these units and this may have lead to many of the inaccuracies experienced.
+
+In the use of data for win prediction within our data sets an example of how this could lead us astray is the overlord unit for zerg, this unit does not attack and has no abilities of note to use for combat but provides army supply to the zerg player if it was to be assumed that this was the only use we could safely cut overlord count from the models in order to further simplify the model. This would be an incorrect assumption though as sometimes the overlord is used to bait attacks or scout for the player despite its lacking stats.
 
 The next major takeaway for model building from this paper is more info in a model generally is more beneficial. In the case of the models this paper used they saw significant increases in almost every improvement they made to their models as seen in the figure below $A_PX1$ to $A_PX2$ and $A_PX3$ made vast improvements with very little extra data added.
 
-With this its easy to see how although the model will become more computationally complex every input can lead to a massive improvement in accuracy for our projects modeling we plan to use a much larger set of information for modeling and remove the unneeded or unhelpful information as we deem it unhelpful to improve the model. As can be seen negative impacts can also be found from having more complexity if one is not careful with their analysis of the impacts. In the case of $A_PX4$ the idea was solid with priority targeting but the implementation has to be perfect when incorporating very complex mechanics into a simple model, for this implementation to have been successful it would have needed to be perfectly mapped a priority of units based on current state and that itself could be an entire analysis paper due to the complexity of a problem as there is no right or wrong answer due to the open ended nature of the game.
+With this its easy to see how although the model will become more computationally complex every input can lead to a massive improvement in accuracy for our projects modeling we plan to use a much larger set of information for modeling and remove the unneeded or unhelpful information as we deem it unhelpful to improve the model. As can be seen negative impacts can also be found from having more complexity if one is not careful with their analysis of the impacts.
+
+In the case of $A_PX4$ the idea was solid with priority targeting but the implementation has to be perfect when incorporating very complex mechanics into a simple model, for this implementation to have been successful it would have needed to be perfectly mapped a priority of units based on current state and that itself could be an entire analysis paper due to the complexity of a problem as there is no right or wrong answer due to the open ended nature of the game.
 
 \subsection{Use of Machine Learning Techniques in Real-time Strategy Games}
 
