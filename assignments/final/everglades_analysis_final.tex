@@ -220,6 +220,12 @@ Initial building and unit decisions are among the most important parts of the ga
 3. SC2 overlay UI research
 4. Project findings presentation and keynote
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gantt.png}
+    \captionof{figure}{Gantt Chart}
+\end{center}
+
 \chapter{Research}
 \section{Brood War and Torch Craft}
 
@@ -390,6 +396,12 @@ Micro in StarCraft 2 or micromanagement is generally referred to as the movement
 
 The most commonly used statistic which could be used as a winning strategy would be to focus on the player’s APM. APM stands for Actions Per minute and refers to any movement selection or purchase a player makes. APM can be slightly misleading as spamming movements that are unimportant can lead to exceedingly high APMs, but unless it is being purposefully fooled by a player it will generally be correlated to how much control over each unit and building a player has. APM can be seen as a correlation to rank in a lot of cases with some pro players being able to reach 200-400 APM which may be four to five times the average player.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/AverageAPM.png}
+    \captionof{figure}{(Average APM per Rank Bronze(Lowest)->Tournament(Pro Players)}
+\end{center}
+
 \subsection{The Balance}
 
 It is pivotal that a player can actually balance these two techniques since it’s nearly impossible for a player to give full attention to both at the same time. One crucial feature in determining if a player can successfully manage both is to see their actions per minute or APM. More actions per minute may not guarantee that a player is able to produce a better macro or micro however, it is important to also recognize how many of those actions are "dead actions" or actions that don’t actually accomplish anything.
@@ -503,6 +515,12 @@ This paper relies on some base assumptions which simplify greatly the prediction
 
 They practiced 3 different models for approximation titled $A_PX1$, 2 and 3 with $A_PX1$ being simultaneous perfect focus fire on a unit before swapping. $A_PX2$ being the same but with range simulated in giving a much larger benefit to ranged units as they now get free encountered attacks and finally $A_PX3$ being the same as $A_PX2$ but with attributes being accounted for in the model such as light armor and unit traits. Pictured below is the $A_PX3$ algorithm.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/APXcode.png}
+    \captionof{figure}{APX3 Algorithm}
+\end{center}
+
 This code shows that even the more complex algorithms used for prediction were simplistic with most of the battle prediction coming down to a numbers game most likely of damage per second vs health count being the two important factors.
 
 These algorithms they tested with 12 different compositions with increasing complexities to find how their prediction models stacked up versus the actual matchups, there were solid improvements in their finding as they raised the complexity of the models and comparing each model it is clear that having more available data in StarCraft is crucial to accurate prediction. One interesting point to notice is their use of smart targeting lead to less accurate modeling than the random targeting that the earlier models had used.
@@ -516,6 +534,12 @@ The next major takeaway for model building from this paper is more info in a mod
 With this its easy to see how although the model will become more computationally complex every input can lead to a massive improvement in accuracy for our projects modeling we plan to use a much larger set of information for modeling and remove the unneeded or unhelpful information as we deem it unhelpful to improve the model. As can be seen negative impacts can also be found from having more complexity if one is not careful with their analysis of the impacts.
 
 In the case of $A_PX4$ the idea was solid with priority targeting but the implementation has to be perfect when incorporating very complex mechanics into a simple model, for this implementation to have been successful it would have needed to be perfectly mapped a priority of units based on current state and that itself could be an entire analysis paper due to the complexity of a problem as there is no right or wrong answer due to the open ended nature of the game.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/APXModelDiff.png}
+    \captionof{figure}{APX Model's}
+\end{center}
 
 \subsection{Use of Machine Learning Techniques in Real-time Strategy Games}
 
@@ -533,7 +557,11 @@ Early Prediction for strategies used pro replays along with several different al
 
 This paper provides a breakdown of the server setup they used for training and processing using python and BWAPI shown in the figure below:
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TestingServerCycle.png}
+    \captionof{figure}{Testing Server Cycle Example}
+\end{center}
 
 As Seen in this image the setup that was made using a server to process the raw data that was being pulled from StarCraft in real time and then feeding it through their machine learning algorithm to train it and then coming up with their final score of the prediction to the strategy at hand. Similarly the proposed setup we have will look somewhat similar with our data set and eventually live data being exported to our algorithms and giving a live prediction of the win rate based on that snapshot of the data set.
 
@@ -712,13 +740,31 @@ The Iris dataset is available at the \link{https://archive.ics.uci.edu/ml/datase
     \item Problem 3: Iris-virginica vs [Iris-setosa, Iris-versicolor]
 \end{itemize}
  
-Since we are required to use three different models, it could be a very slow model if we have a large data set. In the case that there are only two possible outcomes, this would not be a problem. In Figure 31, we can see that by calling LogisticRegression from Scikit-learn, the Iris data can be fitted, and we get a mean accuracy of 95.5\% for this model. 
+Since we are required to use three different models, it could be a very slow model if we have a large data set. In the case that there are only two possible outcomes, this would not be a problem. In Figure 31, we can see that by calling LogisticRegression from Scikit-learn, the Iris data can be fitted, and we get a mean accuracy of 95.5\% for this model.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/sklearnRegression.png}
+    \captionof{figure}{OvR Logistic Regression}
+\end{center}
 
 \subsection{Neural Networks}
 
 Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set. The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure 32, we can see a basic input, output, and hidden layer neural network. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/NeuralNetwork.png}
+    \captionof{figure}{Neural Network}
+\end{center}
+
 The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure 33 shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer. Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/kerasmodels.png}
+    \captionof{figure}{Keras nerual network}
+\end{center}
 
 \subsection{Regression}
 
@@ -756,21 +802,43 @@ To demonstrate how linear regression works and how we can use functions readily 
 
 We can first plot the scatterplot, which is useful in detecting visual evidence of linear relationship between the two variables. If there does not appear to be any visual evidence of linear relationship, then linear regression is probably not the right approach for this dataset. Figure 10 shows the $x$ values and $y$ values stored in arrays. As well as using the scatter() function from matplotlib, we get a visual representation of our datapoints. The scatterplot does appear to show that there exist somewhat of a positive linear relationship between the dependent and independent variables. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/scatterplotmatplot.png}
+    \captionof{figure}{Plotting the scatterplot}
+\end{center}
+
 Next, we would like to use Scikit-learn’s LinearRegression() function to find our least square regression line.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/sklearnregressionfit.png}
+    \captionof{figure}{Finding $\beta_0$ and $\beta_1$ using Scikit-Learn.}
+\end{center}
 
 By simply calling LinearRegression() as shown in Figure 11 and fitting it with our independent and dependent arrays, we can get the value for $\beta_0$ and $\beta_1$. Therefore, our least squares regression line for this simple linear regression problem is:
 $$Y=21.1619+.0599X$$
 What this can tell us is that for every one-yard increase in Passing Yards per Game, we can expect the mean Points per Game to increase by 0.0599. Now, that we have our regression line, we can use it to predict Points per Game. In Figure 12, we can see the data points and the linear regression line plotted. The line does appear to somewhat fit the points on the scatterplot. 
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/scatterplotmatplot.png}
+    \captionof{figure}{Bivariate fit of points per game by passing yards per game}
+\end{center}
 
 If a college football team has 145.5 yards per game, we can use our regression line to predict how many Points per Game this team will have, 
 $$Y=21.1619+(.0599*145.5)=29.8773$$
 Comparing this predicted result with the actual result 29.3, we can see that our model is doing pretty well. But, in order to determine whether a linear regression model is actually good or bad at predicting the dependent variable, we would need to do more than just comparing one observation or visually hypothesizing. A very common way of checking whether a model is sufficient in predicting the dependent variable, is the coefficient of determination or the $R^2$. This can also easily be calculated using Scikit-learn. 
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/printregression.png}
+    \captionof{figure}{$R^2$ value for our college football simple linear regression.}
+\end{center}
 
 Figure 11 shows the $R^2$ value of $0.291$ for our college football example. This can be interpreted as approximately 29.\% of the variability in the Points per Game can be explained by this linear model containing Passing Yards per Game. Since we have the $R^2$ value, we can calculate the Pearson’s Correlation Coefficient:
+
+% formula
 
 Thus, for our college football example, we have $r=\sqrt{0.291}=0.54$. This tells us that there is a moderately strong positive linear relationship between Passing Yards per Game and Points per Game. Perhaps the low value for coefficient of determination in our example is due to the inconsideration for the other existing independent variables that may have an impact on the dependent variable. 
 
@@ -793,6 +861,12 @@ What this equation means:
 \end{itemize}
 
 Now that we have a multiple linear regression model, checking its $R^2$ value using Scikit-learn, we get 0.7354, meaning approximately 73.5\% of the variability in Points per Game can be explained by this new model containing Passing Yards per Game, Total Yards, and Rushing Yards per Game. Which is a significant increase from our previous simple linear regression model that only contained one independent variable. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/fullRegressionPic.png}
+    \captionof{figure}{Multiple linear regression using Scikit-learn}
+\end{center}
 
 \subsubsection{Interaction Models}
 When we have a relationship between our dependent variable  and one independent variable $(x_1)$ that depends on the value of another independent variable $(x_2)$, an interaction model would be appropriate. We can represent this model including interaction between $x_1$ and $x_2$ in a formula such as:
@@ -1477,38 +1551,117 @@ There were 8 ZvZ match ups and the figure below shows some descriptive statistic
 Protoss vs Terran:
 PvT was the most popular match up type in this sample data set, totaling up to 39 replays.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TerranWinnervsLoser.png}
+    \captionof{figure}{Terran winners vs Terran losers}
+\end{center}
+
 Comparing the number of winners in the PvT sample replay files, we are able to calculate that Protoss has a 61.5\% win rate in this specific match up type against Terrans.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/PvTwinrate.png}
+    \captionof{figure}{Terran winners vs Terran losers}
+\end{center}
 
 Protoss vs Zerg:
 There were a total of 35 PvZ matchups in our sample data set, and below are their descriptive statistics. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/workersCollectionPvZ.png}
+    \captionof{figure}{PvZ descriptive statistics}
+\end{center}
+
 Comparing the number of winners in the PvZ sample replay files, we are able to calculate that Protoss has a 54.2\% win rate in this specific match up type against Zergs.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/PvZwinners.png}
+    \captionof{figure}{PvZ win rate}
+\end{center}
 
 Terran vs Zerg:
 There were 19 TvZ match ups.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/WorkersCollectionTvZ.png}
+    \captionof{figure}{TvZ descriptive statistics}
+\end{center}
+
 Comparing the number of winners in the TvZ sample replay files, we are able to calculate that Zerg has a 73.6\% win rate in this specific match up type against Terrans.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TvZwinrate.png}
+    \captionof{figure}{TvZ win rate}
+\end{center}
 
 Overall, it appears that no matter which type of match up the replay was from, the winners usually have a higher number of current workers and a higher mineral, and vespene collection rate compared to the losers. Though it also seems that the standard deviation for the winners were larger. When we looked at the win rates for the races based on each matchup type, besides mirror match up, because the players were playing against another player with the same race. We were able to see that Protoss has a higher win rate against both Terran and Zerg. Though, the win rate for Protoss and Zerg match ups were very close. When it came to a Terran vs Zerg match up, Zergs definitely appeared to have an advantage. 
 
 Sample Descriptive Data by Race
 The 138 randomly selected StarCraft II replay files were also divided based on their race: Protoss, Terran, and Zerg. Out of the 138 replay files, there were a total of 136 Protoss players, 70 Terran players, and 70 Zerg players. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/RaceDivision.png}
+    \captionof{figure}{Race Division}
+\end{center}
+
 Similarly, to how we looked at some basic descriptive statistics of these 138 sample replay files, we will be looking at the same statistics for the same features but divided by race instead of the type of match up. We will be taking a look at the mean, median, mode, standard deviation, minimum and maximum for the features Current Workers, Mineral Collection Rate, and Vespene Collection Rate. We will also be comparing the statistics for each race, split up by the result of the match: win or loss. 
 
 Protoss:
 First, we will be taking a look at the general statistics for all Protoss players in the sample replay data set in Figure 46. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ProtossDescriptive.png}
+    \captionof{figure}{Protoss descriptive statistics}
+\end{center}
+
 We will then compare the descriptive statistics of Protoss winners vs Protoss losers. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ProtossWinnervsLoser.png}
+    \captionof{figure}{Protoss winner vs Protoss loser}
+\end{center}
+
 Terran:
-Below is the statistics for the 70 Terran players. 
+Below is the statistics for the 70 Terran players.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TerranDescriptive.png}
+    \captionof{figure}{Terran decriptive statistics}
+\end{center}
+
+Figure 49 shows the descriptive statistics for Terran players who won and Terran players who lost. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TerranWinnervsLoser.png}
+    \captionof{figure}{Terran winners vs Terran losers}
+\end{center}
 
 Zerg:
 The figure below shows the statistics for all 70 Zerg players in the sample data set. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ZergDescriptive.png}
+    \captionof{figure}{Zerg descriptive statistics}
+\end{center}
+
 As well as the statistics for Zerg players who resulted in a win and Zerg players who resulted in a loss. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ZergWinnervsLoser.png}
+    \captionof{figure}{Zerg winners vs Zerg losers}
+\end{center}
 
 It appears that similar to the conclusion we were able to draw from dividing the sample replay files into match up types, when we divided the data based on race, the winner had higher number of current workers, higher rate of mineral and vespene collection, regardless of race. Comparing the statistics of the three races, it seems that Zerg had the most current workers, the highest mineral and vespene collection rate as well. Meanwhile, Protoss had the lowest averages out of the three for these selected features. Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
 
