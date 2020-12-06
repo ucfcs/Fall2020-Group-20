@@ -743,6 +743,18 @@ Continuing with the college football team example that we have been working with
 
 Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/statMedian.png}
+    \captionof{figure}{Statistics' median for independent variables.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/seaborn.png}
+    \captionof{figure}{Seabron's scatter plot with hue.}
+\end{center}
+
 Since we have 3 independent variables, the possible interaction terms are:
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
@@ -751,13 +763,38 @@ Since we have 3 independent variables, the possible interaction terms are:
     \item $x_2$ and $x_3$, Total Yards and Rushing Yards per Game
 \end{itemize}
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/football.png}
+    \captionof{figure}{Scatter plots with hue for interaction terms.}
+\end{center}
+
 Figure 17 shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure 18 shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/SalesvsTV.png}
+    \captionof{figure}{Caron, Kyle. “Sales vs. TV x radio.” 2020.}
+\end{center}
 
 For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/statsmoduleformula.png}
+    \captionof{figure}{Finding coefficients using statsmodel.}
+\end{center}
+
 Hence, our model to predict for Points per Game by using Passing Yards per Game, Total Yards, Rushing Yards per Game, and the interaction term between Passing Yards per Game and Rushing Yards per Game can be represented as below:
 $$Y=-21.9477+.1119X_1+.0032X_2+.1270X_3-.0001X_1X_3$$
+
 It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rsquaredmodel.png}
+    \captionof{figure}{R^2 for interaction model.}
+\end{center}
 
 It is clear that adding the interaction term did not really increase our $R^2$ value. For the multiple linear regression, where we only used the three independent variables, without interaction terms gave us a $R^2$ value of 0.7354. Considering the small number of differences in the $R^2$ value, the interaction term itself failing a hypothesis test, as well as adding complexity to our model, the interaction term will not be included in our future models.
 
@@ -771,13 +808,37 @@ Where $\beta_0$ is the intercept or constant, $\beta1$ is the shift parameter, a
 
 Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/scatterTemperature.png}
+    \captionof{figure}{Yield Data Set.}
+\end{center}
+
 To find the coefficients for our quadratic model, we can use the Python module statsmodels, similar to what was done for our interaction model example. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/smfols.png}
+    \captionof{figure}{Finding the coefficients for quadratic model with statsmodel.}
+\end{center}
 
 Figure 22 gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
 $$Y=7.9605-.1537X+.0011X^2$$
 Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure 23. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/tempyieldsplot.png}
+    \captionof{figure}{Plotting the quadratic regression line.}
+\end{center}
+
 As always, checking the $R^2$ value for our current model, we get a value of 0.6732. Meaning approximately 67.3\% of the variability in Yield can be explained by our current quadratic model. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/tempquadratic.png}
+    \captionof{figure}{R^2 value for quadratic model.}
+\end{center}
 
 \subsubsection{Higher Order Regression}
 Higher order regression usually refers to when the relationship between the dependent variable and the independent variable(s) are modelled as third-degree polynomial or higher in the independent variable(s). A third order model is also known as a cubic regression model. The function for a cubic regression model is:
@@ -786,7 +847,19 @@ We may technically also be able to have $n - 1$ order regression model, where n 
 
 Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables $(x)$.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/regressionformulasvars.png}
+    \captionof{figure}{Number of variables for regression.}
+\end{center}
+
 Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure 25, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/functiondegrees.png}
+    \captionof{figure}{“Polynomial Functions Graph.” 2019.}
+\end{center}
 
 \subsubsection{Lasso Regression}
 Lasso Regression is also known as the Least Absolute Shrinkage and Selection Operator. It is a type of linear regression that focuses on shrinkage and can also be considered a simple technique used to reduce model complexity. Shrinkage means the data values are shrunk towards a central point, such as the mean. It also shrinks the less important features’s coefficients to zero, hence some variables can be removed, creating a simpler regression model. Lasso Regression is appropriate for models that have high levels of multicollinearity. 
@@ -795,7 +868,19 @@ Multicollinearity is when two or more independent variables are highly linearly 
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p|\beta_j|$$
 Where $n$ is the number of data points, $p$ is the number of independent variables, $x_{ij}$ is the value of the $j$th variable for the $i$th data point, $\beta_j$ is the coefficient for the $j$th variable, and $\lambda$ is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set $\lambda$ to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase $\lambda$ the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure 26, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lassocoeff.png}
+    \captionof{figure}{Lasso regression with lambda = 0.}
+\end{center}
+
 If we increase $\lambda$ the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure 27 shows the intercept, coefficients, and $R^2$ values for $\lambda=0.3$.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LassoCoeff2.png}
+    \captionof{figure}{Lasso regression with lambda = 0.3.}
+\end{center}
 
 The independent variable $x_3$, Rushing Yards per Game has a coefficient of 0, which yields us the function:
 
@@ -806,9 +891,27 @@ Ridge Regression is also a type of linear regression that is similar to Lasso Re
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p\beta_j^2$$
 Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If $\lambda$ is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure 28 shows that when $\lambda=0$, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge1.png}
+    \captionof{figure}{Ridge regression with lambda = 0.}
+\end{center}
+
 If we increase $\lambda$ to 0.3, as shown in Figure 29, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge2.png}
+    \captionof{figure}{Ridge regression with lambda = 0.3.}
+\end{center}
+
 If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in Figure 30, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge3.png}
+    \captionof{figure}{Ridge regression with lambda = 10.}
+\end{center}
 
 In general, the Ridge Regression and the Lasso Regression are both great techniques when dealing with data set that has a lot of features and/or multicollinearity, and we know that for our StarCraft II data set, we do indeed have a lot of features.
 
@@ -821,23 +924,51 @@ Included with the Scikit-learn library are multiple toy datasets intended on tea
 
 One of these included datasets are a group of pixelated numbers that represent "handwritten digits" and by using SVC as an algorithm to classify the digits, we can train a model to predict what the numerical value of the handwritten digit is.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/digit.png}
+    \captionof{figure}{Examples from the handwritten digit dataset. “Recognizing Hand-Written Digits.png” Scikit}
+\end{center}
+
 Loading the dataset:
 
 Each of the data points represent an $8_x8$ image of a digit, using pandas we can see the shape of the data frame and the raw image data:
 The image pixel color shade is what determines the integer value from 0-16. The range is white = 0 all the way to black = 16. Shades of gray fills in the gaps 1-15. These arrays makeup how the actual image would look in an integer form.	
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/loadDidgit.png}
+    \captionof{figure}{Importing the Digits and storing into a variable.}
+\end{center}
+
+From here we can  begin to view how the actual data looks:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/digitprintpng.png}
+    \captionof{figure}{Will output the data shape and attributes.}
+\end{center}
 
 The shape of the data looks like this:
 (1797, 64)
 This tells us that there are 1797 instance samples and there are 64 attributes to each sample
 The actual data attributes look like this:
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/digitarrays.png}
+    \captionof{figure}{Data attributes have int values 0-16.}
+\end{center}
 
 Figure: Data attributes have int values 0-16
 
 We see that since each instance has 64 attributes in the range 0-16, this makes up the general look of the number. Our target attribute will show the actual numerical value of the digit, which is used to train the model to predict the numerical value:
 
-
-Figure: Will output the data target
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/printdigits.png}
+    \captionof{figure}{Will output the data target.}
+\end{center}
 
 This will output the corresponding numerical values of all 1797 samples:
 [0 1 2 ... 8 9 8]
@@ -845,8 +976,12 @@ So the first digit is a 0, next is a 1, and so on all the way to the last digit 
 
 From here we will be using the SVC algorithm to train and eventually test that model using the last few samples. Typically we would use train test, split however in this example we will manually see how the prediction works by saving the last two images to check manually if the prediction is correct.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/svmSVC.png}
+    \captionof{figure}{Fitting the data using the SVC model.}
+\end{center}
 
-Figure: Fitting the data using the SVC model
 We first create the actual SVC model with the basic inputs of gamma =.001 and the regularization parameter = 100, we can edit the C value based on data pool size.
 We then initialize our X variable attribute data set and y target data set, we want to use all of the samples, except the last two digits to test our model after fitting it.
 Calling the fit method, this creates the "learning" foundation of the model, this will hold all but the last two samples
@@ -855,15 +990,24 @@ Scikit-Learn Predictor and Estimator Functionality
 
 We will now see if the prediction part of the model will be correct, Scikit-learn has a method called predict in the SVC object that takes the previously fitted graph and uses the new data to predict what the intended target value should be:
 
-
-Figure: Prints out the predicted value of the last two digits
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/CLFpredict.png}
+    \captionof{figure}{Prints out the predicted value of the last two digits.}
+\end{center}
 
 We get the following output: 
+
 
 Figure: Predicts the numerical values: 9, 8
 
 We can look at our target data set to see if its correct, or we can print out the actual picture of the digit and see manually if the prediction was correct as below:
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/pltlmShow.png}
+    \captionof{figure}{Will print out the actual image of the second to last digit.}
+\end{center}
 
 Figure: Will print out the actual image of the second to last digit
 
@@ -883,6 +1027,12 @@ Accuracy or Classification Accuracy is the fraction of prediction that our model
 
 An accuracy close to 0 means our model performed very badly, and an accuracy close to 1 indicates that our model did a great job. But accuracy is not a good metric to assess our model’s performance if we have a dataset that is very imbalanced. For example, if we have a dataset that has 9\% of its sample from class A and only \% of the samples are from class B. Even if our model predicts every new datapoint as class A even when we have datapoints from class B, the accuracy will still remain high, giving us a false illusion that are model works. Even though, accuracy is not difficult to calculate, scikit-learn has an accuracy function available, accuracy\_score.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/AccuracyScore.png}
+    \captionof{figure}{Accuracy calculation using Scikit-learn.}
+\end{center}
+
 In Figure 1, we can see an array called y\_pred that has our predicted classes and y\_true is the true label for these samples, and by simply calling the accuracy\_score function we get an accuracy of 0.83, which is pretty good.
  
  
@@ -892,8 +1042,12 @@ Mean Squared Error (MSE) is the sum over all the datapoints, of the square of th
 
 Where n is the total number of datapoints, yi is the actual output yi and  is the predicted output by the model. The MSE is most commonly used for regression. It tells us how close our regression line is to the points. The further our predicted output is compared to the actual output, the larger this value. Therefore, we would like to see an MSE that is closer to 0, meaning the predicted value is exactly or very close to the actual value. A disadvantage of MSE is that it heavily weights outliers. If we have a datapoint that is an outlier, that will mean the distance from the actual and predicted value would be large, and squaring that value would make it even larger, hence the disadvantage of MSE. Scikit-learn also has an MSE function available, in Figure 2 we can see that by simply calling mean\_squared\_error and providing it with our array of predicted values and their corresponding true values, we get an MSE value of 0.014, and since it is extremely close to 0, this means our predicted values are close to the actual values.
 
-Figure 2:Calculating MSE using Scikit-Learn
- 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MSEcode.png}
+    \captionof{figure}{Calculating MSE using Scikit-learn.}
+\end{center}
+
 Mean Absolute Error:
 
 Due to the disadvantage of MSE, which is very undesirable in machine learning, we have another evaluation/loss function, the mean absolute error (MAE). This is the sum of the absolute differences between our actual and predicted value divided by the total number of datapoints.
