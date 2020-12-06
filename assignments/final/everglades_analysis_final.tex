@@ -12,6 +12,7 @@
     urlcolor=blacks
 }
 
+\newcommand{\link}[2]{\hyperlink{#1}{\underline{#2}}}
 \newcommand{\msection}[1]{\noindent\textbf{#1}}
 % \doublespacing
 \newcommand{\authorname}[3]{
@@ -343,53 +344,59 @@ Knowledge of when to sacrifice micro for macro is another key component to an ex
 
 \section{Literature Survey}
 
-\hyperref[ssec:stardata]{stardata}
+\begin{enumerate}\setlength\itemsep{-.1cm}
+\item A Few Useful Things to Know about Machine Learning
+\item Deep learning: Introduction to deep learning concepts
+\item Handwritten Digit Recognition with a Back-Propagation Network
+\item Sparse autoencoder: Andrew Ng’s lecture notes
+\item Attention Is All You Need
+\item STARDATA: A StarCraft AI Research Dataset
+\item StarCraft II: A New Challenge for Reinforcement Learning
+\item Early Prediction of a Game Outcome in StarCraft 2
+\item Grandmaster level in StarCraft II using multi-agent reinforcement learning
+\end{enumerate}
 
-1. A Few Useful Things to Know about Machine Learning: Introduction to machine learning concepts
-2. Deep learning: Introduction to deep learning concepts
-3. Handwritten Digit Recognition with a Back-Propagation Network: The "Hello,world!" for ML
-4. Sparse autoencoder: Andrew Ng’s lecture notes. Introduces basic math concepts for ML
-5. Attention Is All You Need: Say goodbye to LSTMs
-6. STARDATA: A StarCraft AI Research Dataset - Discusses the STARDATA dataset structure, shortcomings, and some statistics
-7. StarCraft II: A New Challenge for Reinforcement Learning - Intro to the StarCraftII Learning Environment
-8. Early Prediction of a Game Outcome in StarCraft 2: Interesting read about SC2 prediction engines
-9. Grandmaster level in StarCraft II using multi-agent reinforcement learning
+\subsection{STARDATA: A StarCraft AI Research Dataset}
 
-\subsection{STARDATA: A StarCraft AI Research Dataset}\label{ssec:stardata}
+Although we will no longer be using this dataset, we can gather some insight from it. This paper explores the STARDATA dataset for StarCraft I: Brood War. As explained in the paper, there is more data about the Protoss race and also the \textit{Fighting Spirit} map. The data is broken up like the following.
 
-Although this dataset is no longer the primary focus of the project it is still possible to gather some insight from it. The paper explores the STARDATA dataset from Brood War. The paper explains many different concepts of the game as well as deep diving into their high quantity dataset. The main info to gleam from the dataset comes from the examples of learning and control tasks that can be addressed. This means we can use some of these for our real time win prediction engine.
+\begin{center}
+    \begin{tabular}{cccccc}
+        \hline PvZ & TvZ & PvT & TvT & PvP & ZvZ \\
+        18016 & 14531 & 17385 & 2550 & 7015 & 6149 \\ \hline
+    \end{tabular}
+\end{center}
 
+We can see that Protoss games are more popular than any other. Therefore this dataset is somewhat unbalanced, but it does make up for it by its quantity.
 
-Strategy Classification
+This paper provides some of examples of learning and control tasks that can be addressed. Meaning that we can use some of these for our realtime win prediction engine.
 
-Strategy classification involves prediction of build order and other metrics. Although This task seems simple enough, we soon come into a wall when we realize that we’re only receiving part of the information in real time (fog-of-war), so we must address this issue first.
+\msection{Strategy Classification}
 
-Inverse Reinforcement Learning
+Strategy classification involves prediction of build order and other metrics. Although this task seems simple enough, we soon come into a wall when we realize that we're only receiving part of the information in realtime (fog-of-war), so we must address this issue first.
 
-This is sometimes called apprenticeship learning. It's defined as "the process of learning a task when given an expert trace but no explicit reward function" (Abbeel and Ng 2004).We do have the reward function of just winning a match, the smaller rewards between the beginning of a match and winning are very abstract. So, we must first research (orlearn) a reward function for these specific scenarios.
+\msection{Inverse Reinforcement Learning}
 
-Imitation learning
+This is sometimes called apprenticeship learning. Its defined as "the process of learning a task when given an expert trace but no explicit reward function" (Abbeel and Ng 2004). We do have the reward function of just winning a match, the smaller rewards between the beginning of a match and winning are very abstract. So, we must first research (or learn) a reward function for these specific scenarios.
 
-Basically what most people think of when machine learning comes into mind. We attempt to create a black box that takes in the current game state and outputs the best possible actionat the current game state. But the issue with this, just like in strategy classification, is that we are only receiving part of all the information available in the game (fog-of-war).
+\msection{Imitation learning}
 
-Forward modeling
+Basically what most people think of when machine learning comes into mind. We attempt to create a black box that takes in current game state and outputs the best possible action at the current game state. But the issue with this, just like in strategy classification, is that we are only receiving part of all the information available in the game (fog-of-war).
 
-In forward modeling we attempt to predict the future. Meaning that given the current game state we attempt to predict what will happen next. This is very useful for our real time win prediction engine, since it is what it will essentially be doing.
+\msection{Forward modeling}
 
-Partial information handling
+In forward modeling we attempt to predict the future. Meaning that given the current game state we attempt to predict what will happen next. This is very useful for our realtime win prediction engine, since it is what it will essentially be doing.
 
-There are several different methods of handling partial information. Heuristically, professional StarCraft gamers are very efficient in handling partial observations. These Methods include: simply sending out scouts to uncover the fog-of-war, create a specific model whose task is to derive more information from partial information, use algorithms like particle filters or Kalman filters to estimate enemy position.
+\msection{Partial information handling}
 
-Battle detection
+There are several different methods of handling partial information. Heuristically, professional StarCraft gamers are very efficient in handling partial observations. These methods include: simply sending out scouts to uncover the fog-of-war, create a specific model whose task is to derive more information from partial information, use algorithms like particle filters or Kalman filters to estimate enemy position.
 
-Clustering on number of units for Protoss (20s sample)
-
-
-"Early Prediction of a Game Outcome in StarCraft 2"
+\subsection{Early Prediction of a Game Outcome in StarCraft 2}
 
 "Early Prediction of a Game Outcome in StarCraft 2" written by David Leblanc and Sushil Louis from the Department of Computer Science and Engineering from the University of Nevada Reno, explores ways to predict outcome of a StarCraft 2 game, focused mainly on early game outcome prediction.
 
 Since the focus of this paper is match outcome prediction for StarCraft 2, for our project Goal\#4, we would implement a supervised machine learning classification algorithm that can predict the outcome of a StarCraft 2 match given the current game state. We believe that this publication can give us an idea of where we can start and what other people have already done regarding this subject.
+
 The paper starts with an introduction to what StarCraft 2 is, and the reasoning and importance of early game outcome determination. According to the paper there are 2 main reasons why being able to predict the outcome of the match early on is beneficial. First, it can help game balance designers understand the flow of the game and the reasoning behind a match outcome, which can help the designers keep the game interesting and challenging for players. Second, this information can also help players improve their own gameplay by knowing exactly when and what influenced their match outcome.
 
 This also ties back to some of the impacts we believe our project will have. We are hoping with our results, we are able to provide game designers and game balancers of Everglades important information, so they can continue creating a fun and challenging real-time strategy video game.
@@ -399,15 +406,22 @@ The approaches noted above, are only a few of the many that was presented in the
 
 The paper continues with the dataset that they utilized for their research. The data was collected in the form of game replays, and they collected these replays from professional tournaments, which they believe leads to the data being less noisy and more optimized for prediction. They also mentioned about the 6 types of possible matchups, but they will be only focusing on Terran vs Terran. The replay files’ information was exported to a text file which formatted an event as follows:
 
-        	Frame: The timestamps associated with the event. It can be converted into seconds.
-        	Player: The name of the player performing the action.
-        	EventType: The type of event or action the player performed:
-                    	Build Event: Player builds a structure.
-                    	Train Event: Player trains a new unit.
-                    	Research Event: Player researches an upgrade.
-                    	Ability Event: Player uses an ability.
-General Action: Contains all mouse-click, hot-key, control groups, camera movements and other events.
-EventDetails: The details associated with that type of action. Is currently ignored for most part (Leblanc and Louis 3).
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Frame: The timestamps associated with the event. It can be converted into seconds.
+    \item Player: The name of the player performing the action.
+    \item EventType: The type of event or action the player performed:
+    \vspace*{-2mm}
+    \begin{itemize}[,]
+        \setlength\itemsep{0cm}
+        \item Build Event: Player builds a structure.
+        \item Train Event: Player trains a new unit.
+        \item Research Event: Player researches an upgrade.
+        \item Ability Event: Player uses an ability.
+    \end{itemize}
+    \item General Action: Contains all mouse-click, hot-key, control groups, camera movements and other events.
+    \item EventDetails: The details associated with that type of action. Is currently ignored for most part (Leblanc and Louis 3).
+\end{itemize}
 
 The data gets parsed and the events get sorted by time in a table called BOT (Build Order Table). This table is mainly used to count the units, buildings, research progress, ability events and APM (Actions per Minute) at any given point of the match. They also split the APM measure into Micro and Macro. With Micro being the ability and mouse click events, while Macro being the building, training, and researching events. After the features has been extracted, it is represented in a vector of attributes, and each vector serves as a snapshot of the game at a given time for a player.
 
@@ -425,7 +439,7 @@ Perhaps, if we are able to collect more information regarding the state of the g
 
 In conclusion, this publication was a good read since it gave us some ideas of how researchers have already approached a similar problem. We were introduced to the toolkit and algorithms that they used, how they categorized and extracted their data from replays, as well as the accuracy that we can expect to get using the information that they have used.
 
-"Approximation Models of Combat in Starcraft 2"
+\subsection{Approximation Models of Combat in Starcraft 2}
 
 The goal of this paper was for the researchers to be able to predict specifically the outcome of a singular battle based on the complex and diverse armies that exist within Starcraft 2. This although being only a single battle is an extremely complex task as each unit has separate range abilities and movement meaning battles can not as easily be predicted by number of units or by the overall supply of the army but rather would have to be predicted using all factors at play in any given situation. Additionally, this paper aims to be able to predict the surviving number of units from the winning army in a full fight.
 
@@ -433,7 +447,7 @@ With Starcraft 2 having an extremely complex set of systems in play that make th
 
 This paper relies on some base assumptions which simplify greatly the prediction of engagements these are as listed: two armies, armies begin just out of sight, close clumping of units but random, attack move to begin the battle, and no micro management. One of the main focuses they decide as a stretch goal is the ability to predict micro management but all of these could become potential problematic errors when discussing the findings of a singular battle.
 
-They practiced 3 different models for approximation titled APX1, 2 and 3 with APX1 being simultaneous perfect focus fire on a unit before swapping. APX2 being the same but with range simulated in giving a much larger benefit to ranged units as they now get free encountered attacks and finally APX3 being the same as APX2 but with attributes being accounted for in the model such as light armor and unit traits. Pictured below is the APX3 algorithm.
+They practiced 3 different models for approximation titled $A_PX1$, 2 and 3 with $A_PX1$ being simultaneous perfect focus fire on a unit before swapping. $A_PX2$ being the same but with range simulated in giving a much larger benefit to ranged units as they now get free encountered attacks and finally $A_PX3$ being the same as $A_PX2$ but with attributes being accounted for in the model such as light armor and unit traits. Pictured below is the $A_PX3$ algorithm.
 
 This code shows that even the more complex algorithms used for prediction were simplistic with most of the battle prediction coming down to a numbers game most likely of damage per second vs health count being the two important factors.
 
@@ -441,16 +455,11 @@ These algorithms they tested with 12 different compositions with increasing comp
 
 This paper highlights some limitations through their use of the combat model that are important to notice when working on our own models. Primarily the use of assumptions, from reading this paper any time an assumption is used in an RTS game it becomes extremely inaccurate, for example in this paper by assuming that armies are clumped it completely invalidates any data using units that have the ability to use AOE (Area of Affect attacks) for which they simulated several of these units and this may have lead to many of the inaccuracies experienced. In the use of data for win prediction within our data sets an example of how this could lead us astray is the overlord unit for zerg, this unit does not attack and has no abilities of note to use for combat but provides army supply to the zerg player if it was to be assumed that this was the only use we could safely cut overlord count from the models in order to further simplify the model. This would be an incorrect assumption though as sometimes the overlord is used to bait attacks or scout for the player despite its lacking stats.
 
-The next major takeaway for model building from this paper is more info in a model generally is more beneficial. In the case of the models this paper used they saw significant increases in almost every improvement they made to their models as seen in the figure below APX1 to APX2 and APX3 made vast improvements with very little extra data added.
+The next major takeaway for model building from this paper is more info in a model generally is more beneficial. In the case of the models this paper used they saw significant increases in almost every improvement they made to their models as seen in the figure below $A_PX1$ to $A_PX2$ and $A_PX3$ made vast improvements with very little extra data added.
 
-With this its easy to see how although the model will become more computationally complex every input can lead to a massive improvement in accuracy for our projects modeling we plan to use a much larger set of information for modeling and remove the unneeded or unhelpful information as we deem it unhelpful to improve the model. As can be seen negative impacts can also be found from having more complexity if one is not careful with their analysis of the impacts. In the case of APX4 the idea was solid with priority targeting but the implementation has to be perfect when incorporating very complex mechanics into a simple model, for this implementation to have been successful it would have needed to be perfectly mapped a priority of units based on current state and that itself could be an entire analysis paper due to the complexity of a problem as there is no right or wrong answer due to the open ended nature of the game.
-        	
- 
- 
- 
- 
- 
-"Use of Machine Learning Techniques in Real-time Strategy Games"
+With this its easy to see how although the model will become more computationally complex every input can lead to a massive improvement in accuracy for our projects modeling we plan to use a much larger set of information for modeling and remove the unneeded or unhelpful information as we deem it unhelpful to improve the model. As can be seen negative impacts can also be found from having more complexity if one is not careful with their analysis of the impacts. In the case of $A_PX4$ the idea was solid with priority targeting but the implementation has to be perfect when incorporating very complex mechanics into a simple model, for this implementation to have been successful it would have needed to be perfectly mapped a priority of units based on current state and that itself could be an entire analysis paper due to the complexity of a problem as there is no right or wrong answer due to the open ended nature of the game.
+
+\subsection{Use of Machine Learning Techniques in Real-time Strategy Games}
 
 The goal of this paper is as described to rather than focus on the excessive amount of research in the field of automated gameplay focus on the prediction and analysis of scenarios in an RTS game that are overlooked or unorthodox. To do this as with much research and like the Everglades Analysis project, the choice of game to do all tests and research on is StarCraft for this paper. RTS games are famously great practice for machine learning and AI practice and StarCraft and its sequel are the prime RTS games, so this is a logical decision that many come to when doing initial research into these fields.
 
@@ -466,7 +475,7 @@ Early Prediction for strategies used pro replays along with several different al
 
 This paper provides a breakdown of the server setup they used for training and processing using python and BWAPI shown in the figure below:
 
-
+% img
 
 As Seen in this image the setup that was made using a server to process the raw data that was being pulled from StarCraft in real time and then feeding it through their machine learning algorithm to train it and then coming up with their final score of the prediction to the strategy at hand. Similarly the proposed setup we have will look somewhat similar with our data set and eventually live data being exported to our algorithms and giving a live prediction of the win rate based on that snapshot of the data set.
 
@@ -476,8 +485,7 @@ This is something that we should also look to implement within our CSV with the 
 
 Using the information they received from this training they were able to eliminate Naïve Bayes as it was significantly worse than the others and found that GBM performed well on almost every task especially as the amount of features increased. With the models of the
 
-
-"A Few Useful Things to Know about Machine Learning"
+\subsection{A Few Useful Things to Know about Machine Learning}
 
 Another helpful publication that we have read is "A Few Useful Things to Know about Machine Learning" written by Pedro Domingos from the Department of Computer Science and Engineering at the University of Washington. This article summarizes 12 important lessons that other researchers have learned regarding machine learning that is hard to find in traditional textbooks. It also focuses mainly on classification algorithms. 
 
@@ -489,13 +497,27 @@ This gives us some idea of how we can approach our Goal\#4, implementation of a 
 
 The first key lesson talks about the 3 important components that most machine learning algorithm is made up of, this includes:
 
-Representation: A classifier must be represented in some formal language that the computer can handle. Choosing a representation of a learner is tantamount to choosing the set of classifiers that it can possibly learn. This set is called the hypothesis space of the learner. If a classifier is not in the hypothesis space, it cannot be learned.
-Examples: K-nearest neighbor, Support vector machines, Naïve Bayes, Logistic Regression, Neural Networks, Bayesian Networks etc.
-Evaluation: An evaluation function (also called objective function or scoring function) is needed to distinguish good classifiers from bad ones.
-        	Examples: Accuracy/Error rate, Likelihood, Posterior probability, Margin etc.
-
-Optimization: We need a method to search among the classifiers in the language for the highest-scoring one. The choice of optimization technique is key to the efficiency of the learner. It is common for new learners to start out using off-the-shelf optimizers, which are later replaced by custom-designed ones.
-Examples: Greedy Search, Gradient descent, Linear programming, Quadratic programming etc. (Domingos 1-2).
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Representation: A classifier must be represented in some formal language that the computer can handle. Choosing a representation of a learner is tantamount to choosing the set of classifiers that it can possibly learn. This set is called the hypothesis space of the learner. If a classifier is not in the hypothesis space, it cannot be learned.
+    \vspace*{-2mm}
+    \item \begin{itemize}[,]
+        \setlength\itemsep{0cm}
+        \item Examples: K-nearest neighbor, Support vector machines, Naïve Bayes, Logistic Regression, Neural Networks, Bayesian Networks etc.
+    \end{itemize}
+    \item Evaluation: An evaluation function (also called objective function or scoring function) is needed to distinguish good classifiers from bad ones.
+    \vspace*{-2mm}
+    \begin{itemize}[,]
+        \setlength\itemsep{0cm}
+        \item Examples: Accuracy/Error rate, Likelihood, Posterior probability, Margin etc.
+    \end{itemize}
+    \item GOptimization: We need a method to search among the classifiers in the language for the highest-scoring one. The choice of optimization technique is key to the efficiency of the learner. It is common for new learners to start out using off-the-shelf optimizers, which are later replaced by custom-designed ones.
+    \vspace*{-2mm}
+    \item \begin{itemize}[,]
+        \setlength\itemsep{0cm}
+        \item Examples: Greedy Search, Gradient descent, Linear programming, Quadratic programming etc. (Domingos 1-2).
+    \end{itemize}
+\end{itemize}
 
 It continues by pointing out how most textbooks overlook the Evaluation and Optimization components, which could be even more important than the choice of learner.
 It indeed appears that the Evaluation and Optimization components do get overlooked very often, since we have a lot of research planned ahead but, most of them are focused on technologies that we can use for our project and the different types of Representation. Knowing that the other 2 components are equally, if not more important, it does make us aware that we should also be conducting as much research on evaluation functions and optimization of our classifier as well.
@@ -525,13 +547,15 @@ This might have come as a surprise to some of us who have not had much experienc
 Carrying on with the eighth key lesson, it talks about how more data can lead to a better classifier than more sophisticated algorithms. It points out that using a cleverer algorithm might not lead to the results we believe it will. Because in the end, they all do the same thing. All Representations basically tries to group nearby examples into the same class, the only difference between the algorithms is what is meant by "nearby". The author recommends us to start by using the simplest algorithms such as Naïve Bayes and K-nearest Neighbor. This is due to cleverer learners are harder to use and harder to get good results. There are also algorithms that have a fixed size, meaning they can only take advantage of so much data. Variable-size learners does not have that limit and can learn any function if given enough data. But then we are presented with the problem of algorithm limitations, computational cost, and dimensionality.
 
 Taking the advice from this paper’s author, we are certainly going to start off our machine learning classification algorithm with the simplest Representations available and build up from there. Since, we were also introduced to fixed-size and variable-size learners, we should keep that in mind when we are using the different algorithms and understanding their limitations.
+
 The ninth key lesson is about learning many models. Researchers noticed instead of choosing the best variation we can just combine many different variations, and that can actually lead to a much better result. This is called model ensembles and is what most researchers are doing nowadays. It mentioned some of the most simple and common techniques used:
 
-Bagging: We simply generate random variations of the training set by resampling, learn a classifier on each, and combine the results by voting.
-
-Boosting: Training examples have weights, and these are varied so that each new classifier focuses on the examples the previous ones tended to get wrong.
-
-Stacking: Outputs of the individual classifiers become the inputs of a higher-level learner that figures out how to best combine them (Domingos 7).
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Bagging: We simply generate random variations of the training set by resampling, learn a classifier on each, and combine the results by voting.
+    \item Boosting: Training examples have weights, and these are varied so that each new classifier focuses on the examples the previous ones tended to get wrong.
+    \item Stacking: Outputs of the individual classifiers become the inputs of a higher-level learner that figures out how to best combine them (Domingos 7).
+\end{itemize}
 
 Since it appears that model ensembles are a standard for machine learning, we would probably have to learn more about these techniques mentioned above so we can see if this is a possible application to our dataset. Bagging does appear to be simple and doable and could be used for our project in hopes of having a classification algorithm that can predict match outcomes at a higher accuracy.
 
@@ -546,9 +570,10 @@ Even though we will have a lot of data, it is still not going to be enough. Star
 The last lesson points out that correlation does not imply causation. It reminds us that correlation is a sign of a potential causal connection that requires further investigation and should not be treated as representing causal relations.
 
 This last lesson is perhaps one of the most common sayings in data analysis. But it is still a good reminder that just because an independent variable that we found might be correlated to the dependent variable, it still does not necessarily mean one causes the other. This is something we need to keep in mind, as we are finding our characteristics and metrics for our analysis goals.
+
 All in all, this publication shed light to a few new pieces of information. As well as reminders of information that we already knew. It appears that machine learning is a complicated process and there are many things we need to be wary of such as overfitting and the problem with dimensionality. New representations and techniques were provided, which we can further explore. Solutions were also given to some of the more common machine learning problems, giving us an idea where to start if we do encounter them.
 
-"Predicting the Winner in Two Player StarCraft Games"
+\subsection{Predicting the Winner in 1v1s}
 
 The goal of this paper is very closely aligned to the goal of the Everglades Analytics Project’s overall goals. The primary goal being to use statistics to determine winning strategies in RTS games and be able to predict a winner with a high rate of accuracy even from early into a match. Additionally, with this project  they have chosen the same RTS game as a base for their studies in StarCraft.
 
@@ -557,9 +582,10 @@ This paper decided to use StarCraft Broodwar as at the time that was the most re
 The Primary Study performed here is the setup of two AI that were both playing terran in order to have them play an even matchup against one another, to keep the matches even more even if the games were played on a single symmetrical map. The data from these AI matches were collected until the researchers had a perfect set of 100 games with each AI having exactly a 50\% win rate for a symmetrical dataset. This specific research went wide with their definition of important winning statistics using traces of different parts of the game they organized into a vector of 28 length in order to capture each unit building and resource type present for each player. 
 
 The next part of the paper focused on their analysis using machine learning algorithms specifically Classification algorithms. Again being a smaller simple sample set the idea was to test on a small sample set a number of different classification models so as to locate the most efficient one. The algorithms chosen were LDA, QDA, SVM, KNN, and KKNN. Running each algorithm and analyzing the results led their research to find QDA as being the highest base accuracy of all of these, but go on to explain how the base accuracy is unimportant in a situation with a very even matchup and low variance is a crucial stat. Analyzing Variance allows them to see how with low amounts of games the "lazier" algorithms such as KNN and KKNN are strong but in larger sets greater than thirty nothing comes close to the accuracy provided with LDA.
+
 This work is highly applicable to our project despite differences in data collection and depth of complexity. Most importantly this was a great kickstart to the process of identifying our models once we started to break down our preliminary data sets. Even having an analysis like this to serve as a basis despite differences allows to see some results that would surely be similar in the use of some of the classification models. This project helped realize how it is important to analyze win prediction on a matchup vs matchup basis versus an overall look as the Everglades project will not only focus on the Terran vs Terran matchup but rather all 6 possible matchup combos that can occur in the game. This also put the possibility of working with LDA and QDA into the forefront as there was no prior experience in the team with these. 
 
-"Identifying Players and Predicting Actions from RTS Game Replays"
+\subsection{Identifying Players and Predicting Actions}
 
 This paper focuses less on winning strategies within RTS games but more on prediction of singular actions that a player has made. Although our project focuses primarily on the full win prediction an analysis of predicting any movement in an RTS game could be a sub part of the overall prediction of a game. 
 
@@ -569,234 +595,164 @@ This paper primarily focused on the use of ANNs or Artificial Neural Network, Ra
 
 This paper is a good look into Neural Networks and J48-C4.5 Decision trees as those had been not yet considered for our project. Looking specifically it is interesting to see how robust J48 was at being able to predict not only actions but also specific players. This paper is extremely applicable to the Everglades Analytics project as it uses StarCraft 2 and pro data in a similar way. It could be a good consideration for win prediction to first analyze action prediction to optimize.
 
-\section{Data Exploration}
-\section{Supervised Learning}
-\section{Unsupervised Learning}
-\section{Model Methodologies}
-\section{Real-world Applications}
-
-\chapter{Design}
-\section{Model Trainining}
-\subsection{Subsections explaining what we did}
-\section{Model Validation}
-\subsection{Subsections explaining what we did}
-\section{Database}
-\subsection{Subsections explaining what we did}
-
-\chapter{Administrative Content}
-\section{Project Budget}
-
-Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
-
-Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
-
-\section{Project Milestones}
-
-\subsection{Initial Research and Analysis}
-
-The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
-
-\subsection{Agile Sprints}
-
-Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
-
-\subsection{Data preparation}
-
-Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/19/2020 \\
-Sprint 2 & 11/12/2020 \\
-Sprint 3 & 01/20/2021
-\end{tabular}\end{center}
-
-\subsection{Agent Testing/Comparison}
-
-Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
-
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/24/2020 \\
-Sprint 2 & 12/02/2020 \\
-Sprint 3 & 02/05/2021
-\end{tabular}\end{center}
-
-\subsection{Data review and revision}
-
-The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/31/2020 \\
-Sprint 2 & 12/10/2020 \\
-Sprint 3 & 02/11/2021
-\end{tabular}\end{center}
-
-\subsection{Final Design Document}
-
-Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-3 Types of Machine Learning Algorithms:
-
-
-Supervised Learning:
+\section{Machine Learning}
+\subsection{Supervised Learning}
 
 Supervised learning is one of the most popular algorithms that is used in machine learning. You have input variables and an output variable  which you want to be able to predict using the input variables. The goal of this is to generate a function that can map the inputs to output so well, that when we give it new data, it is able to predict the output variable. Supervised learning can be categorized into two types of problems. A classification problem or a regression problem. We will dive deeper into what are classification and regression problems, as well as demonstrate and explain some of the most common algorithms used to solve these types of problems. Supervised learning is going to be important for us since we are trying to create an algorithm that can predict match outcome using a set of input variables that we found statistically significant.
 
-Unsupervised Learning:
+\subsection{Unsupervised Learning}
 
 Unsupervised learning also has input variables  but they do not have an output variable . The goal of this is to model the underlying structure or distribution in the data in order to learn more about our data. Or in other words, we use unsupervised learning when we want to explore our data and find hidden patterns without having labeled responses. This is usually used to solve clustering problems, which we will also further explore and demonstrate some of the most common algorithms under clustering. We believe that we will be using some of the clustering algorithms mainly for discovering map differences. Which is important for our Goal\#3, identify how map differences affect the output of games with similar strategies.
 
+\subsection{Reinforcement Learning}
 
-Reinforcement Learning:
+Reinforcement learning is training an agent to make a sequence of decisions to achieve some goal that we have set. In order for the agent to make the correct decisions, it gets rewarded or penalized based on the action it took. We do not program the agent to take these actions specifically but, instead we allow it to learn what it should and should not do through trial and error. The agent usually starts with completely randomized actions and slowly it learns what actions give rewards and what actions give penalties.
 
-Reinforcement learning is training an agent to make a sequence of decisions to achieve some goal that we have set. In order for the agent to make the correct decisions, it gets rewarded or penalized based on the action it took. We do not program the agent to take these actions specifically but, instead we allow it to learn what it should and should not do through trial and error. The agent usually starts with completely randomized actions and slowly it learns what actions give rewards and what actions give penalties. Since, we are not building an agent for our senior design project, we are simply trying to find characteristics and metrics that can determine win rate and player/agent behavior. As well as, understanding how map behaviors affect game outputs with similar strategies and implement machine learning classification algorithm that can predict match outcomes. Even for our stretch goal, which is to develop a real time analytics engine, it still does not appear to us that we need to build an agent that can make decisions in order to achieve our goals. Hence, for now we do not have any plans to further investigate reinforcement learning or creating an AI/agent, but if we discover that it is necessary or that it could be beneficial for our project in the future, we will delve deeper into reinforcement learning. For now, we are going to be focusing on Supervised and Unsupervised Learning.
+Our project does not involve building an agent for our senior design project, we are simply trying to find characteristics and metrics that can determine win rate and player/agent behavior. As well as, understanding how map behaviors affect game outputs with similar strategies and implement machine learning classification algorithm that can predict match outcomes. Even for our stretch goal, which is to develop a real time analytics engine, it still does not appear to us that we need to build an agent that can make decisions in order to achieve our goals. Hence, for now we do not have any plans to further investigate reinforcement learning or creating an AI/agent, but if we discover that it is necessary or that it could be beneficial for our project in the future, we will delve deeper into reinforcement learning. For now, we are going to be focusing on Supervised and Unsupervised Learning.
 
+% \section{Model Methodologies}
+% \section{Real-world Applications}
 
-SciKit-Learn
+\chapter{Design}
+\section{Exploratory Data Analysis}
+\subsection{Scikit-learn}
 
 Scikit-learn is a Python machine learning tool for predictive data analysis. As part of our goals, we will use scikit-learn for classification, regression, model selection, and clustering algorithms to better gather our data to predict winning behaviors. Fortunately, the learning tool is built upon other mathematical libraries which play a part in discovering the information we need. Those libraries are NumPy, SciPy,Matplotlib, and Pandas.
-NumPy
-One of the most important and well-known packages to help support numerical computation allowing the use of matrices and arrays to help supplement any mathematical operation done on them. 
-SciPy 
-This package is dedicated to help with scientific computing, being built on top of NumPy this allows such features as linear algebra, optimization, image processing, and more. 
-Matplotlib
- Is the library used in order to show the graphic and visualization side of the data that will be analyzed. 
-Pandas
-This library allows the easy optimization of loading a dataset to use for the data analysis. 
 
-General Themes
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item NumPy \\
+    One of the most important and well-known packages to help support numerical computation allowing the use of matrices and arrays to help supplement any mathematical operation done on them.
+    \item SciPy \\
+    This package is dedicated to help with scientific computing, being built on top of NumPy this allows such features as linear algebra, optimization, image processing, and more.
+    \item Matplotlib \\
+    Is the library used in order to show the graphic and visualization side of the data that will be analyzed.
+    \item Pandas \\
+    This library allows the easy optimization of loading a dataset to use for the data analysis.
+\end{itemize}
 
-The general themes of algorithms we will be using can be broken down into three main categories:
-Classification
-Regression
-Clustering
+\subsection{Classification}
 
-Classification
+The main objective is to identify which class/category an object belongs to. In StarCraft this can be useful in the classification of strategies, based on unit and building orders we should be able to classify first if there is a theme of building defensively, overtly aggressive, or something balanced. Classification can be approached with these models: logistic regression, support vector classification (SVC), k-nearest neighbors, decision trees, and neural networks.
 
-Classification; the main objective is to identify which class/category an object belongs to. In StarCraft this can be useful in the classification of strategies, based on unit and building orders we should be able to classify first if there is a theme of building defensively, overtly aggressive, or something balanced. Some of the algorithms correlated with classification is:
-Logistic Regression
-Support Vector Machines (SVM) / Support Vector Classification (SVC)
-K-nearest neighbors
-Decision Trees
-Neural Network
+\subsection{Logistic Regression}
 
-
-Logistic Regression
 Logistic regression is one of the most common algorithms used for binary classification problems. Similar to linear regression, logistic regression tries to find an equation that can be used to predict the outcome, but the outcome is for a binary variable instead of a continuous one. It can also be used to describe data and to explain relationships between variables. Since the dependent variable in a logistic regression  has to be dichotomous, it can prove to be useful for predicting a StarCraft II match outcome, since the outcome can be a Win or a Loss. Logistic regression uses the logistic function, also known as the sigmoid function:
-
+$$\text{sigmoid}(x) = \frac{1}{1+e^{-x}}$$
 Therefore, to represent a model with multiple independent variables using a function we can have:
+$$p = \frac{1}{1+e^{-(\beta_0+\sum\beta_iX_i)}}$$
+Where $p$ is probability of the default class, $\beta_0$ is the constant/intercept, and $\beta_i$ is the coefficient for the $i$th independent variable. Even though logistic regression is mainly used for binary dependent variables, it is actually possible to use logistic regression to predict for multi-class dependent variables. In the case that there are more than two possible outcomes, a one-vs-rest (OvR) or one-vs-all (OvA) method can be used. This process splits the multi-class data set into several binary classification problems, which is then trained on each individual problem and the model that is the best performing will make the predictions. To demonstrate that this can be done using Scikit-learn, we will be using the famous iris data set.
 
-Where p is probability of the default class, 0is the constant/intercept, and i is the coefficient for the ith independent variable. Even though logistic regression is mainly used for binary dependent variables, it is actually possible to use logistic regression to predict for multi-class dependent variables. In the case that there are more than two possible outcomes, a one-vs-rest (OvR) or one-vs-all (OvA) method can be used. This process splits the multi-class data set into several binary classification problems, which is then trained on each individual problem and the model that is the best performing will make the predictions. To demonstrate that this can be done using Scikit-learn, we will be using the famous iris data set. The Iris data set is available at the UCI Machine Learning Repository at https://archive.ics.uci.edu/ml/datasets/iris, and it is also easily importable via Sciki-learn’s datasets. This data set has 150 observations, 3 classes: Iris-setosa, Iris-versicolor, and Iris-virginica, and 4 independent variables: Sepal Length in cm, Sepal Width in cm, Petal Length in cm, and Petal Width in cm. The goal is to use Logistic Regression to predict which class an unknown iris belongs to when given a set of independent values. Since there are three possible iris classes, Scikit-learn will be performing the OvR method. This will split our multi-class classification problem into three binary classification problems:
- Problem 1: Iris-setosa vs [Iris-versicolor, Iris-virginica]
- Problem 2: Iris-versicolor vs [Iris-setosa, Iris-virginica]
-  Problem 3: Iris-virginica vs [Iris-setosa, Iris-versicolor]
+The Iris dataset is available at the \link{https://archive.ics.uci.edu/ml/datasets/iris}{UCI Machine Learning Repository}, and it is also easily importable via Sciki-learn’s datasets. This data set has 150 observations, 3 classes: Iris-setosa, Iris-versicolor, and Iris-virginica, and 4 independent variables: Sepal Length in cm, Sepal Width in cm, Petal Length in cm, and Petal Width in cm. The goal is to use Logistic Regression to predict which class an unknown iris belongs to when given a set of independent values. Since there are three possible iris classes, Scikit-learn will be performing the OvR method. This will split our multi-class classification problem into three binary classification problems:
+
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Problem 1: Iris-setosa vs [Iris-versicolor, Iris-virginica]
+    \item Problem 2: Iris-versicolor vs [Iris-setosa, Iris-virginica]
+    \item Problem 3: Iris-virginica vs [Iris-setosa, Iris-versicolor]
+\end{itemize}
+ 
 Since we are required to use three different models, it could be a very slow model if we have a large data set. In the case that there are only two possible outcomes, this would not be a problem. In Figure 31, we can see that by calling LogisticRegression from Scikit-learn, the Iris data can be fitted, and we get a mean accuracy of 95.5\% for this model. 
 
-Figure 31: OvR Logistic Regression
+\subsection{Neural Networks}
 
-
-Neural Network
 Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set. The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure 32, we can see a basic input, output, and hidden layer neural network. 
 
-Figure 32:Neural network
 The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure 33 shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer. Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
 
-Figure 33:Keras neural network
+\subsection{Regression}
 
+Regression is used primarily in being able to predict the value of some specific attribute for the desired object. In StarCraft we can implement this to predict the economy and "macro-ing" aspects of the game to see if one player will have a significant economical advantage over the other. However, since this is a real time strategy game (RTS) the economic strength of one player’s army can flip in the course of a single battle. Regression can be approached with these models: support vector regression (SVR), k-nearest neighbor, and Lasso Regression.
 
-Regression
-
-Regression is used primarily in being able to predict the value of some specific attribute for the desired object. In StarCraft we can implement this to predict the economy and "macro-ing" aspects of the game to see if one player will have a significant economical advantage over the other. However, since this is a real time strategy game (RTS) the economic strength of one player’s army can flip in the course of a single battle. Some of the algorithms correlated with regression is:
-Support Vector Regression (SVR)
-K-nearest neighbor
-Lasso Regression
-
-Regression
 Regression analysis is a modelling technique that is used to understand relationships between the dependent variable and the independent variable(s). The dependent variable has to be continuous and it is the variable that is being tested and measured, such as life expectancy. Independent variables are continuous or dichotomous variables that has an effect on the dependent variable, such as gender (dichotomous) or income (continuous). The main point of using regression analysis is finding a mathematical equation that can be used to predict a continuous dependent variable ( ) based on some number of continuous or dichotomous independent variables ( ). It is also extremely useful in answering questions such as:
-·         Which of the independent variables have an impact on the outcome?
-·         Which of the independent variables matters the most?
-·         Do those independent variables depend on each other?
-Regression analysis might prove to be useful for our project since we are attempting to find at least 5 characteristics or independent variables that have an impact on winning a StarCraft II match. Additionally, for our second goal, we are trying to find 5 new metrics that can be used to predict agent performance. Using regression analysis, we will be able to determine which of these metrics and characteristics has an effect on match outcome and performance, and how they relate with each other. There are several approaches for analyzing data using regression and we will be exploring some of the most popular ones:
-·         Linear Regression
-o   Simple Linear Regression
-o   Multiple Linear Regression
-o   Interaction Models
-·         Polynomial Regression
-o   Quadratic Regression
-o   Higher Order Regression
-·         Lasso Regression
-·         Ridge Regression
 
-Linear Regression
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Which of the independent variables have an impact on the outcome?
+    \item Which of the independent variables matters the most?
+    \item Do those independent variables depend on each other?
+\end{itemize}
+
+Regression analysis might prove to be useful for our project since we are attempting to find at least 5 characteristics or independent variables that have an impact on winning a StarCraft II match. Additionally, for our second goal, we are trying to find 5 new metrics that can be used to predict agent performance. Using regression analysis, we will be able to determine which of these metrics and characteristics has an effect on match outcome and performance, and how they relate with each other.
+
+\subsubsection{Linear Regression}
 
 Linear regression is one of the most common and simple analysis approaches used for predicting outcome of a dependent variable. As its name states, this regression is linear because all the terms in the model are either a constant or a parameter multiplied by some independent variable.
  
-Simple Linear Regression:
+\msection{Simple Linear Regression}:
 
 For a simple linear regression, meaning we only have one independent variable that has a linear relationship with our dependent variable, the least squares line equation is as follow:
-
-Where Yis the dependent variable, 0 is the constant, 1is the regression coefficient for the independent variable X.
+$$y=\beta_0+\beta_1X$$
+Where Yis the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for the independent variable $X$.
 To find 0 we use the formula:
-
+$$\beta_0=\bar{y}-\beta_1X$$
 Where yis the mean y score and x is the mean x score. These can be calculated with the following equations:
+$$\bar{y}=\frac{\sum_{i=1}^ny}{n}\qquad\bar{x}=\frac{\sum_{i=1}nx}{n}$$
+Where n is the total number of observations. We also need to find 1 in order to find the least squares regression line for our simple linear regression. $\beta_1$ can be calculated with the formula:
+$$\beta_1=\frac{SS_{xy}}{SS_{xx}}=\frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2}$$
+This would be a very tedious task to do by hand if we have a lot of data points. But, using Scikit-learn’s already available function LinearRegression() we can quickly find our $\beta_0$ and $\beta_1$ for the simple linear regression line.
 
-Where n is the total number of observations. We also need to find 1 in order to find the least squares regression line for our simple linear regression. 1 can be calculated with the formula:
+To demonstrate how linear regression works and how we can use functions readily available from Scikit-learn to achieve this, we will be looking at a dataset from \link{http://www.espn.com/college-football/rankings}{AP Top 25 2018} College football rankings for week 8. Simple linear regression only has one independent variable and one dependent variable. So, for this example, we have chosen our dependent variable $(y)$ to be Points Scored per Game, and our independent variable $(x)$ is Passing Yards per Game.
 
-This would be a very tedious task to do by hand if we have a lot of data points. But, using Scikit-learn’s already available function LinearRegression() we can quickly find our 0and 1 for the simple linear regression line.
-To demonstrate how linear regression works and how we can use functions readily available from Scikit-learn to achieve this, we will be looking at a dataset from AP Top 25 2018 College football rankings for week 8. This dataset is available at http://www.espn.com/college-football/rankings, October 14, 2018. Simple linear regression only has one independent variable and one dependent variable. So, for this example, we have chosen our dependent variable (y) to be Points Scored per Game, and our independent variable (x) is Passing Yards per Game. We can first plot the scatterplot, which is useful in detecting visual evidence of linear relationship between the two variables. If there does not appear to be any visual evidence of linear relationship, then linear regression is probably not the right approach for this dataset. Figure 10 shows the x values and y values stored in arrays. As well as using the scatter() function from matplotlib, we get a visual representation of our datapoints. The scatterplot does appear to show that there exist somewhat of a positive linear relationship between the dependent and independent variables. 
+We can first plot the scatterplot, which is useful in detecting visual evidence of linear relationship between the two variables. If there does not appear to be any visual evidence of linear relationship, then linear regression is probably not the right approach for this dataset. Figure 10 shows the $x$ values and $y$ values stored in arrays. As well as using the scatter() function from matplotlib, we get a visual representation of our datapoints. The scatterplot does appear to show that there exist somewhat of a positive linear relationship between the dependent and independent variables. 
 
 Next, we would like to use Scikit-learn’s LinearRegression() function to find our least square regression line.
 
-By simply calling LinearRegression() as shown in Figure 11 and fitting it with our independent and dependent arrays, we can get the value for 0 and 1. Therefore, our least squares regression line for this simple linear regression problem is:
+By simply calling LinearRegression() as shown in Figure 11 and fitting it with our independent and dependent arrays, we can get the value for $\beta_0$ and $\beta_1$. Therefore, our least squares regression line for this simple linear regression problem is:
 
 What this can tell us is that for every one-yard increase in Passing Yards per Game, we can expect the mean Points per Game to increase by 0.0599. Now, that we have our regression line, we can use it to predict Points per Game. In Figure 12, we can see the data points and the linear regression line plotted. The line does appear to somewhat fit the points on the scatterplot. 
 
-Figure 12:Bivariate fit of points per game by passing yards per game
 If a college football team has 145.5 yards per game, we can use our regression line to predict how many Points per Game this team will have, 
+
+% img
 
 Comparing this predicted result with the actual result 29.3, we can see that our model is doing pretty well. But, in order to determine whether a linear regression model is actually good or bad at predicting the dependent variable, we would need to do more than just comparing one observation or visually hypothesizing. A very common way of checking whether a model is sufficient in predicting the dependent variable, is the coefficient of determination or the $R^2$. This can also easily be calculated using Scikit-learn. 
 
-Figure 13: $R^2$ value for our college football simple linear regression
+% img
+
 Figure 11 shows the $R^2$ value of $0.291$ for our college football example. This can be interpreted as approximately 29.\% of the variability in the Points per Game can be explained by this linear model containing Passing Yards per Game. Since we have the $R^2$ value, we can calculate the Pearson’s Correlation Coefficient:
 
-Thus, for our college football example, we have an r value of r=0.291=0.539. This tells us that there is a moderately strong positive linear relationship between Passing Yards per Game and Points per Game. Perhaps the low value for coefficient of determination in our example is due to the inconsideration for the other existing independent variables that may have an impact on the dependent variable. 
+Thus, for our college football example, we have $r=\sqrt{0.291}=0.54$. This tells us that there is a moderately strong positive linear relationship between Passing Yards per Game and Points per Game. Perhaps the low value for coefficient of determination in our example is due to the inconsideration for the other existing independent variables that may have an impact on the dependent variable. 
 
 
-Multiple Linear Regression:
+\subsubsection{Multiple Linear Regression}
 If there are two or more independent variables that have linear relationships with our dependent variable, then it is considered a Multiple Linear Regression, with the formula:
+$$Y=\beta_0+\beta_1X_1+...+\beta_k\beta_k$$
+Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for some independent variable $X_1$. Since, for multiple linear regression we have more than one independent variable, the $k$ in the equation stands for the number of independent variables.
 
-Where Yis the dependent variable, 0 is the constant, 1 is the regression coefficient for some independent variable X1. Since, for multiple linear regression we have more than one independent variable, the k in the equation stands for the number of independent variables. 
-Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure 14 shows a new data frame with X1,X2,X3, and y. Where X1 is Passing Yards per Game, X2 is Total Yards, X3 is Rushing Yards per Game, and y is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
-
+Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure 14 shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
+$$Y=-15.4618+.0939X_1+.0027X_2+.0908X_3$$
 What this equation means:
-For every one-yard increase in passing yards per game, we expect the points per game to increase by 0.0939, holding the other two independent variables constant.
-For every one-yard increase in total yards, we expect the points per game to increase by 0.0027, holding the other two independent variables constant.
-For every one-yard increase in rushing yards per game, we expect the points per game to increase by 0.0908, holding the other two independent variables constant.
-The constant means that when a college football team has zero passing yards per game, zero total yards, and zero rushing yards per game, we would expect the number of points to be -15.4618, which has no practical interpretation. 
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item For every one-yard increase in passing yards per game, we expect the points per game to increase by 0.0939, holding the other two independent variables constant.
+    \item For every one-yard increase in total yards, we expect the points per game to increase by 0.0027, holding the other two independent variables constant.
+    \item For every one-yard increase in rushing yards per game, we expect the points per game to increase by 0.0908, holding the other two independent variables constant.
+    \item The constant means that when a college football team has zero passing yards per game, zero total yards, and zero rushing yards per game, we would expect the number of points to be -15.4618, which has no practical interpretation. 
+\end{itemize}
 
 Now that we have a multiple linear regression model, checking its $R^2$ value using Scikit-learn, we get 0.7354, meaning approximately 73.5\% of the variability in Points per Game can be explained by this new model containing Passing Yards per Game, Total Yards, and Rushing Yards per Game. Which is a significant increase from our previous simple linear regression model that only contained one independent variable. 
 
-Interaction Models:
-When we have a relationship between our dependent variable  and one independent variable (x1) that depends on the value of another independent variable (x2), an interaction model would be appropriate. We can represent this model including interaction between x1 and x2 in a formula such as:
+\subsubsection{Interaction Models}
+When we have a relationship between our dependent variable  and one independent variable $(x_1)$ that depends on the value of another independent variable $(x_2)$, an interaction model would be appropriate. We can represent this model including interaction between $x_1$ and $x_2$ in a formula such as:
+$$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2$$
+Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for some independent variable $X_1$, $\beta_2$ is the regression coefficient for some independent variable $X_2$, and $\beta_3$ is the regression coefficient for the interaction term between the independent variables $x_1$ and $x_2$.
 
-Where Y is the dependent variable, 0 is the constant, 1is the regression coefficient for some independent variable X1, 2is the regression coefficient for some independent variable X2, and 3 is the regression coefficient for the interaction term between the independent variables x1 and x2.
-Continuing with the college football team example that we have been working with, we can further attempt to improve our model by including an interaction term. Similar to the previous example, we have three independent variables. Passing Yards per Game (x1), Total Yards (x2), and Rushing Yards per Game (x3) , which we used to predict Points per Game (y). In order to identify which of these independent variables may have interaction effects, we will take two independent variables and make one of the independent variables a boolean series. Which means if the observed value is larger than the median for that independent variable, we will label it as 1, and if it is lower or equal to the median value, we will label it as 0. Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
+Continuing with the college football team example that we have been working with, we can further attempt to improve our model by including an interaction term. Similar to the previous example, we have three independent variables. Passing Yards per Game $(x_1)$, Total Yards $(x_2)$, and Rushing Yards per Game $(x_3)$, which we used to predict Points per Game $(y)$. In order to identify which of these independent variables may have interaction effects, we will take two independent variables and make one of the independent variables a boolean series. Which means if the observed value is larger than the median for that independent variable, we will label it as 1, and if it is lower or equal to the median value, we will label it as 0. Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
 
 Since we have 3 independent variables, the possible interaction terms are:
-x1 and x2, Passing Yards per Game and Total Yards
-x1 and x3, Passing Yards per Game and Rushing Yards per Game
-x2 and x3, Total Yards and Rushing Yards per Game
+$x_1$ and $x_2$, Passing Yards per Game and Total Yards
+$x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game
+$x_2$ and $x_3$, Total Yards and Rushing Yards per Game
 
 Figure 17 shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure 18 shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
 
-For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be x1 and x3, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
+For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
 
 Figure 19:Finding coefficients using statsmodel
 Hence, our model to predict for Points per Game by using Passing Yards per Game, Total Yards, Rushing Yards per Game, and the interaction term between Passing Yards per Game and Rushing Yards per Game can be represented as below:
 
-It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with P>|t|, the p-value which equals to 0.648 for the interaction term between x1 and x3. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our p-value 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
+It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
 
 It is clear that adding the interaction term did not really increase our $R^2$ value. For the multiple linear regression, where we only used the three independent variables, without interaction terms gave us a $R^2$ value of 0.7354. Considering the small number of differences in the $R^2$ value, the interaction term itself failing a hypothesis test, as well as adding complexity to our model, the interaction term will not be included in our future models.
 
@@ -804,26 +760,23 @@ Polynomial Regression
 The previous regression models were all assumed to have a linear relationship between the dependent variable and the independent variable(s). When a model is not a straight line but has curvature, we can consider polynomial regression. Polynomial regression is a regression analysis where the relationship between the dependent variable and the independent variable(s) are modelled as nth degree polynomial in the independent variable(s).
  
 Quadratic Regression:
-Quadratic regression is also known as a second-order model, as its name states, this model includes an x2 term. If our data is plotted and there appears to be a U shape or an inverted U shape, this could indicate that quadratic regression is more appropriate than linear regression. The equation for a quadratic model with one independent variable is as follow:
+Quadratic regression is also known as a second-order model, as its name states, this model includes an $x_2$ term. If our data is plotted and there appears to be a U shape or an inverted U shape, this could indicate that quadratic regression is more appropriate than linear regression. The equation for a quadratic model with one independent variable is as follow:
 
 Where 0 is the intercept or constant, 1 is the shift parameter, and 2 is the rate of curvature for some independent variable. 
-Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset available at https://online.stat.psu.edu/stat462/node/159/ called Yield dataset. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield (y) and our independent variable Temperature (x) in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
+Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
 
-Figure 21:Yield Data Set
 To find the coefficients for our quadratic model, we can use the Python module statsmodels, similar to what was done for our interaction model example. 
 
-Figure 22:Finding coefficient for quadratic model with statsmodels
-Figure 22 gives us the coefficient for 0, 1,and 2and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
+Figure 22 gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
 
 Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure 23. 
 
-Figure 23:Plotting the quadratic regression line
 As always, checking the $R^2$ value for our current model, we get a value of 0.6732. Meaning approximately 67.3\% of the variability in Yield can be explained by our current quadratic model. 
 
 Higher Order Regression:
 Higher order regression usually refers to when the relationship between the dependent variable and the independent variable(s) are modelled as third-degree polynomial or higher in the independent variable(s). A third order model is also known as a cubic regression model. The function for a cubic regression model is:
 
-We may technically also be able to have n - 1 order regression model, where n is the number of data points. But most of the time it is better to keep the order/degree of the regression model as low as possible, such as a first-degree polynomial, also known as linear. If necessary, a second-order polynomial can be tried, also known as quadratic. If a lower order of polynomial is not satisfactory, we may try higher order for the model function. Using higher order regression requires more factors, which not only makes the function more complicated, but it can also lead to overfitting. Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables (x).
+We may technically also be able to have n - 1 order regression model, where n is the number of data points. But most of the time it is better to keep the order/degree of the regression model as low as possible, such as a first-degree polynomial, also known as linear. If necessary, a second-order polynomial can be tried, also known as quadratic. If a lower order of polynomial is not satisfactory, we may try higher order for the model function. Using higher order regression requires more factors, which not only makes the function more complicated, but it can also lead to overfitting. Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables $(x)$.
 
 Table 1:Number of variables for regression
 Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure 25, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
@@ -866,7 +819,7 @@ One of these included datasets are a group of pixelated numbers that represent "
 
 Loading the dataset:
 
-Each of the data points represent an 8x8 image of a digit, using pandas we can see the shape of the data frame and the raw image data:
+Each of the data points represent an $8_x8$ image of a digit, using pandas we can see the shape of the data frame and the raw image data:
 The image pixel color shade is what determines the integer value from 0-16. The range is white = 0 all the way to black = 16. Shades of gray fills in the gaps 1-15. These arrays makeup how the actual image would look in an integer form.
 
 	
@@ -1135,6 +1088,68 @@ Step 3: Take the K nearest neighbors as per the calculated Euclidean distance.
 Step 4: Count the number of the data points in each category among the k neighbors.
 Step 5: Assign the new data points to that category for the maximum number of neighbors.
 Step 6: The model is ready.
+
+\section{Data Exploration}
+\section{Model Trainining}
+\subsection{Subsections explaining what we did}
+\section{Model Validation}
+\subsection{Subsections explaining what we did}
+\section{Database}
+\subsection{Subsections explaining what we did}
+
+\chapter{Administrative Content}
+\section{Project Budget}
+
+Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
+
+Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
+
+\section{Project Milestones}
+
+\subsection{Initial Research and Analysis}
+
+The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
+
+\subsection{Agile Sprints}
+
+Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
+
+\subsection{Data preparation}
+
+Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/19/2020 \\
+Sprint 2 & 11/12/2020 \\
+Sprint 3 & 01/20/2021
+\end{tabular}\end{center}
+
+\subsection{Agent Testing/Comparison}
+
+Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
+
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/24/2020 \\
+Sprint 2 & 12/02/2020 \\
+Sprint 3 & 02/05/2021
+\end{tabular}\end{center}
+
+\subsection{Data review and revision}
+
+The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/31/2020 \\
+Sprint 2 & 12/10/2020 \\
+Sprint 3 & 02/11/2021
+\end{tabular}\end{center}
+
+\subsection{Final Design Document}
+
+Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
