@@ -12,3 +12,5 @@ _*
 *.out
 *.synctex.gz
 *.toc
+
+launch.json
