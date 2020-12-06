@@ -578,7 +578,9 @@ The first key lesson talks about the 3 important components that most machine le
 \end{itemize}
 
 It continues by pointing out how most textbooks overlook the Evaluation and Optimization components, which could be even more important than the choice of learner.
+
 It indeed appears that the Evaluation and Optimization components do get overlooked very often, since we have a lot of research planned ahead but, most of them are focused on technologies that we can use for our project and the different types of Representation. Knowing that the other 2 components are equally, if not more important, it does make us aware that we should also be conducting as much research on evaluation functions and optimization of our classifier as well.
+
 The second key lesson focuses on the importance of setting aside a testing data set. It also gives a solution to insufficient data, which makes it costly to set aside data for testing instead of using it for training. This is called cross-validation, "randomly dividing data into (say) ten subsets, holding out each one while training on the rest, testing each learned classifier on the examples it did not see, and averaging the results to see how well the particular parameter setting does" (Domingos 2). It also makes a point that the fundamental goal of machine learning is generalization.
 
 Though we have already planned on having our data split into training and testing sets, and we are likely going to have a large amount of data, this is still useful information to know. Perhaps, when we are going to practice using the machine learning algorithms with a smaller dataset before our actual complete dataset, cross-validation could be a useful tool for making the most out of the dataset that we will have.
@@ -757,13 +759,13 @@ We can first plot the scatterplot, which is useful in detecting visual evidence 
 Next, we would like to use Scikit-learn’s LinearRegression() function to find our least square regression line.
 
 By simply calling LinearRegression() as shown in Figure 11 and fitting it with our independent and dependent arrays, we can get the value for $\beta_0$ and $\beta_1$. Therefore, our least squares regression line for this simple linear regression problem is:
-
+$$Y=21.1619+.0599X$$
 What this can tell us is that for every one-yard increase in Passing Yards per Game, we can expect the mean Points per Game to increase by 0.0599. Now, that we have our regression line, we can use it to predict Points per Game. In Figure 12, we can see the data points and the linear regression line plotted. The line does appear to somewhat fit the points on the scatterplot. 
-
-If a college football team has 145.5 yards per game, we can use our regression line to predict how many Points per Game this team will have, 
 
 % img
 
+If a college football team has 145.5 yards per game, we can use our regression line to predict how many Points per Game this team will have, 
+$$Y=21.1619+(.0599*145.5)=29.8773$$
 Comparing this predicted result with the actual result 29.3, we can see that our model is doing pretty well. But, in order to determine whether a linear regression model is actually good or bad at predicting the dependent variable, we would need to do more than just comparing one observation or visually hypothesizing. A very common way of checking whether a model is sufficient in predicting the dependent variable, is the coefficient of determination or the $R^2$. This can also easily be calculated using Scikit-learn. 
 
 % img
@@ -910,9 +912,7 @@ We will now see if the prediction part of the model will be correct, Scikit-lear
 
 % img
 
-We get the following output:
-
-% img
+We get the following output: $[9, 8]$
 
 We can look at our target data set to see if its correct, or we can print out the actual picture of the digit and see manually if the prediction was correct as below:
 
@@ -920,15 +920,26 @@ We can look at our target data set to see if its correct, or we can print out th
 
 By changing the value digit.images[-2] to digit.images[-1] and we get the two following pictures:
 
-% img
+\begin{center}
+\captionsetup{type=figure}
+\begin{minipage}[c]{.45\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{media/digit8.png}
+\end{minipage}
+\begin{minipage}[c]{.45\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{media/digit9.png}
+\end{minipage}
+\captionof{figure}{Predicted 8 and predicted 9 on the right.}
+\end{center}
 
 Comparing those two images with our predicted output we can see that our model has successfully predicted the last two digits in the dataset. We also have the ability to make our own datasets if we really wanted to test the accuracy of this model.
 
-\msection{Evaluation Functions}
+\subsection{Evaluation Functions}
 
 Evaluation is how we can distinguish between a good and a bad model. It is how we can choose which model we prefer over the other models. It is also known as loss function, scoring function, utility function etc. This is important since we will be generating different models and we will need a way to decide which one is the best. Understanding what the options are for evaluating models and the pros and cons for each metric, we will be able to make the best decisions for our dataset. Some of the most common evaluation functions are:
 
-\msection{Accuracy}
+\subsubsection{Accuracy}
 
 Accuracy or Classification Accuracy is the fraction of prediction that our model got correct.
 $$\text{Accuracy}=\frac{\text{Number of correct predictions}}{\text{Total number of predictions}}$$
@@ -938,7 +949,7 @@ An accuracy close to 0 means our model performed very badly, and an accuracy clo
 
 In Figure 1, we can see an array called y\_pred that has our predicted classes and y\_true is the true label for these samples, and by simply calling the accuracy\_score function we get an accuracy of 0.83, which is pretty good.
 
-\msection{Mean Squared Error}
+\subsubsection{Mean Squared Error}
 
 Mean Squared Error (MSE) is the sum over all the datapoints, of the square of the difference between the actual and predicted output divided by the number of datapoints.
 $$MSE=\frac{1}{n}\sum_{i=1}^n(y_i-\hat{y}_i)^2$$
@@ -948,7 +959,7 @@ A disadvantage of MSE is that it heavily weights outliers. If we have a datapoin
 
 % img
  
-\msection{Mean Absolute Error}
+\subsubsection{Mean Absolute Error}
 
 Due to the disadvantage of MSE, which is very undesirable in machine learning, we have another evaluation/loss function, the mean absolute error (MAE). This is the sum of the absolute differences between our actual and predicted value divided by the total number of datapoints.
 $$MAE=\frac{1}{n}\sum_{i=1}^n|y_i-\hat{y}_i|$$
@@ -960,19 +971,19 @@ We have purposely chosen a very large difference between one of the predicted an
 
 % img
  
-\msection{Precision}
+\subsubsection{Precision}
 
 Precision is also known as the positive predictive value. It calculates the proportion of the positive identifications that were actually correct.
 $$\text{Precision}=\frac{TP}{TP+FP}$$
 Where TP  is true positive and FP is false positive. True positive is an outcome where the model predicts the positive class correctly. False positive is an outcome where the model predicts the positive class incorrectly. For example, our positive class is Win and our negative class is Loss. If we actually won a StarCraft match and inputted our data into our model which predicts that we win, this will be a true positive. On the other hand, if we lose a match, and with that data our model determines that we win, that would be a false positive. The closer the precision is to 1 the more likely the model’s output is correct. If our precision is close to 0, our model is probably predicting wrong.
  
-\msection{Recall}
+\subsubsection{Recall}
 
 Recall is very similar to precision, but instead of calculating the proportion of the positive identifications that were actually correct, recall calculates the proportion of actual positives that were identified correctly.
 $$\text{Recall}=\frac{TP}{TP+FN}$$
 Where TP is true positive and FN is false negative. True positive has already been explained previously, false negative is an outcome where the model predicts the negative class incorrectly. Going back to our previous example, if we played a StarCraft II match and lost, but our model predicted that we win, that would be a false negative. It is recommended that if we decide to use precision to evaluate how good a model is, we should also look at the recall. Because it is very possible that if we improve our precision, our recall gets reduced. A high precision with a low recall can give us high accuracy but it will miss a lot of datapoints that are more difficult to classify.
  
-\msection{F1 Score}
+\subsubsection{F1 Score}
 
 The $F1$ score is the harmonic mean of the precision and recall. Harmonic mean is a kind of average, it is the reciprocal of the average of the reciprocals.
 $$\text{Harmonic Mean}=\frac{n}{(\frac{1}{a})+(\frac{1}{b})+...+(\frac{1}{n})}$$
@@ -987,7 +998,7 @@ There are several options for the average parameter, in the code above we used m
 
 % img
 
-\msection{Confusion Matrix}
+\subsubsection{Confusion Matrix}
 
 Confusion matrix is also known as an error matrix and it is usually used to evaluate classification models. At a minimum, the confusion matrix will yield a table/matrix with two rows and two columns that shows the number of $FP$ (false positive), $FN$ (false negative), $TP$ (true positive) and $TN$ (true negative).
 
@@ -1003,7 +1014,7 @@ Generating the confusion matrix can be done using a function that is readily ava
 
 The second parameter is the data samples that we have split in the beginning and saved for testing purposes. Continuing with the third parameter, it is the true class label for those data samples and the last parameter is just choosing the color of the matrix. Confusion matrix is basically a way to visually output the performance of a model by showing you how many data points the model classified correctly and incorrectly. It is also a basis for other types of metrics, such as using the confusion matrix we can easily calculate accuracy.
 
-\msection{$AUROC$}
+\subsubsection{$AUROC$}
 
 $AUROC$, which stands for Area Under the Receiver Operating Characteristics is one of the most used evaluation metrics for binary classification problems. The Receiver Operating Characteristics ($ROC$) is a probability curve that shows the performance of a classification model at different classification thresholds visually. The $ROC$ curve is plotted with the true positive rate ($TPR$), also known as Sensitivity against false positive rate ($FPR$). The formulas to calculate $TPR$ and $FPR$ are below:
 $$TPR=\frac{TP}{TP+FN}\qquad FPR=\frac{FP}{FP+TN}$$
@@ -1013,7 +1024,7 @@ For example, if we have a binary dependent variable Win or Loss. When given a ne
 $$AUC=T+U\qquad T=\frac{TP}{2(TP+FN)}\qquad U=\frac{TN}{2(TN+FP)}$$
 Where, $TP$ is true positive, $FN$ is false negative, $TN$ is true negative, and $FP$ is false positive. $AUC$ shows the degree or measure of separability across all classification thresholds, it basically tells us how much our model can differentiate between the two classes. $AUC$ ranges from 0 to 1, the higher the $AUC$ the better our model. An $AUC$ value of 1 indicates that our model has a perfect classification prediction rate, whereas a 0 means our model predicted everything wrong or it is actually reciprocating the classes. $AUROC$ is useful, because it can be scale-invariant, meaning it can measure how well predictions are ranked, instead of their absolute values. It is also, classification-threshold-invariant, meaning it can measure the quality of the model’s predictions regardless of the chosen threshold. Luckily, Scikit-learn already has a function for calculating the $AUC$ and $ROC$.     
 
-\msection{Logarithmic Loss}
+\subsubsection{Logarithmic Loss}
 
 Logarithmic loss, also known as log loss or cross-entropy loss is usually used for multinomial logistic regression. It is also one of the most important classification metrics based on probabilities and it works by penalizing wrong classifications. The function to calculate logarithmic loss is:
 $$\text{Log Loss} = -\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^My_{ij}log(p_{ij})$$
@@ -1030,101 +1041,98 @@ The replays we will be using come directly from the company that developed the g
 
 We encountered a problem with our first replay packs, Blizzard actually made all the files anonymous so retrieving in depth information and data from the replays is proving rather difficult. However, we were able to find a large amount of replay files from previous pro tournaments which pitted professional 1v1 matchups. The guarantee that all our games are played by professionals provides some pros and cons to analyzing games from ladder that can have both professional and non-professional:
 
-
 Pros Analyzing Professional Games:
- There will not be many outlier replays where one opponent vastly out-skills the other
- Since it is tournament play, there is a guarantee that all players are playing to their best abilities. There will not be any outliers of testing out new strategies or build orders.
+\vspace*{-.8cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item There will not be many outlier replays where one opponent vastly out-skills the other.
+    \item Since it is tournament play, there is a guarantee that all players are playing to their best abilities. There will not be any outliers of testing out new strategies or build orders.
+\end{itemize}
+
 Cons Analyzing Professional Games:
-The players know each other and their tendencies, so there could be outlier strategies implemented to counter a specific opponents playstyle.
- Depending on the year of the tournament, most players will stick to that current meta which means that our models could be out of date by next tournament if the meta changes.
+\vspace*{-.775cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The players know each other and their tendencies, so there could be outlier strategies implemented to counter a specific opponents playstyle.
+    \item The players know each other and their tendencies, so there could be outlier strategies implemented to counter a specific opponents playstyle.
+\end{itemize}
 
 The StarCraft 2 replay files are saved and stored in a subdirectory as a ".SC2Replay", this file has all the pivotal information stored that allows the game engine to recreate a previously played game. Within this replay file is all the important information we need to analyze such as build orders, resource counts, army positions and deaths. However, it is impossible to grab this data without the use of a decipher that can parse through the data of a .SC2Replay file and transform it into readable data that can be viewed and analyzed.
 
-Linear Discriminant Analysis
+\subsection{Linear Discriminant Analysis}
  
 Linear Discriminant Analysis (LDA) is a dimensional simplification strategy that discovers a linear sequence of features and distinguishes the characteristics between two or more classes or object. As the definition signifies dimensional simplification strategies lessen the number of dimensions (i.e. variables) from the dataset simultaneously retaining as much information as possible. For example, if we are trying to find a relationship between two variables where the colors red and blue are different classes, this is what the initial graph would portray. The library contains built-in classes for performing LDA on the dataset. There are built-in classes within scikit-learn that enable the operations of LDA on the dataset.
 
+% img
 
 Projecting all the variables on the x-axis to simplify the data to a single dimension would be inefficient since it would nullify any valuable information extracted from the second feature.
 
-
-
+% imgs
 
 This is where Linear Discriminant Analysis can be more beneficial to use due to its powerful feature of constructing a new axis. It then calculates the data on that new axis and maximizes the distance between the classes and minimizes the deviation between them. 
 
+% imgs
 
-
-
-
-
-
-
-
-
-
-Quadratic Discriminant Analysis
+\subsection{Quadratic Discriminant Analysis}
  
 Quadratic discriminant analysis is firmly identified with a linear discriminant analysis, where it is expected that the estimations from each class are typically appropriated. In contrast to LDA, in QDA it is not assumed that the covariance of every one of the classes is indistinguishable. The most ideal test for a hypothesis that there is a correlation between the measurement and the class is a likelihood ratio test. To assess the boundaries needed in quadratic discrimination, more calculation and information is needed than on account of linear discrimination.
 
-Linear and Quadratic Discriminant Analysis with covariance ellipsoid
+\subsection{Linear and Quadratic Discriminant Analysis with Covariance Ellipsoid}
 
-
-
+% img
 
 Upon the application of LDA and QDA, this model plots the covariance ellipsoids of each class and choice boundary. The ellipsoids show the twofold standard deviation for each class. With LDA, the standard deviation similar within all classes, while each class has its own standard deviation with QDA.
 
-Support Vector Machine
+\subsection{Support Vector Machine}
  
 In AI, support-vector machines are regulated learning models with related learning calculations that examine information utilized for classification and regression analysis. The target of the support vector machine algorithm is to discover a hyperplane in a N dimensional space that unmistakably orders the dataset.
 
+% imgs
 
 There are numerous possible hyperplanes that could be picked to isolate the two classes of data. Amplifying the margin distance gives some support so future data points can be characterized with more certainty. Therefore, the goal is to locate a plane that has the most extreme edge, essentially displaying the greatest distance between the data points of the two classes.
 
-
-
-
-
-
-
+% imgs
 
 Linear SVM: Linear SVM is utilized for linearly distinct information, which implies if a dataset can be arranged into two classes by utilizing a solitary straight line, at that point such information is named as straightly detachable information, and classifier is utilized called as Linear SVM classifier.
 
-
+% img
 
 Non-linear SVM: Non-Linear SVM is utilized for non-directly isolated information, which implies on the off chance that a dataset can't be ordered by utilizing a straight line, at that point such information is named as non-linear information and classifier utilized is called as non-linear SVM classifier.
 
-
-
-
-
+% imgs
 
 Support vectors are data points that are nearer to the hyperplane and impact the position and direction of the hyperplane. One of the focuses that assist us with building a support vector machine is to utilize them and maximize the edge of the classifier. Erasing the support vectors will then alter the position of the hyperplane.
 
-K-Nearest Neighbors
+\subsection{K-Nearest Neighbors}
  
 The algorithm for K-nearest neighbors accepts that comparative things exist in nearness. Essentially, all comparable things are close to one another. KNN is frequently utilized in basic proposal frameworks, image recognition innovation, and dynamic models. The image below displays data points that are alike existing within close proximity to each other.
 
-
-
+% imgs
 
 The image above shows the data is scaled.
 
-
-
+% img
 
 The KNN calculation depends on this supposition that being genuine enough for the algorithm to be useful. The KNN algorithm catches the possibility of likeness with some arithmetic strategy we may already know to calculate the distance between the data points on a graph.
 
 
 Euclidean Distance Formula:
-
+$$d(p,q)=d(q,p)=\sqrt{(q_1-p)1)^2+(q_2-p_2)^2+...+(q_n-p_n)^2}$$
+$$=\sqrt{\sum_{i=1}^n(q_i-o_i)^2}$$
 
 Steps required for KNN:
-Step 1: Select the number K from the neighbors
-Step 2: Calculate the Euclidean distance of K number of neighbors
-Step 3: Take the K nearest neighbors as per the calculated Euclidean distance.
-Step 4: Count the number of the data points in each category among the k neighbors.
-Step 5: Assign the new data points to that category for the maximum number of neighbors.
-Step 6: The model is ready.
+\vspace*{-.9cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Step 1: Select the number K from the neighbors
+    \item Step 2: Calculate the Euclidean distance of K number of neighbors
+    \item Step 3: Take the K nearest neighbors as per the calculated Euclidean distance.
+    \item Step 4: Count the number of the data points in each category among the k neighbors.
+    \item Step 5: Assign the new data points to that category for the maximum number of neighbors.
+    \item Step 6: The model is ready.
+\end{itemize}
+
+% imgs
 
 \section{Data Exploration}
 \section{Model Trainining}
@@ -1197,9 +1205,6 @@ Cons:
 Accuracy of the data is dependent on the quality of the data
 Must find an optimal k value (number of nearest neighbors)
 Inadequate at classifying data points within a boundary where they can be classified anyway
-
-
-
 
 Works Cited
  
@@ -1497,10 +1502,8 @@ First, we will be taking a look at the general statistics for all Protoss player
 
 We will then compare the descriptive statistics of Protoss winners vs Protoss losers. 
 
-
 Terran:
 Below is the statistics for the 70 Terran players. 
-
 
 Zerg:
 The figure below shows the statistics for all 70 Zerg players in the sample data set. 
