@@ -723,6 +723,7 @@ Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the
 Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure 14 shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
 $$Y=-15.4618+.0939X_1+.0027X_2+.0908X_3$$
 What this equation means:
+\vspace*{-.9cm}
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
     \item For every one-yard increase in passing yards per game, we expect the points per game to increase by 0.0939, holding the other two independent variables constant.
@@ -738,101 +739,96 @@ When we have a relationship between our dependent variable  and one independent 
 $$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2$$
 Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for some independent variable $X_1$, $\beta_2$ is the regression coefficient for some independent variable $X_2$, and $\beta_3$ is the regression coefficient for the interaction term between the independent variables $x_1$ and $x_2$.
 
-Continuing with the college football team example that we have been working with, we can further attempt to improve our model by including an interaction term. Similar to the previous example, we have three independent variables. Passing Yards per Game $(x_1)$, Total Yards $(x_2)$, and Rushing Yards per Game $(x_3)$, which we used to predict Points per Game $(y)$. In order to identify which of these independent variables may have interaction effects, we will take two independent variables and make one of the independent variables a boolean series. Which means if the observed value is larger than the median for that independent variable, we will label it as 1, and if it is lower or equal to the median value, we will label it as 0. Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
+Continuing with the college football team example that we have been working with, we can further attempt to improve our model by including an interaction term. Similar to the previous example, we have three independent variables. Passing Yards per Game $(x_1)$, Total Yards $(x_2)$, and Rushing Yards per Game $(x_3)$, which we used to predict Points per Game $(y)$. In order to identify which of these independent variables may have interaction effects, we will take two independent variables and make one of the independent variables a boolean series. Which means if the observed value is larger than the median for that independent variable, we will label it as 1, and if it is lower or equal to the median value, we will label it as 0.
+
+Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
 
 Since we have 3 independent variables, the possible interaction terms are:
-$x_1$ and $x_2$, Passing Yards per Game and Total Yards
-$x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game
-$x_2$ and $x_3$, Total Yards and Rushing Yards per Game
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item $x_1$ and $x_2$, Passing Yards per Game and Total Yards
+    \item $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game
+    \item $x_2$ and $x_3$, Total Yards and Rushing Yards per Game
+\end{itemize}
 
 Figure 17 shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure 18 shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
 
 For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
 
-Figure 19:Finding coefficients using statsmodel
 Hence, our model to predict for Points per Game by using Passing Yards per Game, Total Yards, Rushing Yards per Game, and the interaction term between Passing Yards per Game and Rushing Yards per Game can be represented as below:
-
+$$Y=-21.9477+.1119X_1+.0032X_2+.1270X_3-.0001X_1X_3$$
 It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
 
 It is clear that adding the interaction term did not really increase our $R^2$ value. For the multiple linear regression, where we only used the three independent variables, without interaction terms gave us a $R^2$ value of 0.7354. Considering the small number of differences in the $R^2$ value, the interaction term itself failing a hypothesis test, as well as adding complexity to our model, the interaction term will not be included in our future models.
 
-Polynomial Regression
+\subsubsection{Polynomial Regression}
 The previous regression models were all assumed to have a linear relationship between the dependent variable and the independent variable(s). When a model is not a straight line but has curvature, we can consider polynomial regression. Polynomial regression is a regression analysis where the relationship between the dependent variable and the independent variable(s) are modelled as nth degree polynomial in the independent variable(s).
  
-Quadratic Regression:
+\subsubsection{Quadratic Regression}
 Quadratic regression is also known as a second-order model, as its name states, this model includes an $x_2$ term. If our data is plotted and there appears to be a U shape or an inverted U shape, this could indicate that quadratic regression is more appropriate than linear regression. The equation for a quadratic model with one independent variable is as follow:
+$$Y=\beta_0-\beta_1X+\beta_2X^2$$
+Where $\beta_0$ is the intercept or constant, $\beta1$ is the shift parameter, and $\beta2$ is the rate of curvature for some independent variable.
 
-Where 0 is the intercept or constant, 1 is the shift parameter, and 2 is the rate of curvature for some independent variable. 
 Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
 
 To find the coefficients for our quadratic model, we can use the Python module statsmodels, similar to what was done for our interaction model example. 
 
 Figure 22 gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
-
+$$Y=7.9605-.1537X+.0011X^2$$
 Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure 23. 
 
 As always, checking the $R^2$ value for our current model, we get a value of 0.6732. Meaning approximately 67.3\% of the variability in Yield can be explained by our current quadratic model. 
 
-Higher Order Regression:
+\subsubsection{Higher Order Regression}
 Higher order regression usually refers to when the relationship between the dependent variable and the independent variable(s) are modelled as third-degree polynomial or higher in the independent variable(s). A third order model is also known as a cubic regression model. The function for a cubic regression model is:
+$$Y=\beta_0+\beta_1X+\beta_2X^2+\beta_3X^3$$
+We may technically also be able to have $n - 1$ order regression model, where n is the number of data points. But most of the time it is better to keep the order/degree of the regression model as low as possible, such as a first-degree polynomial, also known as linear. If necessary, a second-order polynomial can be tried, also known as quadratic. If a lower order of polynomial is not satisfactory, we may try higher order for the model function. Using higher order regression requires more factors, which not only makes the function more complicated, but it can also lead to overfitting.
 
-We may technically also be able to have n - 1 order regression model, where n is the number of data points. But most of the time it is better to keep the order/degree of the regression model as low as possible, such as a first-degree polynomial, also known as linear. If necessary, a second-order polynomial can be tried, also known as quadratic. If a lower order of polynomial is not satisfactory, we may try higher order for the model function. Using higher order regression requires more factors, which not only makes the function more complicated, but it can also lead to overfitting. Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables $(x)$.
+Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables $(x)$.
 
-Table 1:Number of variables for regression
 Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure 25, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
 
-Lasso Regression
-Lasso Regression is also known as the Least Absolute Shrinkage and Selection Operator. It is a type of linear regression that focuses on shrinkage and can also be considered a simple technique used to reduce model complexity. Shrinkage means the data values are shrunk towards a central point, such as the mean. It also shrinks the less important features’s coefficients to zero, hence some variables can be removed, creating a simpler regression model. Lasso Regression is appropriate for models that have high levels of multicollinearity. Multicollinearity is when two or more independent variables are highly linearly related. It uses a technique called $L1$ regularization. Regularization is used to solve the problem of overfitting, which is a common problem when there is a large data set with a lot of features involved. $L1$ regularization adds a penalty that equals to the absolute value of the magnitude of the coefficients to the loss function. The Lasso Regression’s loss function is:
+\subsubsection{Lasso Regression}
+Lasso Regression is also known as the Least Absolute Shrinkage and Selection Operator. It is a type of linear regression that focuses on shrinkage and can also be considered a simple technique used to reduce model complexity. Shrinkage means the data values are shrunk towards a central point, such as the mean. It also shrinks the less important features’s coefficients to zero, hence some variables can be removed, creating a simpler regression model. Lasso Regression is appropriate for models that have high levels of multicollinearity. 
 
-Where $n$ is the number of data points, $p$ is the number of independent variables, $xij$ is the value of the $j$th variable for the $i$th data point, $j$ is the coefficient for the $j$th variable, and is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure 26, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
+Multicollinearity is when two or more independent variables are highly linearly related. It uses a technique called $L1$ regularization. Regularization is used to solve the problem of overfitting, which is a common problem when there is a large data set with a lot of features involved. $L1$ regularization adds a penalty that equals to the absolute value of the magnitude of the coefficients to the loss function. The Lasso Regression’s loss function is:
+$$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p|\beta_j|$$
+Where $n$ is the number of data points, $p$ is the number of independent variables, $x_{ij}$ is the value of the $j$th variable for the $i$th data point, $\beta_j$ is the coefficient for the $j$th variable, and $\lambda$ is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set $\lambda$ to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase $\lambda$ the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure 26, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
 
-If we increase the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure 27 shows the intercept, coefficients, and $R^2=0.3$. 
+If we increase $\lambda$ the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure 27 shows the intercept, coefficients, and $R^2$ values for $\lambda=0.3$.
 
 The independent variable $x_3$, Rushing Yards per Game has a coefficient of 0, which yields us the function:
 
 Meaning the independent variable  can be removed from our function. This led to a lower $R^2$ value in this specific example. But when we have a data set with a lot more independent variables than just three, we might want to cut down the most irrelevant ones in order to keep our model simple and avoid overfitting, this is when Lasso Regression will really prove to be useful. 
 
-Ridge Regression
+\subsubsection{Ridge Regression}
 Ridge Regression is also a type of linear regression that is similar to Lasso Regression. It uses a type of shrinkage estimator that is called the ridge estimator. This ridge estimator creates new estimators that are shrunk to be closer to the true population parameters. Similar to the Lasso Regression, the Ridge Regression is also appropriate for dataset that have a lot of multicollinearity. The main difference between those two are the penalty term in the loss function. Lasso Regression adds an absolute value of magnitude of coefficient as the penalty, meanwhile Ridge Regression adds a squared magnitude of the coefficients as the penalty term. This is called the $L2$ regularization, which gives us the Ridge Regression’s loss function:
+$$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p\beta_j^2$$
+Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If $\lambda$ is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure 28 shows that when $\lambda=0$, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would.
 
-Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If  is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure 28 shows that when =0, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would. 
+If we increase $\lambda$ to 0.3, as shown in Figure 29, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
 
-If we increase  to 0.3, as shown in Figure 29, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
-
-If we increase  even more, for example to =10, we can see in Figure 30, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
+If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in Figure 30, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
 
 In general, the Ridge Regression and the Lasso Regression are both great techniques when dealing with data set that has a lot of features and/or multicollinearity, and we know that for our StarCraft II data set, we do indeed have a lot of features.
 
-Clustering
+\subsection{Clustering}
+Clustering is the grouping of objects into similar sets, this is a form of unsupervised learning and can give us a more general idea of insights and metrics that group and not so much predicting. One specific example of how this can be applied to our StarCraft analysis is classifying which race performs better on which specific map. Some algorithms correlated with classification is: k-means, mean-shift, and spectral clustering.
 
-Clustering is the grouping of objects into similar sets, this is a form of unsupervised learning and can give us a more general idea of insights and metrics that group and not so much predicting. One specific example of how this can be applied to our StarCraft analysis is classifying which race performs better on which specific map. Some algorithms correlated with classification is:
-K-Means
-Mean-shift
-Spectral Clustering
-
-Handwritten Digits Classification Example
+\msection{Handwritten Digits Classification Example}
 
 Included with the Scikit-learn library are multiple toy datasets intended on teaching users the basics to Machine Learning analysis with data that doesn’t need much preparation before being trained/tested.
 
 One of these included datasets are a group of pixelated numbers that represent "handwritten digits" and by using SVC as an algorithm to classify the digits, we can train a model to predict what the numerical value of the handwritten digit is.
-	Figure: Examples from the handwritten digit dataset
 
 Loading the dataset:
 
 Each of the data points represent an $8_x8$ image of a digit, using pandas we can see the shape of the data frame and the raw image data:
-The image pixel color shade is what determines the integer value from 0-16. The range is white = 0 all the way to black = 16. Shades of gray fills in the gaps 1-15. These arrays makeup how the actual image would look in an integer form.
-
-	
-Figure: Importing the Digits and storing into a variable
-
-From here we can begin to view how the actual data looks:
-
-
-Figure: Will output the data shape and attributes
+The image pixel color shade is what determines the integer value from 0-16. The range is white = 0 all the way to black = 16. Shades of gray fills in the gaps 1-15. These arrays makeup how the actual image would look in an integer form.	
 
 The shape of the data looks like this:
 (1797, 64)
-This implies that there are 1797 instance samples and there are 64 attributes to each sample
+This tells us that there are 1797 instance samples and there are 64 attributes to each sample
 The actual data attributes look like this:
 
 
