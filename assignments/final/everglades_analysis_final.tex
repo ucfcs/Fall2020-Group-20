@@ -1167,8 +1167,6 @@ Accuracy or Classification Accuracy is the fraction of prediction that our model
 $$\text{Accuracy}=\frac{\text{Number of correct predictions}}{\text{Total number of predictions}}$$
 An accuracy close to 0 means our model performed very badly, and an accuracy close to 1 indicates that our model did a great job. But accuracy is not a good metric to assess our model’s performance if we have a dataset that is very imbalanced. For example, if we have a dataset that has 9\% of its sample from class A and only \% of the samples are from class B. Even if our model predicts every new data point as class A even when we have datapoints from class B, the accuracy will still remain high, giving us a false illusion that are model works. Accuracy is not difficult to calculate, scikit-learn has an accuracy function available, accuracy\_score.
 
-% img
-
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/AccuracyScore.png}
@@ -1197,11 +1195,19 @@ Due to the disadvantage of MSE, which is very undesirable in machine learning, w
 $$MAE=\frac{1}{n}\sum_{i=1}^n|y_i-\hat{y}_i|$$
 Where  is the total number of datapoints,  is the actual output and  is the predicted output by the model. MAE is very useful for datasets that has a lot of outliers. As it is with the other evaluation functions, MAE also has its problems. It cannot give us the direction of our error, so we do not know if we are overpredicting or underpredicting the data. It is also not very good for neural networks because the gradient is same throughout, meaning the gradient will be large even for small differences. Meanwhile, MSE can handle this problem because the gradient is high for larger differences and the gradient decreases as the MSE lowers. For the purpose of understanding what this means, the gradient in short is the value calculated by the gradient descent algorithm and it can tell us the direction and magnitude we need to take in order to reduce loss as quickly as possible. We can calculate the MAE using Scikit-learn as shown in Figure 3. By calling mean\_absolute\_error with our true values and predicted values, the MAE is calculated as 3.37.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.6\linewidth]{media/MAEcode.png}
+    \captionof{figure}{Calculating MAE using Scikit-learn.}
+\end{center}
 
 We have purposely chosen a very large difference between one of the predicted and true value, 0.25 as predicted value and 20 as the true value. If  we have used the MSE instead of MAE, we would get a value of 65.02 as shown in Figure 4. Which is a huge difference compared to what MAE is telling us, this example was used to show how MAE can work better than MSE when we have outliers in our dataset.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.6\linewidth]{media/MSEcode2.png}
+    \captionof{figure}{Using MSE instead of MAE.}
+\end{center}
  
 \subsubsection{Precision}
 
@@ -1224,23 +1230,39 @@ We calculate the $F1$ score using the precision and recall. The formulas for cal
 $$F1=2\frac{1}{(\frac{1}{\text{precision}})+(\frac{1}{\text{recall}})}$$
 The closer our $F1$ score is to 1, the better it means our model is doing. If our $F1$ score is close to 0 that means our precision or recall is extremely bad. A problem that $F1$ score can have is that it gives equal importance to both precision and recall when in fact different types of misclassifications should have different weight. Additionally, since $F1$ score is computed with precision and recall, there is no consideration for the $TN$, true negative. This could be a problem if we have imbalanced classes. Using Scikit-learn we can easily calculate the $F1$ score by calling f1\_score as shown in Figure 5.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/F1Code.png}
+    \captionof{figure}{Calculating $F1$ Score with Scikit-Learn.}
+\end{center}
 
 There are several options for the average parameter, in the code above we used micro, which calculates the $F1$ score globally by counting the total true positive, false negative, and false positive. Followed by macro, which calculates the $F1$ score for each label and finds their unweighted mean, macro does not take class imbalances into account. Lastly, we have weighted, which calculates the $F1$ score for each label and finds their average weighted by support, this option does consider the imbalances. The results are shown in Figure 6. Our $F1$ score in general for all 3 options is relatively close to 1, meaning our classifier is doing well.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/F1Results.png}
+    \captionof{figure}{$F1$ Score results.}
+\end{center}
 
 \subsubsection{Confusion Matrix}
 
 Confusion matrix is also known as an error matrix and it is usually used to evaluate classification models. At a minimum, the confusion matrix will yield a table/matrix with two rows and two columns that shows the number of $FP$ (false positive), $FN$ (false negative), $TP$ (true positive) and $TN$ (true negative).
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ConfusionMatrix.png}
+    \captionof{figure}{Confusion Matrix.}
+\end{center}
  
 Figure 7 is a confusion matrix for the glass data set available at the UC Irvine Machine Learning Repository. In this glass data set, there are seven types of glasses, or in other words seven classes that we are trying to classify using features that are not shown on the confusion matrix. The confusion matrix above shows class one through seven but, it does not include class four. The reason being that there are no data points belonging to class four even though that class exists. The true class label is shown as rows and the predicted labels using our model of choice, in this case we are using an RBF (Radial bases function) kernel for our SVM (Support Vector Machine) is shown as columns.
 
 What we would like to see in a confusion matrix, is that the numbers on the main diagonal line of the matrix is high, and in our case we also want the color on our main diagonal matrix to be darker as well. For example, the number ten on the first row and first column, indicates that we have predicted ten sample glasses to be of class 1 glass, and indeed the true label tells us that our glass samples are from class 1. But, if we look at the first row, second column, we can see a one. This means that our model predicted a single sample glass to be from class 2, when in fact it was from class 1. This is also the reason why; we want to see high numbers on the main diagonal of the matrix and not elsewhere.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/ConfusionMatrixCode.png}
+    \captionof{figure}{Confusion Matrix Code.}
+\end{center}
 
 Generating the confusion matrix can be done using a function that is readily available with Scikit-learn, plot\_confusion\_matrix. In Figure 8, we can see the code for generating the confusion matrix shown in Figure 7. First, we label the name for each class, so it is easier to understand when we look at the confusion matrix by itself. Followed by calling the Scikit-learn function plot\_confusion\_matrix. The first parameter is the estimator or our model that we are going to use to predict the classes.
 
@@ -1262,7 +1284,11 @@ Logarithmic loss, also known as log loss or cross-entropy loss is usually used f
 $$\text{Log Loss} = -\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^My_{ij}log(p_{ij})$$
 Where $y_{ij}$ indicates if a sample $i$ belongs to class $j$, $p_{ij}$ is the probability of $i$ being from class $j$, $M$ is the number of classes, and $N$ is the total number of data points. The logarithmic loss can result in a 0, which means our classifier has made no mistakes. The larger the logarithmic loss, the less accurate our model is. As with all previous evaluation functions, Scikit-learn also has a logarithmic loss function available.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LogLosscode.png}
+    \captionof{figure}{Calculating Logarithmic Loss with Scikit-learn.}
+\end{center}
 
 In Figure 9, we can see that we have an array of y\_true with the true class label for our small sample, win or loss. y\_pred being the predicted probabilities for a loss or a win for each data point, and by calling log\_loss with our two arrays we get a Logarithmic loss value of 0.97. Considering that Logarithmic loss’s values can be anywhere from 0 to $\infty$, it appears that it is not bad. But since this is used to compare models, we would need to calculate the Logarithmic loss value for the other competing models as well and compare them to find the lowest one loss value.
 
@@ -1551,15 +1577,56 @@ The TerranStats.csv file has 64 columns which includes all the basic army units 
  
 Linear Discriminant Analysis (LDA) is a dimensional simplification strategy that discovers a linear sequence of features and distinguishes the characteristics between two or more classes or object. As the definition signifies dimensional simplification strategies lessen the number of dimensions (i.e. variables) from the dataset simultaneously retaining as much information as possible. For example, if we are trying to find a relationship between two variables where the colors red and blue are different classes, this is what the initial graph would portray. The library contains built-in classes for performing LDA on the dataset. There are built-in classes within scikit-learn that enable the operations of LDA on the dataset.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAGraph.png}
+    \captionof{figure}{Graph projecting variables without LDA.}
+\end{center}
 
 Projecting all the variables on the x-axis to simplify the data to a single dimension would be inefficient since it would nullify any valuable information extracted from the second feature.
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAgraph2.png}
+    \captionof{figure}{Graph projecting variables solely to horizontal axis.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAgraph3.png}
+    \captionof{figure}{After projecting everything to the x-axis, the graph ignores extra useful information.}
+\end{center}
 
 This is where Linear Discriminant Analysis can be more beneficial to use due to its powerful feature of constructing a new axis. It then calculates the data on that new axis and maximizes the distance between the classes and minimizes the deviation between them. 
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAGraph5.png}
+    \captionof{figure}{LDA uses its feature for creating a new axis.}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAGraph6.png}
+    \captionof{figure}{LDA uses its feature for projecting the data on the newly created axis.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/LDAGraph7.png}
+    \captionof{figure}{LDA uses its features to portray minimal variance and maximum distance.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/Parameters.png}
+    \captionof{figure}{LDA Parameters.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/Attributes.png}
+    \captionof{figure}{LDA Attributes.}
+\end{center}
 
 \subsection{Quadratic Discriminant Analysis}
  
@@ -1567,7 +1634,11 @@ Quadratic discriminant analysis is firmly identified with a linear discriminant 
 
 \subsection{Linear and Quadratic Discriminant Analysis with Covariance Ellipsoid}
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LDAQDAwithellipsoid.png}
+    \captionof{figure}{Displays boundaries of LDA and QDA.}
+\end{center}
 
 Upon the application of LDA and QDA, this model plots the covariance ellipsoids of each class and choice boundary. The ellipsoids show the twofold standard deviation for each class. With LDA, the standard deviation similar within all classes, while each class has its own standard deviation with QDA.
 
@@ -1575,19 +1646,54 @@ Upon the application of LDA and QDA, this model plots the covariance ellipsoids 
  
 In AI, support-vector machines are regulated learning models with related learning calculations that examine information utilized for classification and regression analysis. The target of the support vector machine algorithm is to discover a hyperplane in a N dimensional space that unmistakably orders the dataset.
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \begin{minipage}[c]{.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{media/emptysquare.png}
+    \end{minipage}
+    \begin{minipage}[c]{.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{media/fullsquare.png}
+    \end{minipage}
+    \captionof{figure}{Separation of two classes of data points creating a hyperplane.}
+\end{center}
 
 There are numerous possible hyperplanes that could be picked to isolate the two classes of data. Amplifying the margin distance gives some support so future data points can be characterized with more certainty. Therefore, the goal is to locate a plane that has the most extreme edge, essentially displaying the greatest distance between the data points of the two classes.
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.7\linewidth]{media/pipeline.png}
+    \captionof{figure}{Evaluation of decision functions.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/hyperplane.png}
+    \captionof{figure}{SVM creates multiple hyperplanes.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/dotdiamond.png}
+    \captionof{figure}{Linear SVM.}
+\end{center}
 
 Linear SVM: Linear SVM is utilized for linearly distinct information, which implies if a dataset can be arranged into two classes by utilizing a solitary straight line, at that point such information is named as straightly detachable information, and classifier is utilized called as Linear SVM classifier.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/trianglecricle.png}
+    \captionof{figure}{Non-Linear SVM.}
+\end{center}
 
 Non-linear SVM: Non-Linear SVM is utilized for non-directly isolated information, which implies on the off chance that a dataset can't be ordered by utilizing a straight line, at that point such information is named as non-linear information and classifier utilized is called as non-linear SVM classifier.
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/smalllargemargin.png}
+    \captionof{figure}{Support Vectors small margvin vs large margin.}
+\end{center}
 
 Support vectors are data points that are nearer to the hyperplane and impact the position and direction of the hyperplane. One of the focuses that assist us with building a support vector machine is to utilize them and maximize the edge of the classifier. Erasing the support vectors will then alter the position of the hyperplane.
 
