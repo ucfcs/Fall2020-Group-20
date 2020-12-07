@@ -2,7 +2,8 @@
 \usepackage[hmargin=1in, vmargin=1in]{geometry}
 \usepackage[shortlabels,inline]{enumitem}
 \usepackage[labelfont=bf]{caption}
-\usepackage{xcolor, amsmath, amssymb, array, booktabs, multicol, multirow, setspace, hyperref, graphicx, rotating, pgf, hyperref}
+\usepackage{xcolor, amsmath, amssymb, array, booktabs, multicol, multirow, setspace, hyperref, graphicx, rotating, pgf, hyperref, tikz}
+\usetikzlibrary{automata, positioning, arrows, calc}
 
 \hypersetup{
     colorlinks,
@@ -27,6 +28,8 @@
 \newenvironment{bottom}{\par\vspace*{\fill}}{\clearpage}
 
 \begin{document}
+\tikzstyle{every state}=[draw=black,fill=gray!30,text=black,initial text=, node distance=2cm,
+        minimum size=20pt, outer sep=2pt]
 
 \begin{titlepage}
     \centering
@@ -65,7 +68,7 @@
     % \end{bottom}
 \end{titlepage}
 
-\onehalfspacing
+\setstretch{1.2}
 \pagenumbering{roman}
 
 \tableofcontents
@@ -877,6 +880,18 @@ Continuing with the college football team example that we have been working with
 
 Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/statMedian.png}
+    \captionof{figure}{Statistics' median for independent variables.}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/seaborn.png}
+    \captionof{figure}{Seabron's scatter plot with hue.}
+\end{center}
+
 Since we have 3 independent variables, the possible interaction terms are:
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
@@ -885,13 +900,38 @@ Since we have 3 independent variables, the possible interaction terms are:
     \item $x_2$ and $x_3$, Total Yards and Rushing Yards per Game
 \end{itemize}
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/football.png}
+    \captionof{figure}{Scatter plots with hue for interaction terms.}
+\end{center}
+
 Figure 17 shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure 18 shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/SalesvsTV.png}
+    \captionof{figure}{Caron, Kyle. “Sales vs. TV x radio.” 2020.}
+\end{center}
 
 For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/statsmoduleformula.png}
+    \captionof{figure}{Finding coefficients using statsmodel.}
+\end{center}
+
 Hence, our model to predict for Points per Game by using Passing Yards per Game, Total Yards, Rushing Yards per Game, and the interaction term between Passing Yards per Game and Rushing Yards per Game can be represented as below:
 $$Y=-21.9477+.1119X_1+.0032X_2+.1270X_3-.0001X_1X_3$$
+
 It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rsquaredmodel.png}
+    \captionof{figure}{$R^2$ for interaction model.}
+\end{center}
 
 It is clear that adding the interaction term did not really increase our $R^2$ value. For the multiple linear regression, where we only used the three independent variables, without interaction terms gave us a $R^2$ value of 0.7354. Considering the small number of differences in the $R^2$ value, the interaction term itself failing a hypothesis test, as well as adding complexity to our model, the interaction term will not be included in our future models.
 
@@ -905,13 +945,37 @@ Where $\beta_0$ is the intercept or constant, $\beta1$ is the shift parameter, a
 
 Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/scatterTemperature.png}
+    \captionof{figure}{Yield Data Set.}
+\end{center}
+
 To find the coefficients for our quadratic model, we can use the Python module statsmodels, similar to what was done for our interaction model example. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/smfols.png}
+    \captionof{figure}{Finding the coefficients for quadratic model with statsmodel.}
+\end{center}
 
 Figure 22 gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
 $$Y=7.9605-.1537X+.0011X^2$$
 Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure 23. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/tempyieldsplot.png}
+    \captionof{figure}{Plotting the quadratic regression line.}
+\end{center}
+
 As always, checking the $R^2$ value for our current model, we get a value of 0.6732. Meaning approximately 67.3\% of the variability in Yield can be explained by our current quadratic model. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/tempquadratic.png}
+    \captionof{figure}{$R^2$ value for quadratic model.}
+\end{center}
 
 \subsubsection{Higher Order Regression}
 Higher order regression usually refers to when the relationship between the dependent variable and the independent variable(s) are modelled as third-degree polynomial or higher in the independent variable(s). A third order model is also known as a cubic regression model. The function for a cubic regression model is:
@@ -920,7 +984,19 @@ We may technically also be able to have $n - 1$ order regression model, where n 
 
 Meaning, the model learns too many details and noise from the training data to the point that it loses the ability to generalize. This causes it to appear as if the model is doing good on the training set but, when tested on the testing data set, the performance will be poor. Practically, models higher than a third-degree polynomial are not often used. Below is a table that displays the number of variables needed for different orders of regression, with  being the number of independent variables $(x)$.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/regressionformulasvars.png}
+    \captionof{figure}{Number of variables for regression.}
+\end{center}
+
 Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure 25, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/functiondegrees.png}
+    \captionof{figure}{“Polynomial Functions Graph.” 2019.}
+\end{center}
 
 \subsubsection{Lasso Regression}
 Lasso Regression is also known as the Least Absolute Shrinkage and Selection Operator. It is a type of linear regression that focuses on shrinkage and can also be considered a simple technique used to reduce model complexity. Shrinkage means the data values are shrunk towards a central point, such as the mean. It also shrinks the less important features’s coefficients to zero, hence some variables can be removed, creating a simpler regression model. Lasso Regression is appropriate for models that have high levels of multicollinearity. 
@@ -929,7 +1005,19 @@ Multicollinearity is when two or more independent variables are highly linearly 
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p|\beta_j|$$
 Where $n$ is the number of data points, $p$ is the number of independent variables, $x_{ij}$ is the value of the $j$th variable for the $i$th data point, $\beta_j$ is the coefficient for the $j$th variable, and $\lambda$ is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set $\lambda$ to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase $\lambda$ the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure 26, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lassocoeff.png}
+    \captionof{figure}{Lasso regression with lambda = 0.}
+\end{center}
+
 If we increase $\lambda$ the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure 27 shows the intercept, coefficients, and $R^2$ values for $\lambda=0.3$.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LassoCoeff2.png}
+    \captionof{figure}{Lasso regression with lambda = 0.3.}
+\end{center}
 
 The independent variable $x_3$, Rushing Yards per Game has a coefficient of 0, which yields us the function:
 
@@ -940,9 +1028,27 @@ Ridge Regression is also a type of linear regression that is similar to Lasso Re
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p\beta_j^2$$
 Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If $\lambda$ is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure 28 shows that when $\lambda=0$, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge1.png}
+    \captionof{figure}{Ridge regression with lambda = 0.}
+\end{center}
+
 If we increase $\lambda$ to 0.3, as shown in Figure 29, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge2.png}
+    \captionof{figure}{Ridge regression with lambda = 0.3.}
+\end{center}
+
 If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in Figure 30, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Ridge3.png}
+    \captionof{figure}{Ridge regression with lambda = 10.}
+\end{center}
 
 In general, the Ridge Regression and the Lasso Regression are both great techniques when dealing with data set that has a lot of features and/or multicollinearity, and we know that for our StarCraft II data set, we do indeed have a lot of features.
 
@@ -955,23 +1061,57 @@ Included with the Scikit-learn library are multiple toy datasets intended on tea
 
 One of these included datasets are a group of pixelated numbers that represent "handwritten digits" and by using SVC as an algorithm to classify the digits, we can train a model to predict what the numerical value of the handwritten digit is.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/digit.png}
+    \captionof{figure}{Examples from the handwritten digit dataset. “Recognizing Hand-Written Digits.png” Scikit}
+\end{center}
+
 \msection{Loading the dataset}
 
 Each of the data points represent an $8_x8$ image of a digit, using pandas we can see the shape of the data frame and the raw image data:
 The image pixel color shade is what determines the integer value from 0-16. The range is white = 0 all the way to black = 16. Shades of gray fills in the gaps 1-15. These arrays makeup how the actual image would look in an integer form.	
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/loadDidgit.png}
+    \captionof{figure}{Importing the Digits and storing into a variable.}
+\end{center}
+
+From here we can  begin to view how the actual data looks:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/digitprintpng.png}
+    \captionof{figure}{Will output the data shape and attributes.}
+\end{center}
+
 This tells us that the shape of our dataframe is $(1797, 64)$, there are 1797 instance samples, and 64 attributes to each sample
 The actual data attributes look like this:
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    % \includegraphics[width=.9\linewidth]{media/digitarrays.png}
+    \captionof{figure}{Data attributes have int values 0-16.}
+\end{center}
 
 We see that since each instance has 64 attributes in the range 0-16, this makes up the general look of the number. Our target attribute will show the actual numerical value of the digit, which is used to train the model to predict the numerical value:
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    % \includegraphics[width=.9\linewidth]{media/printdigits.png}
+    \captionof{figure}{Will output the data target.}
+\end{center}
 
 This will output the corresponding numerical values of all 1797 samples: $[0, 1, 2, ..., 8, 9, 8]$. So the first digit is a 0, next is a 1, and so on all the way to the last digit being 8.
 
 From here we will be using the SVC algorithm to train and eventually test that model using the last few samples. Typically we would use train test, split however in this example we will manually see how the prediction works by saving the last two images to check manually if the prediction is correct.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/svmSVC.png}
+    \captionof{figure}{Fitting the data using the SVC model.}
+\end{center}
 
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
@@ -984,13 +1124,21 @@ From here we will be using the SVC algorithm to train and eventually test that m
 
 We will now see if the prediction part of the model will be correct, Scikit-learn has a method called predict in the SVC object that takes the previously fitted graph and uses the new data to predict what the intended target value should be:
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/CLFpredict.png}
+    \captionof{figure}{Prints out the predicted value of the last two digits.}
+\end{center}
 
 We get the following output: $[9, 8]$
 
 We can look at our target data set to see if its correct, or we can print out the actual picture of the digit and see manually if the prediction was correct as below:
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/pltImShow.png}
+    \captionof{figure}{Will print out the actual image of the second to last digit.}
+\end{center}
 
 By changing the value digit.images[-2] to digit.images[-1] and we get the two following pictures:
 
@@ -1021,6 +1169,12 @@ An accuracy close to 0 means our model performed very badly, and an accuracy clo
 
 % img
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/AccuracyScore.png}
+    \captionof{figure}{Accuracy calculation using Scikit-learn.}
+\end{center}
+
 In Figure 1, we can see an array called y\_pred that has our predicted classes and y\_true is the true label for these samples, and by simply calling the accuracy\_score function we get an accuracy of 0.83, which is pretty good.
 
 \subsubsection{Mean Squared Error}
@@ -1031,8 +1185,12 @@ Where $n$ is the total number of datapoints, $y_i$ is the actual output $\hat{y}
 
 A disadvantage of MSE is that it heavily weights outliers. If we have a datapoint that is an outlier, that will mean the distance from the actual and predicted value would be large, and squaring that value would make it even larger, hence the disadvantage of MSE. Scikit-learn also has an MSE function available, in Figure 2 we can see that by simply calling mean\_squared\_error and providing it with our array of predicted values and their corresponding true values, we get an MSE value of 0.014, and since it is extremely close to 0, this means our predicted values are close to the actual values.
 
-% img
- 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MSEcode.png}
+    \captionof{figure}{Calculating MSE using Scikit-learn.}
+\end{center}
+
 \subsubsection{Mean Absolute Error}
 
 Due to the disadvantage of MSE, which is very undesirable in machine learning, we have another evaluation/loss function, the mean absolute error (MAE). This is the sum of the absolute differences between our actual and predicted value divided by the total number of datapoints.
@@ -1133,203 +1291,59 @@ Cons Analyzing Professional Games:
 
 The StarCraft 2 replay files are saved and stored in a subdirectory as a ".SC2Replay", this file has all the pivotal information stored that allows the game engine to recreate a previously played game. Within this replay file is all the important information we need to analyze such as build orders, resource counts, army positions and deaths. However, it is impossible to grab this data without the use of a decipher that can parse through the data of a .SC2Replay file and transform it into readable data that can be viewed and analyzed.
 
-\subsection{Linear Discriminant Analysis}
- 
-Linear Discriminant Analysis (LDA) is a dimensional simplification strategy that discovers a linear sequence of features and distinguishes the characteristics between two or more classes or object. As the definition signifies dimensional simplification strategies lessen the number of dimensions (i.e. variables) from the dataset simultaneously retaining as much information as possible. For example, if we are trying to find a relationship between two variables where the colors red and blue are different classes, this is what the initial graph would portray. The library contains built-in classes for performing LDA on the dataset. There are built-in classes within scikit-learn that enable the operations of LDA on the dataset.
-
-% img
-
-Projecting all the variables on the x-axis to simplify the data to a single dimension would be inefficient since it would nullify any valuable information extracted from the second feature.
-
-% imgs
-
-This is where Linear Discriminant Analysis can be more beneficial to use due to its powerful feature of constructing a new axis. It then calculates the data on that new axis and maximizes the distance between the classes and minimizes the deviation between them. 
-
-% imgs
-
-\subsection{Quadratic Discriminant Analysis}
- 
-Quadratic discriminant analysis is firmly identified with a linear discriminant analysis, where it is expected that the estimations from each class are typically appropriated. In contrast to LDA, in QDA it is not assumed that the covariance of every one of the classes is indistinguishable. The most ideal test for a hypothesis that there is a correlation between the measurement and the class is a likelihood ratio test. To assess the boundaries needed in quadratic discrimination, more calculation and information is needed than on account of linear discrimination.
-
-\subsection{Linear and Quadratic Discriminant Analysis with Covariance Ellipsoid}
-
-% img
-
-Upon the application of LDA and QDA, this model plots the covariance ellipsoids of each class and choice boundary. The ellipsoids show the twofold standard deviation for each class. With LDA, the standard deviation similar within all classes, while each class has its own standard deviation with QDA.
-
-\subsection{Support Vector Machine}
- 
-In AI, support-vector machines are regulated learning models with related learning calculations that examine information utilized for classification and regression analysis. The target of the support vector machine algorithm is to discover a hyperplane in a N dimensional space that unmistakably orders the dataset.
-
-% imgs
-
-There are numerous possible hyperplanes that could be picked to isolate the two classes of data. Amplifying the margin distance gives some support so future data points can be characterized with more certainty. Therefore, the goal is to locate a plane that has the most extreme edge, essentially displaying the greatest distance between the data points of the two classes.
-
-% imgs
-
-Linear SVM: Linear SVM is utilized for linearly distinct information, which implies if a dataset can be arranged into two classes by utilizing a solitary straight line, at that point such information is named as straightly detachable information, and classifier is utilized called as Linear SVM classifier.
-
-% img
-
-Non-linear SVM: Non-Linear SVM is utilized for non-directly isolated information, which implies on the off chance that a dataset can't be ordered by utilizing a straight line, at that point such information is named as non-linear information and classifier utilized is called as non-linear SVM classifier.
-
-% imgs
-
-Support vectors are data points that are nearer to the hyperplane and impact the position and direction of the hyperplane. One of the focuses that assist us with building a support vector machine is to utilize them and maximize the edge of the classifier. Erasing the support vectors will then alter the position of the hyperplane.
-
-\subsection{K-Nearest Neighbors}
- 
-The algorithm for K-nearest neighbors accepts that comparative things exist in nearness. Essentially, all comparable things are close to one another. KNN is frequently utilized in basic proposal frameworks, image recognition innovation, and dynamic models. The image below displays data points that are alike existing within close proximity to each other.
-
-% imgs
-
-The image above shows the data is scaled.
-
-% img
-
-The KNN calculation depends on this supposition that being genuine enough for the algorithm to be useful. The KNN algorithm catches the possibility of likeness with some arithmetic strategy we may already know to calculate the distance between the data points on a graph.
-
-
-Euclidean Distance Formula:
-$$d(p,q)=d(q,p)=\sqrt{(q_1-p)1)^2+(q_2-p_2)^2+...+(q_n-p_n)^2}$$
-$$=\sqrt{\sum_{i=1}^n(q_i-o_i)^2}$$
-
-Steps required for KNN:
-\vspace*{-.9cm}
-\begin{itemize}[,]
-    \setlength\itemsep{-.1cm}
-    \item Step 1: Select the number K from the neighbors
-    \item Step 2: Calculate the Euclidean distance of K number of neighbors
-    \item Step 3: Take the K nearest neighbors as per the calculated Euclidean distance.
-    \item Step 4: Count the number of the data points in each category among the k neighbors.
-    \item Step 5: Assign the new data points to that category for the maximum number of neighbors.
-    \item Step 6: The model is ready.
-\end{itemize}
-
-% imgs
-
-\section{Data Exploration}
-\section{Model Trainining}
-\subsection{Subsections explaining what we did}
-\section{Model Validation}
-\subsection{Subsections explaining what we did}
-\section{Database}
-\subsection{Subsections explaining what we did}
-
-\chapter{Administrative Content}
-\section{Project Budget}
-
-Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
-
-Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
-
-\section{Project Milestones}
-
-\subsection{Initial Research and Analysis}
-
-The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
-
-\subsection{Agile Sprints}
-
-Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
-
-\subsection{Data preparation}
-
-Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/19/2020 \\
-Sprint 2 & 11/12/2020 \\
-Sprint 3 & 01/20/2021
-\end{tabular}\end{center}
-
-\subsection{Agent Testing/Comparison}
-
-Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
-
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/24/2020 \\
-Sprint 2 & 12/02/2020 \\
-Sprint 3 & 02/05/2021
-\end{tabular}\end{center}
-
-\subsection{Data review and revision}
-
-The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/31/2020 \\
-Sprint 2 & 12/10/2020 \\
-Sprint 3 & 02/11/2021
-\end{tabular}\end{center}
-
-\subsection{Final Design Document}
-
-Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Pros:
-Effortless to use
-Efficient calculation time
-Everything is accurate, no assumptions made
- 
-Cons:
-Accuracy of the data is dependent on the quality of the data
-Must find an optimal k value (number of nearest neighbors)
-Inadequate at classifying data points within a boundary where they can be classified anyway
-
-Works Cited
- 
-https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm
-https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning
-https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47
-https://en.wikipedia.org/wiki/Support\_vector\_machine
-https://scikit-learn.org/stable/modules/svm.html
-https://scikit-learn.org/stable/modules/lda\_qda.html
-https://en.wikipedia.org/wiki/Quadratic\_classifier
-https://online.stat.psu.edu/stat508/book/export/html/696
-https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant\_analysis/quadratic\_discriminant\_analysis.html
-http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/
-https://provalisresearch.com/products/qualitative-data-analysis-software/
-
-PySC2
+\subsection{PySC2}
 PySC2 is deep mind’s python component for the StarCraft 2 learning environment. PySC2 is a collaboration between the developers of SC2, Blizzard Entertainment and DeepMind who are known primarily for their work in AI and machine learning. This provides an interface for agents to interact with StarCraft 2 to get observations and send actions. Along with this SC2 API (StarCraft 2 API) is also a major part of what makes this great with the API being official and supported by Blizzard there is the ability to have access to a large amount of anonymized 1v1 replays played on the ladder that can be used to gather observations and actions from the game.
-
- 
-Figure: PySC2 UI for a replay
 
 Although PySC2 is specifically a learning environment for Starcraft 2 AI, it is not necessarily what we are looking for to gather and parse data from the .SC2Replay files. We instead put our attention to finding an open source software that can parse through the unique replay file and grab data. Even though PySC2 didn’t help much with the goal of this project, we can credit it with pointing us in the right direction to S2protocol.
 
-S2protocol:
-Prior to fully understanding and using sc2reader, we looked into s2protocol as another tool that we might be able to use in order to grab data from the StarCraft II replay files. s2protocol is a reference Python library by Blizzard Entertainment, and it is a tool that is used to decode StarCraft II replay files into Python data structures. It can provide us with information regarding game details, game events, message events, tracker events, which we believe would be useful for analysis. It also gives us the option to look at more than just a single StarCraft II replay output at once. In Figure 34, we can see an example of the output s2protocol is able to give us based on a StarCraft II replay file. It provides us with very basic information, such as the action per minute (APM) of the users, their race, the player that won, the game duration, name of the map etc.
+\subsection{S2protocol}
+Prior to fully understanding and using sc2reader, we looked into s2protocol as another tool that we might be able to use in order to grab data from the StarCraft II replay files. s2protocol is a reference Python library by Blizzard Entertainment, and it is a tool that is used to decode StarCraft II replay files into Python data structures.
 
-
-Figure 34:Example of s2protocol output
+It can provide us with information regarding game details, game events, message events, tracker events, which we believe would be useful for analysis. It also gives us the option to look at more than just a single StarCraft II replay output at once. In Figure 34, we can see an example of the output s2protocol is able to give us based on a StarCraft II replay file. It provides us with very basic information, such as the action per minute (APM) of the users, their race, the player that won, the game duration, name of the map etc.
 
 Additionally, s2protocol gave us information regarding the state of the match’s lobby and the users’ initial data, which proved to not be useful for our analysis. We quickly discover that everything that s2protocol is able to do, sc2reader can do it as well and produce more useful output that we need for our analysis. 
 
-Sc2reader:
+\subsection{SC2reader}
 Sc2reader is the primary tool we will be using to grab the actual data from the StarCraft 2 replay files, allowing us to parse the data and perform our analysis on it. Sc2reader is an official python library tool that is used in numerous research papers and websites to help parse and extract the important game data that needs to be analyzed.Learning how to implement sc2reader in our project didn’t take too much time, the documentation on the github allowed us to easily learn the ins and outs of the library's functionality.
 
 The beauty of sc2reader is that we can load an entire folder of replays and run our specified parsing functions all at the same time as opposed to manually loading each individual file like some of the other open source replay parsers do.
 From using sc2reader we are able to see the key information such as:
-The Player Details:
-The races chosen (Zerg, Protoss, Terran)
-Who won/loss
-The Map Details:
-Map size, version of the map
- General Match Details
+
+The player details:
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The races chosen (Zerg, Protoss, Terran).
+    \item Who won/loss.
+\end{itemize}
+The map details:
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Map size, version of the map.
+\end{itemize}
+General match details:
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Map size, version of the map.
+\end{itemize}
+Unit selection/unit commands
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Map size, version of the map.
+\end{itemize}
+
+
 The map chosen, game length
 Unit Selection/Unit Commands
 Which units are being selected and hotkeys are being used at every frame of the match for both players
 Unit commands such as attacking, using abilities, moving, etc.
+
 Camera Movements and APM
  Camera movements for the players can be extracted per frame
 Action per minute can be extracted as well as EPM which is the same as actions per minute except it only calculated "effective" actions, these would be valid commands.
+
 EPM is a subset of APM, effective actions per minute excludes all "dead-actions" or clicks/actions that do not actually provide useful vision or utility.
- Economies
+
+Economies
 Players mineral, Vespene gas, and supply of army is recorded and displayed as averages or whole numbers depending on the function. 
  Unit Classification
 Break down units by mineral, gas, and supply costs
@@ -1533,6 +1547,261 @@ Finally every 30 seconds we append all of the PlayerStats data with the current 
 
 The TerranStats.csv file has 64 columns which includes all the basic army units and buildings, as well as the player stats generated by PlayerStatsEvent. Here is a small excerpt of the TerranStats.csv file we will be using in our modeling:
 
+\subsection{Linear Discriminant Analysis}
+ 
+Linear Discriminant Analysis (LDA) is a dimensional simplification strategy that discovers a linear sequence of features and distinguishes the characteristics between two or more classes or object. As the definition signifies dimensional simplification strategies lessen the number of dimensions (i.e. variables) from the dataset simultaneously retaining as much information as possible. For example, if we are trying to find a relationship between two variables where the colors red and blue are different classes, this is what the initial graph would portray. The library contains built-in classes for performing LDA on the dataset. There are built-in classes within scikit-learn that enable the operations of LDA on the dataset.
+
+% img
+
+Projecting all the variables on the x-axis to simplify the data to a single dimension would be inefficient since it would nullify any valuable information extracted from the second feature.
+
+% imgs
+
+This is where Linear Discriminant Analysis can be more beneficial to use due to its powerful feature of constructing a new axis. It then calculates the data on that new axis and maximizes the distance between the classes and minimizes the deviation between them. 
+
+% imgs
+
+\subsection{Quadratic Discriminant Analysis}
+ 
+Quadratic discriminant analysis is firmly identified with a linear discriminant analysis, where it is expected that the estimations from each class are typically appropriated. In contrast to LDA, in QDA it is not assumed that the covariance of every one of the classes is indistinguishable. The most ideal test for a hypothesis that there is a correlation between the measurement and the class is a likelihood ratio test. To assess the boundaries needed in quadratic discrimination, more calculation and information is needed than on account of linear discrimination.
+
+\subsection{Linear and Quadratic Discriminant Analysis with Covariance Ellipsoid}
+
+% img
+
+Upon the application of LDA and QDA, this model plots the covariance ellipsoids of each class and choice boundary. The ellipsoids show the twofold standard deviation for each class. With LDA, the standard deviation similar within all classes, while each class has its own standard deviation with QDA.
+
+\subsection{Support Vector Machine}
+ 
+In AI, support-vector machines are regulated learning models with related learning calculations that examine information utilized for classification and regression analysis. The target of the support vector machine algorithm is to discover a hyperplane in a N dimensional space that unmistakably orders the dataset.
+
+% imgs
+
+There are numerous possible hyperplanes that could be picked to isolate the two classes of data. Amplifying the margin distance gives some support so future data points can be characterized with more certainty. Therefore, the goal is to locate a plane that has the most extreme edge, essentially displaying the greatest distance between the data points of the two classes.
+
+% imgs
+
+Linear SVM: Linear SVM is utilized for linearly distinct information, which implies if a dataset can be arranged into two classes by utilizing a solitary straight line, at that point such information is named as straightly detachable information, and classifier is utilized called as Linear SVM classifier.
+
+% img
+
+Non-linear SVM: Non-Linear SVM is utilized for non-directly isolated information, which implies on the off chance that a dataset can't be ordered by utilizing a straight line, at that point such information is named as non-linear information and classifier utilized is called as non-linear SVM classifier.
+
+% imgs
+
+Support vectors are data points that are nearer to the hyperplane and impact the position and direction of the hyperplane. One of the focuses that assist us with building a support vector machine is to utilize them and maximize the edge of the classifier. Erasing the support vectors will then alter the position of the hyperplane.
+
+\subsection{K-Nearest Neighbors}
+ 
+The algorithm for K-nearest neighbors accepts that comparative things exist in nearness. Essentially, all comparable things are close to one another. KNN is frequently utilized in basic proposal frameworks, image recognition innovation, and dynamic models. The image below displays data points that are alike existing within close proximity to each other.
+
+% imgs
+
+The image above shows the data is scaled.
+
+% img
+
+The KNN calculation depends on this supposition that being genuine enough for the algorithm to be useful. The KNN algorithm catches the possibility of likeness with some arithmetic strategy we may already know to calculate the distance between the data points on a graph.
+
+
+Euclidean Distance Formula:
+$$d(p,q)=d(q,p)=\sqrt{(q_1-p)1)^2+(q_2-p_2)^2+...+(q_n-p_n)^2}$$
+$$=\sqrt{\sum_{i=1}^n(q_i-o_i)^2}$$
+
+Steps required for KNN:
+\vspace*{-.9cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Step 1: Select the number K from the neighbors
+    \item Step 2: Calculate the Euclidean distance of K number of neighbors
+    \item Step 3: Take the K nearest neighbors as per the calculated Euclidean distance.
+    \item Step 4: Count the number of the data points in each category among the k neighbors.
+    \item Step 5: Assign the new data points to that category for the maximum number of neighbors.
+    \item Step 6: The model is ready.
+\end{itemize}
+
+% imgs
+
+\section{Data Exploration}
+
+\subsection{Player Statistics}
+\subsubsection{Minerals}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.75\linewidth]{media/minerals_types.png}
+    \captionof{figure}{Correlation heatmap for all minerals player statistics.}
+\end{center}
+
+The minerals correlation heatmap shows collinearity between several features. The features (minerals\_used\_active\_forces, minerals\_used\_current)$ = .94$, meaning there exists strong positive collinearity between these two features. A good rule of thumb is any $|r| > .70$ describes collinearity. To calculate multicolinearity we will utilize VIF, e.g. Variance Inflation Factor. $VIF = \frac{1}{1-r^2}$
+
+\msection{minerals\_current}
+
+This feature responds to events of minerals currently available to the player. Via exploratory analysis we found that minerals\_current tends to be higher in Zerg players.
+
+\msection{minerals\_collection\_rate}
+
+This feature responds to events of the rate the player is collecting minerals. Reflecting on the minerals\_current, this feature also tends to be higher in Zerg players.
+
+\msection{minerals\_used\_in\_progress}
+
+This feature responds to events of the total mineral cost of all things in progress. This includes the total mineral cost of army units currently being built, the total mineral cost of economy units currently being built, and the total mineral cost of technology research currently being queued.
+
+\msection{minerals\_used\_current}
+
+$VIF(\text{minerals\_used\_current, minerals\_lost}) = \pgfmathparse{1/(1-(-.82)^2)}\pgfmathresult$ \\
+$VIF(\text{minerals\_used\_current, minerals\_killed}) = \pgfmathparse{1/(1-(-.82)^2)}\pgfmathresult$ \\
+$VIF(\text{minerals\_used\_current, minerals\_used\_active\_forces}) = \pgfmathparse{1/(1-(.94)^2)}\pgfmathresult$
+
+This feature responds to events of the total mineral cost of all current things. This includes the total mineral cost of army units, the total mineral cost of economy units, and the total mineral cost of technology research.
+
+Given the latter variance inflation factor calculation for minerals\_used\_active\_forces we discover a $VIF > 5$, meaning this feature is highly correlated with minerals\_used\_current. Therefore, we should remove this feature from our dataset.
+
+\msection{minerals\_lost}
+
+$VIF(\text{minerals\_lost, minerals\_used\_active\_forces}) = \pgfmathparse{1/(1-(-.82)^2)}\pgfmathresult$
+
+This feature responds to events of the total mineral cost of all lost things. This includes the total mineral cost of army units lost, the total mineral cost of economy units lost, and the total mineral cost of technology research lost.
+
+Unsurprisingly, minerals\_lost and minerals\_killed are collinear. We were unsure as to how these two features are related, but given the correlation matrix heatmap we can assume that one is a function of the other or they both aquire the same data from the same source.
+
+\msection{minerals\_killed}
+
+$VIF(\text{minerals\_killed, minerals\_used\_active\_forces}) = \pgfmathparse{1/(1-(-.82)^2)}\pgfmathresult$
+
+This feature responds to events of the total mineral cost of all killed things. This includes the total mineral cost of army units killed, the total mineral cost of economy units killed, and the total mineral cost of technology research killed.
+
+\msection{minerals\_used\_active\_forces}
+
+This feature responds to events of the total mineral value of all active forces. Zerg's units average a lower minerals cost than that of Protoss and Terran.
+
+\vspace*{.5cm}
+\subsubsection{Vespene}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.75\linewidth]{media/vespene_types.png}
+    \captionof{figure}{Correlation heatmap for all vespene player statistics.}
+\end{center}
+
+The vespene correlation heatmap shows collinearity between several features. The features (vespene\_used\_active\_forces, vespene\_used\_current)$ = .94$, meaning there exists strong positive collinearity between these two features.
+
+\msection{vespene\_current}
+
+This feature responds to events of vespene currently available to the player. Via exploratory analysis we found that vespene\_current tends to be higher in Zerg players.
+
+\msection{vespene\_collection\_rate}
+
+This feature responds to events of the rate the player is collecting vespene. 
+
+\msection{vespene\_used\_in\_progress}
+
+This feature responds to events of the total vespene cost of all things in progress. This includes the total vespene cost of army units currently being built, the total vespene cost of economy units currently being built, and the total vespene cost of technology research currently being queued.
+
+\msection{vespene\_used\_current}
+
+$VIF(\text{vespene\_used\_current, vespene\_lost}) = \pgfmathparse{1/(1-(-.87)^2)}\pgfmathresult$ \\
+$VIF(\text{vespene\_used\_current, vespene\_killed}) = \pgfmathparse{1/(1-(-.87)^2)}\pgfmathresult$ \\
+$VIF(\text{vespene\_used\_current, vespene\_used\_active\_forces}) = \pgfmathparse{1/(1-(.99)^2)}\pgfmathresult$
+
+This feature responds to events of the total vespene cost of all current things. This includes the total vespene cost of army units, the total vespene cost of economy units, and the total vespene cost of technology research.
+
+\msection{vespene\_lost}
+
+This feature responds to events of the total vespene cost of all lost things. This includes the total vespene cost of army units lost, the total vespene cost of economy units lost, and the total vespene cost of technology research lost.
+
+\msection{vespene\_killed}
+
+This feature responds to events of the total vespene cost of all killed things. This includes the total vespene cost of army units killed, the total vespene cost of economy units killed, and the total vespene cost of technology research killed.
+
+\msection{vespene\_used\_active\_forces}
+
+This feature responds to events of the total vespene value of all active forces.
+
+\section{Model Trainining}
+\subsection{Subsections explaining what we did}
+\section{Model Validation}
+\subsection{Subsections explaining what we did}
+\section{Database}
+\subsection{Subsections explaining what we did}
+
+\chapter{Administrative Content}
+\section{Project Budget}
+
+Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
+
+Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
+
+\section{Project Milestones}
+
+\subsection{Initial Research and Analysis}
+
+The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
+
+\subsection{Agile Sprints}
+
+Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
+
+\subsection{Data preparation}
+
+Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/19/2020 \\
+Sprint 2 & 11/12/2020 \\
+Sprint 3 & 01/20/2021
+\end{tabular}\end{center}
+
+\subsection{Agent Testing/Comparison}
+
+Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
+
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/24/2020 \\
+Sprint 2 & 12/02/2020 \\
+Sprint 3 & 02/05/2021
+\end{tabular}\end{center}
+
+\subsection{Data review and revision}
+
+The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/31/2020 \\
+Sprint 2 & 12/10/2020 \\
+Sprint 3 & 02/11/2021
+\end{tabular}\end{center}
+
+\subsection{Final Design Document}
+
+Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Pros:
+Effortless to use
+Efficient calculation time
+Everything is accurate, no assumptions made
+ 
+Cons:
+Accuracy of the data is dependent on the quality of the data
+Must find an optimal k value (number of nearest neighbors)
+Inadequate at classifying data points within a boundary where they can be classified anyway
+
+Works Cited
+ 
+https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm
+https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning
+https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47
+https://en.wikipedia.org/wiki/Support\_vector\_machine
+https://scikit-learn.org/stable/modules/svm.html
+https://scikit-learn.org/stable/modules/lda\_qda.html
+https://en.wikipedia.org/wiki/Quadratic\_classifier
+https://online.stat.psu.edu/stat508/book/export/html/696
+https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant\_analysis/quadratic\_discriminant\_analysis.html
+http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/
+https://provalisresearch.com/products/qualitative-data-analysis-software/
+
 
 Sample Descriptive Data by Match Up
 Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure 35 displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
@@ -1612,7 +1881,7 @@ The 138 randomly selected StarCraft II replay files were also divided based on t
 
 Similarly, to how we looked at some basic descriptive statistics of these 138 sample replay files, we will be looking at the same statistics for the same features but divided by race instead of the type of match up. We will be taking a look at the mean, median, mode, standard deviation, minimum and maximum for the features Current Workers, Mineral Collection Rate, and Vespene Collection Rate. We will also be comparing the statistics for each race, split up by the result of the match: win or loss. 
 
-Protoss:
+Protoss:f
 First, we will be taking a look at the general statistics for all Protoss players in the sample replay data set in Figure 46. 
 
 \begin{center}
@@ -1665,7 +1934,14 @@ As well as the statistics for Zerg players who resulted in a win and Zerg player
 
 It appears that similar to the conclusion we were able to draw from dividing the sample replay files into match up types, when we divided the data based on race, the winner had higher number of current workers, higher rate of mineral and vespene collection, regardless of race. Comparing the statistics of the three races, it seems that Zerg had the most current workers, the highest mineral and vespene collection rate as well. Meanwhile, Protoss had the lowest averages out of the three for these selected features. Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
 
-\chapter{Conclusions \& Future Work}
+\chapter{Conclusion \& Looking Forward}
+
+\section{Conclusion}
+At this point of the project, there is the framework for the beginning of the analysis stage of the project. The initial Research step of the project is fully complete and through it we have been able to analyze a plethora of machine learning algorithms and models to use as well as refine a set of features that will be used within these models. Using SC2Reader in conjunction with the code we developed for sorting and exporting replay data to CSV we have been successful in creating data files on sample sets with the features used that were determined to be influential to win prediction. The following semester will begin to show the success of the research and preparation work that has been completed to get an efficient and working repository.
+
+\section{Looking Forward}
+At the culmination of the first semester, the work we have done has laid an effective groundwork for the project. Moving into the next semester we have a set of goals and predictions on our timing as laid out by the project schedule and diagrams mentioned earlier. This means within the next semester the project will enter full work on the training and development of the win prediction model and the following side by side live win prediction program. We believe the work done there will be an extremely helpful tool for players interested in StarCraft 2 and win prediction in the same way as the ability to evaluate chess games live is a huge boost to learning the game in an online fashion. Additionally, we believe the software we produce could be ported with minimal effort to be used alongside the completed Everglades project in the future due to the Everglades software being a much simpler version of a RTS game than StarCraft 2 but sharing many similar aspects with it.
+
 \chapter{References}
 \chapter{Appendix}
 
