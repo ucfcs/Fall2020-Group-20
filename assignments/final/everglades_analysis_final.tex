@@ -217,22 +217,26 @@ Initial building and unit decisions are among the most important parts of the ga
 
 \subsection{Senior Design II}
 
-1. Win prediction engine (WPE) research
-- DeepMind set the groundwork for edge cases
-2. WPE training and testing feedback loop
-3. SC2 overlay UI research
-4. Project findings presentation and keynote
+\begin{enumerate}
+    \item Win prediction engine (WPE) research
+    \begin{itemize}
+        \item DeepMind set the groundwork for edge cases
+    \end{itemize}
+    \item WPE training and testing feedback loop
+    \item SC2 overlay UI research
+    \item Project findings presentation and keynote
+\end{enumerate}
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/gantt.png}
+    \includegraphics[width=1\linewidth]{media/gantt.png}
     \captionof{figure}{Gantt Chart}
 \end{center}
 
 \chapter{Research}
 \section{Brood War and Torch Craft}
 
-StarCraft Brood War is the initial game proposed by Lockheed Martin for research due to its similarity to the proposed final everglades project. With this proposal Lockheed also brought up the related dataset and API for this game which is Torch Craft. Torch Craft uses Star Data which is a massive dataset of 65000 games to allow deep analysis of frame data within the game. This initial proposal seemed to be the right choice at first but it became apparent pretty quickly that Torch Craft brought with it a unique set of issues. The stem of these issues being mainly the outdated nature of Torch Craft and its surrounding programs.
+StarCraft Brood War is the initial game proposed by Lockheed Martin for research due to its similarity to the proposed final everglades project. With this proposal Lockheed also brought up the related dataset and API for this game which is Torch Craft. Torch Craft uses Star Data which is a massive dataset of 65,000 games to allow deep analysis of frame data within the game. This initial proposal seemed to be the right choice at first but it became apparent pretty quickly that Torch Craft brought with it a unique set of issues. The stem of these issues being mainly the outdated nature of Torch Craft and its surrounding programs.
 
 BW API (Brood Wars API) is the main API Torch Craft pulled from and this API has been without an update for over three years, ordinarily dated software would be fine, but this API uses StarCraft and specifically version 1.16. Recently Blizzard Entertainment the company behind StarCraft remastered the game and with that remastered they updated the game specifically including anti-cheat and anti-bot software with it, in turn this bricked BWAPI from working with the newer version. The initial work around that we located for this was finding an unofficial version of the game that ran on 1.16 and beginning to setup the client and server-side versions of Torch Craft from there. 
 
@@ -240,7 +244,9 @@ Unfortunately, even with the new working version of StarCraft with BWAPI TorchCr
 
 \section{Game Mechanics}
 
-The next logical step after dropping the previous database was finding the correct game to pivot to that had an adequate database and kept the similarities to EVERGLADES that Brood War had initially brought. The obvious choice was to look into the sequel to Brood War, SC2 (StarCraft 2) as it has been a mainstay in the RTS game community and came out within the modern era meaning it was very likely to be able to function on modern architecture and machines. More important even than the game choice was the access to a database and API, luckily for StarCraft 2 it has one of the most robust game API’s and datasets of any modern era game in PySC2 and SC2 API (StarCraft 2 API). The next decision was to bring up the proposed change to Lockheed Martin and they agreed that this was a good choice to make the change and gave the go ahead.
+The next logical step after dropping the previous database was finding the correct game to pivot to that had an adequate database and kept the similarities to EVERGLADES that Brood War had initially brought. The obvious choice was to look into the sequel to Brood War, SC2 (StarCraft 2) as it has been a mainstay in the RTS game community and came out within the modern era meaning it was very likely to be able to function on modern architecture and machines.
+
+More important even than the game choice was the access to a database and API, luckily for StarCraft 2 it has one of the most robust game API’s and datasets of any modern era game in PySC2 and SC2 API (StarCraft 2 API). The next decision was to bring up the proposed change to Lockheed Martin and they agreed that this was a good choice to make the change and gave the go ahead.
 
 \subsection{Basics}
 
@@ -254,6 +260,12 @@ Controls are simple starting off camera can be moved with arrow keys and units a
 
 Before beginning a game, every player must begin by choosing one of three races between Protoss, Zerg, and Terran each with its own unique set of strengths, weaknesses, and strategies. This choice is where the initial complexity of StarCraft 2 begins, this is because each race shares only the controls of the game with one another, all units, and buildings are race specific and each race has its own niche mechanics that are not shared. Additionally, the following races are not balanced to all be the same average skill level required and some require a large amount more knowledge than others.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/MMRvsRace.png}
+    \captionof{figure}{MMR (Matchmaking Rating) vs. Race Selection}
+\end{center}
+
 \subsubsection{Protoss}
 
 Protoss are a race that generally focus on few units over many they rely on having powerful but expensive units and strong supporting units to make up for the numbers disadvantage they might have. Additionally, Protoss focus on having heavy defense units through their use of shields which give them added health that will regen over time.
@@ -265,6 +277,12 @@ Probably the main core feature of the Protoss race is their requirement to power
 Zerg could be the opposite of the Protoss; they are strength in numbers, a race that focuses on expanding bases extremely quickly and taking over the map through powerful waves of units. Due to the race having large amounts of units that are weaker but being able to produce them very fast, zerg players generally attack constantly, slowly chipping away at the enemies and forcing them to split their units to deal with the swarm.
 
 Zerg also features a system that has downsides and upsides in their primary method of building, for buildings they must sacrifice one of their collector units in order to build anything this means that they lose income in order to expand but they generally are able to expand faster. Unlike the Protoss warp  zerg builds their units manually out of a unit their bases produce called larvae, due to this being a resource produced by having bases, zerg generally focuses on expanding as quickly as possible. With these seeming downsides of the race comes the upside of being a race that can finish out a game extremely quickly with their most famous strategy named the zerg rush. As seen in the graph below there are huge spikes in game length specifically in all matchups with Z(zerg).
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/GameLength.png}
+    \captionof{figure}{Graph of Game Lengths per Matchup Source: "STARDATA: A StarCraft AI Research Dataset"}
+\end{center}
 
 \subsubsection{Terran}
 
@@ -1091,7 +1109,7 @@ The actual data attributes look like this:
 
 \begin{center}
     \captionsetup{type=figure}
-    % \includegraphics[width=.9\linewidth]{media/digitarrays.png}
+    \includegraphics[width=.9\linewidth]{media/digitarrays.png}
     \captionof{figure}{Data attributes have int values 0-16.}
 \end{center}
 
@@ -1099,7 +1117,7 @@ We see that since each instance has 64 attributes in the range 0-16, this makes 
 
 \begin{center}
     \captionsetup{type=figure}
-    % \includegraphics[width=.9\linewidth]{media/printdigits.png}
+    \includegraphics[width=.9\linewidth]{media/printdigits.png}
     \captionof{figure}{Will output the data target.}
 \end{center}
 
@@ -1320,10 +1338,22 @@ The StarCraft 2 replay files are saved and stored in a subdirectory as a ".SC2Re
 \subsection{PySC2}
 PySC2 is deep mind’s python component for the StarCraft 2 learning environment. PySC2 is a collaboration between the developers of SC2, Blizzard Entertainment and DeepMind who are known primarily for their work in AI and machine learning. This provides an interface for agents to interact with StarCraft 2 to get observations and send actions. Along with this SC2 API (StarCraft 2 API) is also a major part of what makes this great with the API being official and supported by Blizzard there is the ability to have access to a large amount of anonymized 1v1 replays played on the ladder that can be used to gather observations and actions from the game.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/PYSC2.png}
+    \captionof{figure}{PySC2 UI for a replay}
+\end{center}
+
 Although PySC2 is specifically a learning environment for Starcraft 2 AI, it is not necessarily what we are looking for to gather and parse data from the .SC2Replay files. We instead put our attention to finding an open source software that can parse through the unique replay file and grab data. Even though PySC2 didn’t help much with the goal of this project, we can credit it with pointing us in the right direction to S2protocol.
 
 \subsection{S2protocol}
 Prior to fully understanding and using sc2reader, we looked into s2protocol as another tool that we might be able to use in order to grab data from the StarCraft II replay files. s2protocol is a reference Python library by Blizzard Entertainment, and it is a tool that is used to decode StarCraft II replay files into Python data structures.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/S2Protocol.png}
+    \captionof{figure}{Example of s2protocol output}
+\end{center}
 
 It can provide us with information regarding game details, game events, message events, tracker events, which we believe would be useful for analysis. It also gives us the option to look at more than just a single StarCraft II replay output at once. In Figure 34, we can see an example of the output s2protocol is able to give us based on a StarCraft II replay file. It provides us with very basic information, such as the action per minute (APM) of the users, their race, the player that won, the game duration, name of the map etc.
 
@@ -1383,15 +1413,25 @@ Small Example of sc2reader:
 
 Here is a really simple example of how sc2reader can be used practically, the replay file used to show this only has a sample size of 25 replays.
 
-Figure: Imports sc2reader and grabs the replays folder
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/SC2replays25.png}
+    \captionof{figure}{Imports sc2reader and grabs the replays folder}
+\end{center}
 
 In the sc2reader library there is a load\_replays function that grabs all the replays that can be stored in an object to be manipulated. Each replay has player objects that have information such as if they won, and what race they are playing as. The player object holds a bit of the basic information such as their name, if they won or lost, and their race. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/SC2readerwinner.png}
+    \captionof{figure}{Classifies the map size}
+\end{center}
 
-Figure: Code that prints out the winner of the replays
-
-
-Figure: Output from code above
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/winneroutput.png}
+    \captionof{figure}{Classifies the map size}
+\end{center}
 
 Sc2reader also allows us to complete our 3rd goal of finding how map differences affect the outcome of the games. By taking advantage of the sc2reader map class, we are able to grab key map information such as the width, height, and the starting positions for both players.
 
@@ -1399,8 +1439,11 @@ Since we are using replays that have been played in tournament level competition
 
 Knowing the map’s width and height we are able to implement a way to scale our maps and break them into the three categories: small map, medium map, large map.
 
-
-Figure: Classifies the map size
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapClassification.png}
+    \captionof{figure}{Classifies the map size}
+\end{center}
 
 Adding the classification of the map size to the replays will allow us to find any differences in gameplay resulting from the map size. Unfortunately, sc2reader doesn’t have any way to analyze the number of mineral/gas fields which would be another interesting statistic we could’ve used to analyze if it affects gameplay.
 
@@ -1449,18 +1492,45 @@ The economic value of units that got killed
 
 Here is an example that takes advantage of the PlayerStatsEvent, here we are looking at only one replay:
 
-Figure: A single replay file is grabbed this time; workers array is made.
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LoadPath.png}
+    \captionof{figure}{A single replay file is grabbed this time; workers array is made}
+\end{center}
 
 Similar to the first sc2reader example, this time only a single replay file is loaded. Inside the replay file we want to loop through the events of the game and only single out events that are categorized as PlayerStatsEvent. After validating that the event is a PlayerStatsEvent, we check to see which player is connected to the event. The only way we can link a player to a certain event is by checking the player’s pid, which is initialized when the replay is loaded, and the event’s pid, which copies the player’s pid that is connected to that event. A row is then added to the workers array that holds the player’s name, the player’s race, how many workers are alive, the current collection rate of minerals, and finally what the game time is. In this smaller example only a couple of stats are grabbed, the actual datasets have all the statistics being grabbed from PlayerStatsEvent.
 
 Note: The PlayerStatsEvent only collects the data every 10 seconds. A further improvement would be optimizing the event object to be able to optimize the time between data is collection.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/PlayerStatsEvents.png}
+    \captionof{figure}{Grabs the \# of workers and mineral collection rate}
+\end{center}
+
 After our worker array has been finished being filled up with rows of data, we turn to Pandas as a way to organize the data that is easy to understand. In reality we would parse this data into a .csv file to use in our modeling algorithms that will analyze all this data.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/PandasTable.png}
+    \captionof{figure}{Pandas makes a table out of the workers array}
+\end{center}
 
 The output of the data frame for work is shown below, presenting the player name, the race, worker count, minerals collection rate, and the seconds of the match. In our real datasets, the dataframe will be significantly larger and will be exported to a .csv file. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/CSVPSE.png}
+    \captionof{figure}{Output of the worker count and collection rate for both players}
+\end{center}
+
 After grabbing all of the PlayerStatsEvents, we implemented counters that would display the player’s current army and buildings every 30 seconds. Integrated in the sc2reader, there is a data JSON file that can be imported which has the names of every unit, building, and ability at the time of it’s release. We had to go in and manually implement additional unit names that made their debut over the years past release, but it was a good framework to build off of. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Terran_dict.png}
+    \captionof{figure}{Dictionary used for Terran players}
+\end{center}
 
 The JSON data file was converted to a dictionary that had the names of all units, setting the key’s values to zero. The original JSON data had a multitude of information such as the unit’s cost but using the PlayerStatsEvent class, all that data is redundant. The logic was to increase the values when a unit was created and decremented when a unit is killed, however it became much more complicated than that. 
 
@@ -1503,9 +1573,21 @@ Similarly with Zerg, most units come from another unit "morphing" from these bas
  Naming Inconsistencies
 Initially, the dictionary created had the names of every unit including all the possible versions that the unit could be. For example, the dictionary for Terran had "SiegeTank" and "SiegeTankSieged" which are the two possible modes that the tank can switch between throughout the match. However, we decided to remove all variations of the unit and edited the dictionary to only have the basic unit name. This also nullified the UnitTypeChangeEvent, since it was unnecessary to keep track what mode/ability the unit is using as long as we make sure that the unit is recorded correctly upon creation and upon death.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/SiegeTank.png}
+    \captionof{figure}{The two modes of the Siege Tank}
+\end{center}
+
 A big issue however, was that the initial strategy of incrementing when a unit is created and decrementing when a unit dies was causing our dataset to display negative counts for the unit types. This was a massive error as a unit can’t be destroyed if it is never created. The issue resulted from the fact that when a unit changed mode the name of the unit also changed under sc2reader. For example, in Terran the unit "SiegeTank" has an ability called "Siege mode" which changes the units name to "SiegeTankSieged" , so if that unit dies while using that ability it dies as "SiegeTankSieged". Edge cases had to be made in order to ensure that regardless of which mode the unit died in, the basic unit name was decremented in the dictionary.
 
 Similarly, in the UnitBornEvent sometimes a unit is created with a name already in mode form. For example, in Terran the "Viking" unit has two modes: "Viking Assault" and "Viking Fighter", when a Viking is created it is created as a "Viking Fighter" which was unique to this unit as other units were assigned the name of the basic unit type. We had to make special edge cases for units that are created under different name variations. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Viking.png}
+    \captionof{figure}{Two different Viking unit modes}
+\end{center}
 
 Another naming inconsistency is that some of the event classes have an attribute called "unit\_type\_name" as well as the basic "unit.name" that is an attribute of the unit object. Some classes like the UnitDiedEvent has no attribute of the unit\_type\_name, but the UnitBornEvent does. This inconsistency wouldn’t be an issue if the unit\_type\_name and the unit.name were the same, but with there sometimes the names of the unit don't match up.
 
@@ -1516,6 +1598,12 @@ Unit Abilities
 The original JSON unit data also listed all the abilities for the units, this would have been a useful statistic to keep record of however the way sc2reader handled unit abilities caused us to have to remove the unit abilities from our dataset. 
 
 Almost every unit in Starcraft 2 has something called an ability, this is an action that can do a variety of things to the unit such as increasing movement speed, increasing damage, becoming invisible, and much more. Some abilities have cooldowns, others just require energy to use. For example, some Terran "Widowmines" have an ability to cast "Active Mine" which allows the Widowmine to burrow into the ground and self-destruct if an enemy gets too close, thus killing itself and  the enemy unit.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Mines.png}
+    \captionof{figure}{Example of Widowmine Abilities}
+\end{center}
 
 The problem is that sc2reader does a terrible job of tracking the difference between if a unit finishes it’s ability or if it dies while using the ability. For some reason when a unit canceled an ability, sometimes it would not capture if that unit used that ability again. For example, every time a player would call Activate Mine on a Widow Mine it would change the name of the unit into "Widowmineburrowed". However, the sc2reader would not increment Widowmineburrowed if the ability was canceled and used again by the same Widow Mine, therefore giving the dictionary value of Widowmineburrowed a massive negative value.
 
@@ -1540,6 +1628,12 @@ The other concern is that this ID feature won’t solve the third sc2reader comp
 
 Currently, when we grab data from both players the data is presented in the .csv in an alternating pattern. [figure number] is an example of what one of our .csv files outputs. We instead want to have all of player 1’s game printed to the .csv followed by the statistics of player 2. In order to accomplish this we will  need to make two separate lists, one to hold all of player 1’s statistics/army size and another list to hold player 2’s statistics/army size; combining both at the end.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/CurrentCSV.png}
+    \captionof{figure}{Current .csv alternates between player 1 and 2}
+\end{center}
+
 Datasets Comparing Players of Same Race:
 
 We will be dividing our data into four different datasets, all using the same replays. The largest of all the datasets will have the player stats and current unit counts for both players in the replays being recorded every 30 seconds. This dataset is where we will find the majority of our analysis for the first three goals of our project.
@@ -1553,25 +1647,61 @@ TerranStats.py Example:
 
 Here is some of the code excerpt that collected all the stats and recorded the current army count every 30 seconds for only Terran Players:
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TerranStatspystart.png}
+    \captionof{figure}{Player stats and units for Terran Players}
+\end{center}
 
 Using the PlayerStatsEvent, all the statistics that can be gathered from that class is recorded and appended to a list which will store all the matches data. However, that event is only recorded every 30 seconds the other tracker events such as UnitBornEvent, UnitDiedEvent, and UnitInitEvent 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/UnitBornDiedInit.png}
+    \captionof{figure}{UnitBornEvent records every time a unit is created}
+\end{center}
 
 For Terran players there were only three edge cases for units being born under a different name than what was listed in the dictionary. The "orbital command" is a building that is an upgraded version of a "command center", so an orbital command center is always a command center, but a command center isn’t always an orbital command center. The basic breakdown is that when an event is read in that creates a unit, first it is checked if the player is a Terran player, from there it is added to the correct key under the Terran dictionary, following those edge cases.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/EdgeCases.png}
+    \captionof{figure}{UnitDiedEvent records every time a unit is killed}
+\end{center}
 
 When UnitDiedEvent is called, there are a lot more edge cases that need to check to see if the unit died while it was in an ability/mode. The mode changing abilities can also be performed on buildings, as Terran has the ability for it’s buildings to fly around the map. This class has the same breakdown as the UnitBornEvent except with the additional edge cases and instead of incrementing the dictionary values by one, it is decremented by one. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/InitEdgeCases.png}
+    \captionof{figure}{UnitInitEvent records when a building or warped unit initialized}
+\end{center}
 
 The UnitInitEvent is much simpler, as it was the exact same as UnitBornEvent except that there is only an edge case for the building variations. Those are the three events that are used to record the specific count of each unit type, each race has their own edge cases implemented based on the unit names and abilities that change those names. 
 
 A formula was designed to track the APM, since we are only recording this information every 30 seconds, we have to adjust the sc2reader’s APMTracker plugin. By keeping the range of the event within 30, we can appropriately transform actions per minute into actions per 30 seconds. 
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/APMtrackCode.png}
+    \captionof{figure}{Fromula to get the APM every 30 seconds}
+\end{center}
 
 Finally every 30 seconds we append all of the PlayerStats data with the current army dictionary, and by using Panda’s we can create a dataframe and export all that data onto a .csv file which is used for our data analysis. The columns for the dataframe can simply just extend the dictionary that was made previously containing only Terran units.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/DataframeCSV.png}
+    \captionof{figure}{Creates dataframe from the data and exports to a .csv}
+\end{center}
 
 The TerranStats.csv file has 64 columns which includes all the basic army units and buildings, as well as the player stats generated by PlayerStatsEvent. Here is a small excerpt of the TerranStats.csv file we will be using in our modeling:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/TerranstatsCSV2.png}
+    \captionof{figure}{Part of the TerranStats.csv}
+\end{center}
 
 \subsection{Linear Discriminant Analysis}
  
@@ -1695,17 +1825,43 @@ Non-linear SVM: Non-Linear SVM is utilized for non-directly isolated information
     \captionof{figure}{Support Vectors small margvin vs large margin.}
 \end{center}
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/scalarpipeline.png}
+    \captionof{figure}{Predicting confident scores for samples}
+\end{center}
+
 Support vectors are data points that are nearer to the hyperplane and impact the position and direction of the hyperplane. One of the focuses that assist us with building a support vector machine is to utilize them and maximize the edge of the classifier. Erasing the support vectors will then alter the position of the hyperplane.
 
 \subsection{K-Nearest Neighbors}
  
 The algorithm for K-nearest neighbors accepts that comparative things exist in nearness. Essentially, all comparable things are close to one another. KNN is frequently utilized in basic proposal frameworks, image recognition innovation, and dynamic models. The image below displays data points that are alike existing within close proximity to each other.
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Knearestcode.png}
+    \captionof{figure}{Extraction of dependent and independent variables}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/KnearestTest.png}
+    \captionof{figure}{The image above shows the data is scaled}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Knearest.png}
+    \captionof{figure}{Euclidian distance graph}
+\end{center}
 
 The image above shows the data is scaled.
 
-% img
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/BeforeAfterKNN.png}
+    \captionof{figure}{KNN converts new data point to category A}
+\end{center}
 
 The KNN calculation depends on this supposition that being genuine enough for the algorithm to be useful. The KNN algorithm catches the possibility of likeness with some arithmetic strategy we may already know to calculate the distance between the data points on a graph.
 
@@ -1726,7 +1882,23 @@ Steps required for KNN:
     \item Step 6: The model is ready.
 \end{itemize}
 
-% imgs
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/datacategories.png}
+    \captionof{figure}{Displays new data point before KNN algorithm is applied}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/euclideandistancegraph.png}
+    \captionof{figure}{Euclidian distance graph}
+\end{center}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/neighbordatagraph.png}
+    \captionof{figure}{KNN algorithm emphasizes new data point being categorized with category A}
+\end{center}
 
 \section{Data Exploration}
 
@@ -1909,19 +2081,43 @@ http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/
 https://provalisresearch.com/products/qualitative-data-analysis-software/
 
 
-Sample Descriptive Data by Match Up
+\subsection{Sample Descriptive Data by Match Up}
 Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure 35 displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MatchUpsDivisionPieChart.png}
+    \captionof{figure}{Matchups division}
+\end{center}
 
 We will be going over some descriptive statistics: mean, median, mode, standard deviation, minimum and maximum for each type of matchup in this randomly selected group of replays. Since, there are a lot of variables involved in our full data set, we will only be looking at a selected few: Current Workers, Mineral Collection Rate, and Vespene Collection Rate for the winners and the losers. Lastly, we will also take a look at the match result for each type of match up and how the differences races fared. 
 
-Protoss vs Protoss:
+\subsubsection{Protoss vs Protoss}
 There were a total of 31 PvP matchups in the selected sample data and in the figure below We can see that on average the winner has a higher number of current workers and higher rate of mineral and vespene collection, which is as expected. 
 
-Terran vs Terran:
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/WorkersCollection.png}
+    \captionof{figure}{PvP descriptive statistics}
+\end{center}
+
+\subsubsection{Terran vs Terran}
 The TvT matchup was the least popular with only 6 that were randomly selected for the purpose of taking a look at some basic descriptive statistics in a sample data set. Similar to what we have noticed in the PvP match up, the winners had a higher average number of current workers, as well as a higher rate of mineral and vespene collection. The mode for Mineral Collection Rate is not available due to there being two equal valued modes. 
 
-Zerg vs Zerg:
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/WorkersCollectionTvT.png}
+    \captionof{figure}{TvT descriptive statistics}
+\end{center}
+
+\subsubsection{Zerg vs Zerg}
 There were 8 ZvZ match ups and the figure below shows some descriptive statistics of this match up type. Again, the mode here is not available, due to there being two of the same values. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/WorkersCollectionZvZ.png}
+    \captionof{figure}{ZvZ descriptive statistics}
+\end{center}
 
 Protoss vs Terran:
 PvT was the most popular match up type in this sample data set, totaling up to 39 replays.
