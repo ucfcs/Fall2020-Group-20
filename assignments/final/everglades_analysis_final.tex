@@ -181,7 +181,9 @@ We could go into a more statistical direction and use regression analysis to att
 
 \msection{Ian Pleau}
 
-Going in a research-based direction could be extremely beneficial for this project. This means reading as many papers to get ideas of how we are going to analyze and structure data from StarCraft as possible before going into the data analysis. Starcraft has a lot of statistics that lead to a win or a loss, the key will be to identify which of these stats are the best possible for us to deep analyze. Shoehorning off of Thomas one of the best statistics that could be looked at is definitely the different races and what they mean for playstyle, game times, and win rates at specified moments of the game. This could open a bigger analysis into studying spikes in win rate over time, does minute 30 of a game have a large win rate spike in a certain race because they are able to achieve a powerful unit at that time or other analysis.
+Going in a research-based direction could be extremely beneficial for this project. This means reading as many papers to get ideas of how we are going to analyze and structure data from StarCraft as possible before going into the data analysis. Starcraft has a lot of statistics that lead to a win or a loss, the key will be to identify which of these stats are the best possible for us to deep analyze.
+
+Shoehorning off of Thomas one of the best statistics that could be looked at is definitely the different races and what they mean for playstyle, game times, and win rates at specified moments of the game. This could open a bigger analysis into studying spikes in win rate over time, does minute 30 of a game have a large win rate spike in a certain race because they are able to achieve a powerful unit at that time or other analysis.
 
 \msection{Manuel Vasquez}
 
@@ -193,16 +195,57 @@ Expanding on Elaine’s idea of delving into a more statistical direction, I thi
 
 \msection{Thomas Lukas}
 
-Initial building and unit decisions are among the most important parts of the game, especially if one of the races in the match is Zerg. Zerg players tend to be overly aggressive in their unit creation and attack tactics so if the opposing player does not implement the correct counter strategy, the Zerg player will snowball into a victory. We believe that if our algorithm can identify the early strategies of both players it can accurately predict a quick win depending on if a player is getting countered perfectly. One problem that can arise however is that since this will be human vs human matches, there is always the chance for the player with the superior strategy to blunder in execution and lose the game.
+Initial building and unit decisions are among the most important parts of the game, especially if one of the races in the match is Zerg. Zerg players tend to be overly aggressive in their unit creation and attack tactics so if the opposing player does not implement the correct counter strategy, the Zerg player will snowball into a victory.
+
+We believe that if our algorithm can identify the early strategies of both players it can accurately predict a quick win depending on if a player is getting countered perfectly. One problem that can arise however is that since this will be human vs human matches, there is always the chance for the player with the superior strategy to blunder in execution and lose the game.
 
 \section{Distribution of Work}
 
+\msection{Senior Design I}
+\vspace*{-2mm}
 
+\begin{tabular}{ll}
+    Task & Assignee(s) \\
+    \hline
+    StarCraft II game mechanics & All \\
+    PySC2 & Ian and Ossama \\
+    Scikit-learn & All \\
+    Literature survey & All \\
+    Regression & Elaine and Manuel \\
+    Classification & Thomas and Elaine \\
+    Clustering & Thomas and Manuel \\
+    Technology set up & All \\
+    Database research & Ossame \\
+    SC2reader & Ian, Elaine, Thomas, and Manuel \\
+    Data collection & Ian and Manuel \\
+    Data preparation & Elaine and Thomas \\
+    EDA & Elaine, Thomas, and Manuel \\
+    Document compilation & Ian \\
+    Final design document & All
+\end{tabular}
+
+\msection{Senior Design II}
+\vspace*{-2mm}
+
+\begin{tabular}{ll}
+    Task & Assignee(s) \\
+    \hline
+    EDA cont. & Elaine, Thomas, and Manuel \\
+    Map clustering & Thomas and Elaine \\
+    Strategy classification & Ian and Elaine \\
+    Micro/macro analysis & Ian and Manuel \\
+    Battle detection algorithm & Manuel and Ossama \\
+    SG2 GUI & Thomas and Ossama \\
+    Develop real-time analytics engine & All \\
+    Code, model, agent review, and testing & All \\
+    Final design document review & All \\
+    Final presentation & All
+\end{tabular}
 
 \section{Project Block Diagram}
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/block_diagram.png}
+    \includegraphics[width=.7\linewidth]{media/block_diagram.png}
     \captionof{figure}{Working project block diagram as of September 30, 2020.}
 \end{center}
 
@@ -570,7 +613,9 @@ The data gets parsed and the events get sorted by time in a table called BOT (Bu
 
 This information is helpful for us in the way that it helps us have an idea of how to categorize our data. From their replays they were able to identify 5 categories of crucial information. We would definitely need a Frame, to keep track of the time that certain events happen. The EventType is also split up very nicely and covers events that could have an effect on match outcome. Having all our features at a given time in a vector could be a way for us to see how the game is going at a certain time and help us predict match outcomes. Though, this research paper focused only on TvT matchups, for our project we would like to look at other possible matchups as well.
 
-Returning to the paper, they showed the outcome of their research and gave a warning that the assumption of the outcome of the game is the outcome for all features extracted could be incorrect. But they went ahead to learn whether a snapshot is likely to be a win or a loss. To do this, they fed the system with snapshots that contain the features and their associated outcomes. Since, the result is win or lose, they are able to do this with classifiers. They used a WEKA toolkit to evaluate the prediction accuracy of multiple different systems and Gradient Boosted Trees for determining confidence measures. They also used 70\% of the features extracted for training and 30\% for testing. The result was an average prediction of over 50\% of the snapshots during the early game. The earliest where they were able to predict all of the snapshots was after the match had been played out, and a prediction accuracy of 100\% at the last 4.9\% of the match.
+Returning to the paper, they showed the outcome of their research and gave a warning that the assumption of the outcome of the game is the outcome for all features extracted could be incorrect. But they went ahead to learn whether a snapshot is likely to be a win or a loss. To do this, they fed the system with snapshots that contain the features and their associated outcomes. Since, the result is win or lose, they are able to do this with classifiers. They used a WEKA toolkit to evaluate the prediction accuracy of multiple different systems and Gradient Boosted Trees for determining confidence measures.
+
+They also used 70\% of the features extracted for training and 30\% for testing. The result was an average prediction of over 50\% of the snapshots during the early game. The earliest where they were able to predict all of the snapshots was after the match had been played out, and a prediction accuracy of 100\% at the last 4.9\% of the match.
 Seeing how for our project, we are also trying to predict match outcomes, we would probably use a classifier algorithm as well to predict match output.
 
 Before this publication, not all of us were familiar with the WEKA toolkit. Some quick research shows that WEKA is an abbreviation for Waikato Environment for Knowledge Analysis developed at the University of Waikato, New Zealand. In short, "Weka is tried and tested open source machine learning software that can be accessed through a graphical user interface, standard terminal applications, or a Java API. It is widely used for teaching, research, and industrial applications, contains a plethora of built-in tools for standard machine learning tasks, and additionally gives transparent access to well-known toolboxes such as scikit-learn, R, and Deeplearning4j" ("WEKA"). 
@@ -588,7 +633,9 @@ In conclusion, this publication was a good read since it gave us some ideas of h
 
 The goal of this paper was for the researchers to be able to predict specifically the outcome of a singular battle based on the complex and diverse armies that exist within Starcraft 2. This although being only a single battle is an extremely complex task as each unit has separate range abilities and movement meaning battles can not as easily be predicted by number of units or by the overall supply of the army but rather would have to be predicted using all factors at play in any given situation. Additionally, this paper aims to be able to predict the surviving number of units from the winning army in a full fight.
 
-With Starcraft 2 having an extremely complex set of systems in play that make the game open ended it has become the target and testing ground for a lot of AI research and work, this paper explains how AI is mostly focused on the brute force angle of macro where they overwhelm less experienced players. This method of brute force however falls off with more experienced players able to completely game the AI by using superior micro and timing. The paper explains how each of the prior attempts have been made to make more challenging AI some using AI that can cheat or make use of info unavailable and some that don’t cheat but use imagery to actively decide game state. This paper goes on to state though that with all this research there is a lack of research on prediction of engagements with very few attempts made even at battle simulations.
+With Starcraft 2 having an extremely complex set of systems in play that make the game open ended it has become the target and testing ground for a lot of AI research and work, this paper explains how AI is mostly focused on the brute force angle of macro where they overwhelm less experienced players. This method of brute force however falls off with more experienced players able to completely game the AI by using superior micro and timing.
+
+The paper explains how each of the prior attempts have been made to make more challenging AI some using AI that can cheat or make use of info unavailable and some that don’t cheat but use imagery to actively decide game state. This paper goes on to state though that with all this research there is a lack of research on prediction of engagements with very few attempts made even at battle simulations.
 
 This paper relies on some base assumptions which simplify greatly the prediction of engagements these are as listed: two armies, armies begin just out of sight, close clumping of units but random, attack move to begin the battle, and no micro management. One of the main focuses they decide as a stretch goal is the ability to predict micro management but all of these could become potential problematic errors when discussing the findings of a singular battle.
 
@@ -696,14 +743,17 @@ Continuing with the third key lesson, data alone is not enough. It talks about n
 
 This reminds us that even though we believe we are going to be able to collect a large amount of data, it is still not going to guarantee us a high accuracy classifier. What we need to focus on is choosing the right Representation based on the data that we are going to train and test. We planned on going over some of the most common machine learning algorithms such as Logistic Regression, K-nearest Neighbor, Naïve Bayes, Mean-Shift etc. in an attempt to understand them better so we know exactly which Representation will work best with the dataset that we will have.
 
-Key lesson number four goes over the issue of overfitting. A big problem of machine learning is overfitting, that is when we do not have enough knowledge to be able to correctly determine the class, we can run the risk of making up a classifier that is not real and is just encoding random traits in the data. We know that we have a problem with overfitting, if the classifier does very well on the training set but poorly on the testing set. It mentions how we can use bias and variance to understand overfitting. "Bias is a learner’s tendency to consistently learn the same wrong thing. Variance is the tendency to learn random things irrespective of the real signal" (Domingos 3). The paper gives some methods to overcome the problem of overfitting. Such as, cross-validation, regularization term, and chi-square test. It also warns us that overfitting is not always caused by noise in the data, it can occur even in the absence of noise.
+Key lesson number four goes over the issue of overfitting. A big problem of machine learning is overfitting, that is when we do not have enough knowledge to be able to correctly determine the class, we can run the risk of making up a classifier that is not real and is just encoding random traits in the data. We know that we have a problem with overfitting, if the classifier does very well on the training set but poorly on the testing set.
+
+It mentions how we can use bias and variance to understand overfitting. "Bias is a learner’s tendency to consistently learn the same wrong thing. Variance is the tendency to learn random things irrespective of the real signal" (Domingos 3). The paper gives some methods to overcome the problem of overfitting. Such as, cross-validation, regularization term, and chi-square test. It also warns us that overfitting is not always caused by noise in the data, it can occur even in the absence of noise.
 
 Learning that overfitting is such a large issue for machine learning, we will keep an eye to make sure that our classifier is not only doing well in the training set but, most importantly, it can accurately predict the correct class even with data that it has not seen beforehand. In the unfortunate situation that we encounter the overfitting problem, we now have some idea of how to combat this issue.
 
 Fifth key lesson is about the next biggest problem in machine learning, dimensionality. Being able to generalize correctly becomes a lot harder as the number of features grows. It cautions us to be mindful of how many features we are gathering, because having more does not equal a better classifier, it could instead be outweighed by the problem of dimensionality. To combat this problem, we can use algorithms that are explicitly for reducing dimensionality.
 
-Understanding that more features does not mean a better classifier is an important reminder. It might be a good idea if our classifier does not predict with our desired accuracy, to instead add one feature at a time and make sure that the feature to be added is statistically significant in predicting game outcome. This way, we could possibly avoid the problem of both dimensionality and overfitting. The paper did not mention what the dimensionality reducing algorithms are, but a quick search shows us that there are plentiful out there. For example, classical scaling, isomap, local linear embedding etc. which all seems very complicated and intimidating. Nevertheless, if we do come across a dimensionality problem during our data analysis, we would surely explore these algorithms further.
-Moving on to the sixth key lesson, it is about theoretical guarantees. According to the paper, the main role of theoretical guarantees in machine learning should be a source of understanding and driving force for algorithm design, not as a criterion for practical decisions.
+Understanding that more features does not mean a better classifier is an important reminder. It might be a good idea if our classifier does not predict with our desired accuracy, to instead add one feature at a time and make sure that the feature to be added is statistically significant in predicting game outcome. This way, we could possibly avoid the problem of both dimensionality and overfitting. The paper did not mention what the dimensionality reducing algorithms are, but a quick search shows us that there are plentiful out there.
+
+For example, classical scaling, isomap, local linear embedding etc. which all seems very complicated and intimidating. Nevertheless, if we do come across a dimensionality problem during our data analysis, we would surely explore these algorithms further. Moving on to the sixth key lesson, it is about theoretical guarantees. According to the paper, the main role of theoretical guarantees in machine learning should be a source of understanding and driving force for algorithm design, not as a criterion for practical decisions.
 
 Probably the point of the seventh lesson for us, is to take guarantees with a grain of salt. The numbers can look good on paper but not be practical, or vice versa, the numbers can look less than ideal but it does not mean there are no practical uses for it.
 
@@ -756,9 +806,13 @@ This work is highly applicable to our project despite differences in data collec
 
 This paper focuses less on winning strategies within RTS games but more on prediction of singular actions that a player has made. Although our project focuses primarily on the full win prediction an analysis of predicting any movement in an RTS game could be a sub part of the overall prediction of a game. 
 
-This paper opens with a similar prompt to that of the project in that any advancement in AI and learning from an RTS game is highly applicable to uses in other RTS games and efficiency of other applications that can make use of strategy. RTS AI can be highly complex as explained and the complex nature of these games completely ruins the possibility of simplistic learning algorithms being usable for prediction. This paper specifically uses WEKA toolkit to apply machine learning algorithms to StarCraft 2 and manages to nail a fairly high action prediction rate given the wide variety of actions that can be performed. Due to this being an older paper StarCraft 2 was at the time of writing a rather new game having been used not very often in research and lacking in tools for replay extraction this forced the authors to have to be very resourceful with differing tools to clean their dataset and assemble a dataset of 2110 games, some of the same places they managed to acquire replays from were useful for us in the search for our DataSet as we transitioned off of Blizzard’s anonymous dataset to a set that worked with SC2Reader of pro games. 
+This paper opens with a similar prompt to that of the project in that any advancement in AI and learning from an RTS game is highly applicable to uses in other RTS games and efficiency of other applications that can make use of strategy. RTS AI can be highly complex as explained and the complex nature of these games completely ruins the possibility of simplistic learning algorithms being usable for prediction. This paper specifically uses WEKA toolkit to apply machine learning algorithms to StarCraft 2 and manages to nail a fairly high action prediction rate given the wide variety of actions that can be performed.
 
-This paper primarily focused on the use of ANNs or Artificial Neural Network, Random Forest, Adaptive Boosting, and C4.5 Decision Trees in order to apply machine learning. Using each of these methods on a number of features and characteristics that they extracted specifically related to the build order of units in these matches. One cool finding they found using pro game data is that using data they were very easily able to use the different playstyles that pros used and that further using that and APM it became possible to specifically target and identify pro players by name from the data set even going as far as always being able to narrow down the player to 2 or 3 when talking about similar players. When discussing their action prediction the paper explains that their initial action prediction was quite low but increases as the game progresses, this is due to a decrease in the amount of actions that are required later on.
+Due to this being an older paper StarCraft 2 was at the time of writing a rather new game having been used not very often in research and lacking in tools for replay extraction this forced the authors to have to be very resourceful with differing tools to clean their dataset and assemble a dataset of 2110 games, some of the same places they managed to acquire replays from were useful for us in the search for our DataSet as we transitioned off of Blizzard’s anonymous dataset to a set that worked with SC2Reader of pro games. 
+
+This paper primarily focused on the use of ANNs or Artificial Neural Network, Random Forest, Adaptive Boosting, and C4.5 Decision Trees in order to apply machine learning. Using each of these methods on a number of features and characteristics that they extracted specifically related to the build order of units in these matches.
+
+One cool finding they found using pro game data is that using data they were very easily able to use the different playstyles that pros used and that further using that and APM it became possible to specifically target and identify pro players by name from the data set even going as far as always being able to narrow down the player to 2 or 3 when talking about similar players. When discussing their action prediction the paper explains that their initial action prediction was quite low but increases as the game progresses, this is due to a decrease in the amount of actions that are required later on.
 
 This paper is a good look into Neural Networks and J48-C4.5 Decision trees as those had been not yet considered for our project. Looking specifically it is interesting to see how robust J48 was at being able to predict not only actions but also specific players. This paper is extremely applicable to the Everglades Analytics project as it uses StarCraft 2 and pro data in a similar way. It could be a good consideration for win prediction to first analyze action prediction to optimize.
 
@@ -934,7 +988,7 @@ Next, we would like to use Scikit-learn’s LinearRegression() function to find 
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/sklearnregressionfit.png}
+    \includegraphics[width=.7\linewidth]{media/sklearnregressionfit.png}
     \captionof{figure}{Finding $\beta_0$ and $\beta_1$ using Scikit-Learn.}
     \label{fig:sklearnregressionfit}
 \end{center}
@@ -956,23 +1010,22 @@ Comparing this predicted result with the actual result 29.3, we can see that our
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/printregression.png}
+    \includegraphics[width=.6\linewidth]{media/printregression.png}
     \captionof{figure}{$R^2$ value for our college football simple linear regression.}
 \end{center}
 
 Figure \ref{fig:sklearnregressionfit} shows the $R^2$ value of $0.291$ for our college football example. This can be interpreted as approximately 29.\% of the variability in the Points per Game can be explained by this linear model containing Passing Yards per Game. Since we have the $R^2$ value, we can calculate the Pearson’s Correlation Coefficient:
-
-% formula
-
+$$r=\sqrt{R^2}$$
 Thus, for our college football example, we have $r=\sqrt{0.291}=0.54$. This tells us that there is a moderately strong positive linear relationship between Passing Yards per Game and Points per Game. Perhaps the low value for coefficient of determination in our example is due to the inconsideration for the other existing independent variables that may have an impact on the dependent variable. 
-
 
 \subsubsection{Multiple Linear Regression}
 If there are two or more independent variables that have linear relationships with our dependent variable, then it is considered a Multiple Linear Regression, with the formula:
 $$Y=\beta_0+\beta_1X_1+...+\beta_k\beta_k$$
 Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for some independent variable $X_1$. Since, for multiple linear regression we have more than one independent variable, the $k$ in the equation stands for the number of independent variables.
 
-Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure \ref{fig:fullRegressionPic} shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
+Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression.
+
+Figure \ref{fig:fullRegressionPic} shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
 $$Y=-15.4618+.0939X_1+.0027X_2+.0908X_3$$
 What this equation means:
 \vspace*{-.9cm}
@@ -1034,7 +1087,7 @@ Figure \ref{fig:football} shows the scatterplots for each possible interaction t
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/SalesvsTV.png}
+    \includegraphics[width=.6\linewidth]{media/SalesvsTV.png}
     \captionof{figure}{Caron, Kyle. "Sales vs. TV x radio." 2020.}
     \label{fig:SalesvsTV}
 \end{center}
@@ -1055,7 +1108,7 @@ It seems that the interaction term for our model has a rather small coefficient.
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/rsquaredmodel.png}
+    \includegraphics[width=.6\linewidth]{media/rsquaredmodel.png}
     \captionof{figure}{$R^2$ for interaction model.}
     \label{fig:rsquaredmodel}
 \end{center}
