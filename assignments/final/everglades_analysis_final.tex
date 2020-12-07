@@ -68,7 +68,7 @@
     % \end{bottom}
 \end{titlepage}
 
-\setstretch{1.5}
+\setstretch{1.4}
 \pagenumbering{roman}
 
 \tableofcontents
@@ -80,6 +80,9 @@
 \pagenumbering{arabic}
 
 \chapter{Executive Summary}
+
+
+
 \section{Goals and Objectives}
 \subsection{Goal \#1}
 
@@ -227,10 +230,21 @@ Initial building and unit decisions are among the most important parts of the ga
     \item Project findings presentation and keynote
 \end{enumerate}
 
+\begin{sidewaysfigure}
+    \section{Project Schedule}
+
+    \centering
+    \includegraphics[width=1\linewidth]{media/gantt.png}
+\end{sidewaysfigure}
+
+\section{Kanban board}
+
+I've created Github actions to auto-generate issues. Whenever a new paper is required to be read by all or specific members of the team an action triggers generating issues, assigning them to their respective members, and the proper milestone. 
+
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=1\linewidth]{media/gantt.png}
-    \captionof{figure}{Gantt Chart}
+    \includegraphics[width=.8\linewidth]{media/kanban.png}
+    \captionof{figure}{Github issues kanban board.}
 \end{center}
 
 \chapter{Research}
@@ -241,6 +255,31 @@ StarCraft Brood War is the initial game proposed by Lockheed Martin for research
 BW API (Brood Wars API) is the main API Torch Craft pulled from and this API has been without an update for over three years, ordinarily dated software would be fine, but this API uses StarCraft and specifically version 1.16. Recently Blizzard Entertainment the company behind StarCraft remastered the game and with that remastered they updated the game specifically including anti-cheat and anti-bot software with it, in turn this bricked BWAPI from working with the newer version. The initial work around that we located for this was finding an unofficial version of the game that ran on 1.16 and beginning to setup the client and server-side versions of Torch Craft from there. 
 
 Unfortunately, even with the new working version of StarCraft with BWAPI TorchCraft server software was unable to run on Windows versions above Windows 7 and furthermore the linux version seemed to be not working at all in our attempts.
+
+\Large\textbf{SC2LE | StarCraft II Learning Environment}\normalsize
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=1\linewidth]{media/pysc2-2.png}
+    \captionof{figure}{The architecture for the SC2LE and a symbolic win-prediction engine.}
+    \label{fig:pysc22}
+\end{center}
+
+The StarCraftII Learning Environment introduces a reinforcement learning environment based on the namely game StarCraft II. This environment allows us to explore deep reinforcement learning with better tools and with a large and supportive community behind it.
+
+The StarCraftII Learning Environment consists of three sub-components: a Linux StarCraft II binary, the StarCraft II API, and PySC2 (Figure \ref{fig:pysc22}).
+
+The StarCraft II API, released by Blizzard Entertainment, gives us access to fine tuned controlls of the game. The API provides us with all gaming abilities from starting a game to troop movements. We can replay games and view game logs in realtime.
+
+The PySC2 environment, open-sourced by DeepMind, provides a Python wrapper for the StarCraft II API. This means that Python machine learning libraries like Tensorflow and PyTorch will have access to all the StarCraft II data. This environment also provides a human interpretable view with color masks for all aspects of the game (Figure \ref{fig:pysc21}).
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=1\linewidth]{media/pysc2-1.png}
+    \captionof{figure}{Human interpretable view of the game with colored partions.}
+    \label{fig:pysc21}
+\end{center}
+
+By utilizing PySC2 we are able to significantly reduce development time of the realtime win-prediction engine. This is due to the fact that PySC2 offers the following (Vinyals et al.): learning from human replays becomes simpler, we do not require unrealistic/super-human actions per minute to issue instructions individually to each unit, and the game was designed to be played with this UI, and the balance between strategic high level decisions, managing your economy, and controlling the army makes the game more interesting.
 
 \section{Game Mechanics}
 
@@ -365,7 +404,6 @@ The data set we are using for the project is a selection of pro games over the c
 
 These maps are compiled into an array that stores each of the maps, then using the map information available from the map info which has been compiled by liquipedia it is possible to get the width and height of each of the maps in a number form of pixels. Ex.) DeathAura LE = 144 x 140. Pixels do not entirely give the full picture of map size but due to the maps having a low amount of extractable data from Blizzard this is what we found to be the most reasonable method of assigning a map size. Given the width and height, finding the area of the map and assigning that to a MapSize array was the next step and then appending the two maps together to make an array that mapped the ID of the map to the size. After assigning the maps there is a small algorithm to group each of the maps into evenly sized groups which essentially self classifies based off of relative map size where each map should be assigned.
 
-\pagebreak
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.8\linewidth]{media/MapSorter.png}
@@ -476,6 +514,10 @@ In forward modeling we attempt to predict the future. Meaning that given the cur
 
 There are several different methods of handling partial information. Heuristically, professional StarCraft gamers are very efficient in handling partial observations. These methods include: simply sending out scouts to uncover the fog-of-war, create a specific model whose task is to derive more information from partial information, use algorithms like particle filters or Kalman filters to estimate enemy position.
 
+\msection{Partial information handling}
+
+\includegraphics[width=.6\linewidth]{media/battle.png}
+
 \subsection{Early Prediction of a Game Outcome in StarCraft 2}
 
 "Early Prediction of a Game Outcome in StarCraft 2" written by David Leblanc and Sushil Louis from the Department of Computer Science and Engineering from the University of Nevada Reno, explores ways to predict outcome of a StarCraft 2 game, focused mainly on early game outcome prediction.
@@ -522,7 +564,7 @@ We planned on using scikit-learn to perform most of our data analysis, but this 
 It is probably due to losing players making good late game decisions that turn the match around or winning players making mistakes during the later phases of the match. Especially, since the replays are collected from tournaments, it is hard to determine which player is winning since both players are professional and can make decisions that can drastically change the outcome of the game. For our machine learning classification algorithm, we need to be able to predict match outcomes at any state of the game, including early game. Noticing how they did not achieve as high accuracy as they would have liked, it makes us wonder what we can do to improve upon that to develop an algorithm that can predict match outcomes at any given time with higher accuracy.
 
 The last part of the paper talks mostly about what can be worked on in the future for their project that can maximize classification accuracy and minimizing over-fitting. It is also mentioned that their replays extractions were lacking some information such as, units, lots and income.
-Perhaps, if we are able to collect more information regarding the state of the game at a given time, we would be able to have a more comprehensive vector/snapshot that includes more variables that have an effect on match outcome. Such as, the amount of resources, vision, damage dealt etc. This paper focused mostly on TvT matchups, to be able to give more general answers to our research goals like "characteristics that determine win" and "metrics that predict agent’s performance", we should look at other matchups as well.
+Perhaps, if we are able to collect more information regarding the state of the game at a given time, we would be able to have a more comprehensive vector/snapshot that includes more variables that have an effect on match outcome. Such as, the amount of resources, vision, damage dealt etc. This paper focused mostly on TvT matchups, to be able to give more general answers to our research goals like "characteristics that determine win" and "metrics that predict agent’s performance," we should look at other matchups as well.
 
 In conclusion, this publication was a good read since it gave us some ideas of how researchers have already approached a similar problem. We were introduced to the toolkit and algorithms that they used, how they categorized and extracted their data from replays, as well as the accuracy that we can expect to get using the information that they have used.
 
@@ -713,6 +755,41 @@ Supervised learning is one of the most popular algorithms that is used in machin
 
 Unsupervised learning also has input variables  but they do not have an output variable . The goal of this is to model the underlying structure or distribution in the data in order to learn more about our data. Or in other words, we use unsupervised learning when we want to explore our data and find hidden patterns without having labeled responses. This is usually used to solve clustering problems, which we will also further explore and demonstrate some of the most common algorithms under clustering. We believe that we will be using some of the clustering algorithms mainly for discovering map differences. Which is important for our Goal\#3, identify how map differences affect the output of games with similar strategies.
 
+\subsubsection{Example: Handwritten Digit Recognition with a Back Propagation Network}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.7\linewidth]{media/numbers.png}
+    \captionof{figure}{Preprocessed handwritten digits from the MNIST dataset.}
+\end{center}
+
+This research paper was written in the 1990s, when fully connected layers for small parameter models like this one was still an issue. Today, we're able to create and train massive models without any issue. Given this we can research various approaches and receive responses in realtime. This research paper does give insight on how useful backpropagation was and still is for real-world tasks.
+
+So, since I've had some experience with the MNIST dataset I went one step further and created a generative adverserial network (Figure \ref{fig:gan}).
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.31\linewidth]{media/discriminator.png}
+    \includegraphics[width=.31\linewidth]{media/generator.png}
+    \includegraphics[width=.31\linewidth]{media/gan.png}d
+    \captionof{figure}{Generative adverserial network architecture (left-to-right: discriminator, generator, and GAN).}
+    \label{fig:gan}
+\end{center}
+
+\textbf{Generator:} Generates handwritten digits which will then be passed on to the discriminator to be judged. The job of the generator is to fool the discriminator into thinking these are real handwritten digits.
+
+\textbf{Discriminator:} Discriminates between generated and real handwritten digits. The job of the discriminator is to output whether the image it received is a handwritten digit created by a human or one created by the generator. Take into account that the generator will actively try to outsmart the discriminator, so at some point it will generate almost real handwritten digits.
+
+I trained this model for 40 epochs and received outstanding results for the amount of training time (Figure \ref{fig:mnist}). 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.3\linewidth]{media/mnist-classifier.png}
+    \includegraphics[width=.38\linewidth]{media/generated-numbers.png}
+    \captionof{figure}{\textit{Left-to-right:} Handwritten digit classifier and generated handwritten digits with appropriate predictions.}
+    \label{fig:mnist}
+\end{center}
+
 \subsection{Reinforcement Learning}
 
 Reinforcement learning is training an agent to make a sequence of decisions to achieve some goal that we have set. In order for the agent to make the correct decisions, it gets rewarded or penalized based on the action it took. We do not program the agent to take these actions specifically but, instead we allow it to learn what it should and should not do through trial and error. The agent usually starts with completely randomized actions and slowly it learns what actions give rewards and what actions give penalties.
@@ -772,16 +849,20 @@ Since we are required to use three different models, it could be a very slow mod
 
 \subsection{Neural Networks}
 
-Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set. The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure \ref{fig:NeuralNetwork}, we can see a basic input, output, and hidden layer neural network. 
+Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set.
+
+The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure \ref{fig:NeuralNetwork}, we can see a basic input, output, and hidden layer neural network. 
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/NeuralNetwork.png}
+    \includegraphics[width=.6\linewidth]{media/NeuralNetwork.png}
     \captionof{figure}{Neural Network}
     \label{fig:NeuralNetwork}
 \end{center}
 
-The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure \ref{fig:kerasmodels} shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer. Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
+The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure \ref{fig:kerasmodels} shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer.
+
+Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
 
 \begin{center}
     \captionsetup{type=figure}
@@ -1094,6 +1175,15 @@ In general, the Ridge Regression and the Lasso Regression are both great techniq
 \subsection{Clustering}
 Clustering is the grouping of objects into similar sets, this is a form of unsupervised learning and can give us a more general idea of insights and metrics that group and not so much predicting. One specific example of how this can be applied to our StarCraft analysis is classifying which race performs better on which specific map. Some algorithms correlated with classification is: k-means, mean-shift, and spectral clustering.
 
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.5\linewidth]{media/cluster.png}
+    \captionof{figure}{Clustering on number of units for Protoss (20s sample). All units not shown. (Lin et al.)}
+    \label{fig:cluster}
+\end{center}
+
+Figure \ref{fig:cluster} shows an example of clustering with the dataset STARDATA. We are collecting Protoss samples every 20 seconds and clustering on each unit type. Each subplot contains a cluster. Given that the y-axis is the normalized score of how often each unit is created in each time n-step across all games. This plot shows us that at the same time n-step for the same unit type a value twice as high means that the cluster mean had twice the number of units for that type.
+
 \subsubsection{Handwritten Digits Classification Example}
 
 Included with the Scikit-learn library are multiple toy datasets intended on teaching users the basics to Machine Learning analysis with data that doesn’t need much preparation before being trained/tested.
@@ -1363,7 +1453,7 @@ Cons Analyzing Professional Games:
     \item The players know each other and their tendencies, so there could be outlier strategies implemented to counter a specific opponents playstyle.
 \end{itemize}
 
-The StarCraft 2 replay files are saved and stored in a subdirectory as a ".SC2Replay", this file has all the pivotal information stored that allows the game engine to recreate a previously played game. Within this replay file is all the important information we need to analyze such as build orders, resource counts, army positions and deaths. However, it is impossible to grab this data without the use of a decipher that can parse through the data of a .SC2Replay file and transform it into readable data that can be viewed and analyzed.
+The StarCraft 2 replay files are saved and stored in a subdirectory as a .SC2Replay, this file has all the pivotal information stored that allows the game engine to recreate a previously played game. Within this replay file is all the important information we need to analyze such as build orders, resource counts, army positions and deaths. However, it is impossible to grab this data without the use of a decipher that can parse through the data of a .SC2Replay file and transform it into readable data that can be viewed and analyzed.
 
 \subsection{PySC2}
 PySC2 is deep mind’s python component for the StarCraft 2 learning environment. PySC2 is a collaboration between the developers of SC2, Blizzard Entertainment and DeepMind who are known primarily for their work in AI and machine learning. This provides an interface for agents to interact with StarCraft 2 to get observations and send actions. Along with this SC2 API (StarCraft 2 API) is also a major part of what makes this great with the API being official and supported by Blizzard there is the ability to have access to a large amount of anonymized 1v1 replays played on the ladder that can be used to gather observations and actions from the game.
@@ -1709,7 +1799,7 @@ Initially, the dictionary created had the names of every unit including all the 
 
 A big issue however, was that the initial strategy of incrementing when a unit is created and decrementing when a unit dies was causing our dataset to display negative counts for the unit types. This was a massive error as a unit can’t be destroyed if it is never created. The issue resulted from the fact that when a unit changed mode the name of the unit also changed under sc2reader. For example, in Terran the unit "SiegeTank" has an ability called "Siege mode" which changes the units name to "SiegeTankSieged" , so if that unit dies while using that ability it dies as "SiegeTankSieged". Edge cases had to be made in order to ensure that regardless of which mode the unit died in, the basic unit name was decremented in the dictionary.
 
-Similarly, in the UnitBornEvent sometimes a unit is created with a name already in mode form. For example, in Terran the "Viking" unit has two modes: "Viking Assault" and "Viking Fighter", when a Viking is created it is created as a "Viking Fighter" which was unique to this unit as other units were assigned the name of the basic unit type. We had to make special edge cases for units that are created under different name variations. 
+Similarly, in the UnitBornEvent sometimes a unit is created with a name already in mode form. For example, in Terran the "Viking" unit has two modes: "Viking Assault" and "Viking Fighter," when a Viking is created it is created as a "Viking Fighter" which was unique to this unit as other units were assigned the name of the basic unit type. We had to make special edge cases for units that are created under different name variations. 
 
 \begin{center}
     \captionsetup{type=figure}
@@ -1786,7 +1876,7 @@ Using the PlayerStatsEvent, all the statistics that can be gathered from that cl
     \captionof{figure}{UnitBornEvent records every time a unit is created}
 \end{center}
 
-For Terran players there were only three edge cases for units being born under a different name than what was listed in the dictionary. The "orbital command" is a building that is an upgraded version of a "command center", so an orbital command center is always a command center, but a command center isn’t always an orbital command center. The basic breakdown is that when an event is read in that creates a unit, first it is checked if the player is a Terran player, from there it is added to the correct key under the Terran dictionary, following those edge cases.
+For Terran players there were only three edge cases for units being born under a different name than what was listed in the dictionary. The "orbital command" is a building that is an upgraded version of a "command center," so an orbital command center is always a command center, but a command center isn’t always an orbital command center. The basic breakdown is that when an event is read in that creates a unit, first it is checked if the player is a Terran player, from there it is added to the correct key under the Terran dictionary, following those edge cases.
 
 \begin{center}
     \captionsetup{type=figure}
@@ -2144,58 +2234,6 @@ This feature responds to events of the total vespene value of all active forces.
 % \section{Database}
 % \subsection{Subsections explaining what we did}
 
-\chapter{Administrative Content}
-\section{Project Budget}
-
-Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
-
-Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
-
-\section{Project Milestones}
-
-\subsection{Initial Research and Analysis}
-
-The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
-
-\subsection{Agile Sprints}
-
-Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
-
-\subsection{Data preparation}
-
-Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/19/2020 \\
-Sprint 2 & 11/12/2020 \\
-Sprint 3 & 01/20/2021
-\end{tabular}\end{center}
-
-\subsection{Agent Testing/Comparison}
-
-Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
-
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/24/2020 \\
-Sprint 2 & 12/02/2020 \\
-Sprint 3 & 02/05/2021
-\end{tabular}\end{center}
-
-\subsection{Data review and revision}
-
-The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
-
-\begin{center}\begin{tabular}{ll}
-Sprint 1 & 10/31/2020 \\
-Sprint 2 & 12/10/2020 \\
-Sprint 3 & 02/11/2021
-\end{tabular}\end{center}
-
-\subsection{Final Design Document}
-
-Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
-
 \subsection{Sample Descriptive Data by Match Up}
 Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure \ref{fig:MatchUpsDivisionPieChart} displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
 
@@ -2356,6 +2394,58 @@ It appears that similar to the conclusion we were able to draw from dividing the
 
 Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
 
+\chapter{Administrative Content}
+\section{Project Budget}
+
+Aside from testing the agents through a server, there are no expected costs for the duration of this project. The server will be implemented through Amazon Web Services (AWS) or Microsoft Azure which will yield no further than \$100.
+
+Upon completion of the project, the remaining costs obtained from the group will involve printing, binding, and documentation near the end of Senior Design I. These costs may vary depending on a few possible options pertaining to the color and size of the documentation.
+
+\section{Project Milestones}
+
+\subsection{Initial Research and Analysis}
+
+The team will be acclimating to several different technologies ranging from Scikit-learn, Python, and TensorFlow. Scikit-learn is a Python-based machine learning tool that enables the diagnosis of large datasets while also providing a visual representation of the corresponding data. TensorFlow is an open-source software library for dataflow for machine learning applications. Alongside the technologies, we will also be diving into StarCraft, Brood War extension pack, a military science real-time strategy game offered by Blizzard Entertainment. The team would be learning the functionalities of the game as the goal is to characterize match output from a publicly available dataset to determine behaviors most often leading to wins. Deliverables will be produced from what the team explored during the research of StarCraft data machine learning concepts.
+
+\subsection{Agile Sprints}
+
+Throughout this project, we will be required to attain AI agents and their variable metrics. To do so, the team will work through the development process using Agile Sprints. Each sprint will consist of Hypothesis Generation/Data Preparation, AI Agent Development, Agent Testing/Comparison, and Final Data Review.
+
+\subsection{Data preparation}
+
+Preparation of data includes but is not limited to research and analysis through StarCraft dataset, learning machine learning concepts through StarCraft’s Brood War expansion pack, reinforcement learning, and generative models.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/19/2020 \\
+Sprint 2 & 11/12/2020 \\
+Sprint 3 & 01/20/2021
+\end{tabular}\end{center}
+
+\subsection{Agent Testing/Comparison}
+
+Agent testing and comparison will be handled once the team acquires a hypothesis regarding the relevant metrics causing and affecting certain behaviors and outcomes. These methods include but are not limited to identifying early game strategies, using regression analysis, and correlation analysis.
+
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/24/2020 \\
+Sprint 2 & 12/02/2020 \\
+Sprint 3 & 02/05/2021
+\end{tabular}\end{center}
+
+\subsection{Data review and revision}
+
+The number of models and prototypes developed from the team will provide a sufficient reason as to what causes agents/players to achieve victories. The team is aiming for the simplification of the technical information therefore, portions of the data will be molded into a non-technical review as far as the artificial intelligence is taken place within the real-time strategy military game.
+
+\begin{center}\begin{tabular}{ll}
+Sprint 1 & 10/31/2020 \\
+Sprint 2 & 12/10/2020 \\
+Sprint 3 & 02/11/2021
+\end{tabular}\end{center}
+
+\subsection{Final Design Document}
+
+Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
+
 \chapter{Conclusion \& Looking Forward}
 
 \section{Conclusion}
@@ -2369,18 +2459,18 @@ Additionally, we believe the software we produce could be ported with minimal ef
 \chapter{Works Cited}
 \pagenumbering{Alph}
 
-\begin{enumerate}
-\item \url{https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm}
-\item \url{https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning}
-\item \url{https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47}
-\item \url{https://en.wikipedia.org/wiki/Support_vector_machine}
-\item \url{https://scikit-learn.org/stable/modules/svm.html}
-\item \url{https://scikit-learn.org/stable/modules/lda_qda.html}
-\item \url{https://en.wikipedia.org/wiki/Quadratic_classifier}
-\item \url{https://online.stat.psu.edu/stat508/book/export/html/696}
-\item \url{https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html}
-\item \url{http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/}
-\item \url{https://provalisresearch.com/products/qualitative-data-analysis-software/}
+\begin{enumerate}[label={[\arabic*]}]
+\item "Support Vector Machine (SVM) Algorithm - Javatpoint," www.javatpoint.com. [Online]. Available: \url{https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm}. [Accessed: 26-Oct-2020].
+\item R. Gandhi, "Support Vector Machine - Introduction to Machine Learning Algorithms," Medium, 05-Jul-2018. [Online]. Available: \url{https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47}. [Accessed: 25-Oct-2020].
+\item "K-Nearest Neighbor(KNN) Algorithm for Machine Learning - Javatpoint," www.javatpoint.com. [Online]. Available: \url{https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning}. [Accessed: 26-Oct-2020].
+\item "Support vector machine," Wikipedia, 28-Nov-2020. [Online]. Available: \url{https://en.wikipedia.org/wiki/Support_vector_machine}. [Accessed: 18-Nov-2020].
+\item R. M. GmbH, "Quadratic Discriminant Analysis (RapidMiner Studio Core)," Quadratic Discriminant Analysis - RapidMiner Documentation. [Online]. Available: \url{https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html}. [Accessed: 29-Oct-2020].
+\item 9.2.8 - Quadratic Discriminant Analysis (QDA). [Online]. Available: \url{https://online.stat.psu.edu/stat508/book/export/html/696}. [Accessed: 28-Oct-2020].
+\item "Quadratic classifier," Wikipedia, 29-Mar-2020. [Online]. Available: \url{https://en.wikipedia.org/wiki/Quadratic_classifier}. [Accessed: 25-Oct-2020].
+\item "1.2. Linear and Quadratic Discriminant Analysis," scikit. [Online]. Available: \url{https://scikit-learn.org/stable/modules/lda_qda}.html. [Accessed: 18-Nov-2020].
+\item "1.4. Support Vector Machines," scikit. [Online]. Available: \url{https://scikit-learn.org/stable/modules/svm.html}. [Accessed: 29-Nov-2020].
+\item "Linear vs. Quadratic Discriminant Analysis - Comparison of Algorithms," -, 23-Oct-2020. [Online]. Available: http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/. [Accessed: 18-Nov-2020].
+\item "TorchCraft: a Library for Machine Learning Research on Real-Time Strategy Games", arXiv preprint arXiv:1611.00625 [Online]. Available: \url{https://arxiv.org/abs/1611.00625}. [Accessed: 01-September-2020].
 \item "Main Page," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Main_Page}. [Accessed: 09-Nov-2020].
 \item C. Ballinger, S. Liu, and S. J. Louis, "Identifying Players and Predicting Actions from RTS Game Replays," 2014.
 \item Z. Lin, J. Gehring, and V. Khalidov, STARDATA: A StarCraft AI Research Dataset , Aug. 2017.
