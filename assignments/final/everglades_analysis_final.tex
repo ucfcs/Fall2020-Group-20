@@ -68,7 +68,7 @@
     % \end{bottom}
 \end{titlepage}
 
-\setstretch{1.2}
+\setstretch{1.5}
 \pagenumbering{roman}
 
 \tableofcontents
@@ -1048,7 +1048,7 @@ Since for the Ridge Regression, the coefficients are all shrunk by the same fact
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/Ridge1.png}
+    \includegraphics[width=.7\linewidth]{media/Ridge1.png}
     \captionof{figure}{Ridge regression with lambda = 0.}
 \end{center}
 
@@ -1056,7 +1056,7 @@ If we increase $\lambda$ to 0.3, as shown in Figure 29, we can see that the coef
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/Ridge2.png}
+    \includegraphics[width=.7\linewidth]{media/Ridge2.png}
     \captionof{figure}{Ridge regression with lambda = 0.3.}
 \end{center}
 
@@ -1064,7 +1064,7 @@ If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in F
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/Ridge3.png}
+    \includegraphics[width=.7\linewidth]{media/Ridge3.png}
     \captionof{figure}{Ridge regression with lambda = 10.}
 \end{center}
 
@@ -1092,7 +1092,7 @@ The image pixel color shade is what determines the integer value from 0-16. The 
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/loadDidgit.png}
+    \includegraphics[width=.5\linewidth]{media/loadDidgit.png}
     \captionof{figure}{Importing the Digits and storing into a variable.}
 \end{center}
 
@@ -1100,7 +1100,7 @@ From here we can  begin to view how the actual data looks:
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/digitprintpng.png}
+    \includegraphics[width=.5\linewidth]{media/digitprintpng.png}
     \captionof{figure}{Will output the data shape and attributes.}
 \end{center}
 
@@ -1109,7 +1109,7 @@ The actual data attributes look like this:
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/digitarrays.png}
+    \includegraphics[width=.5\linewidth]{media/digitarrays.png}
     \captionof{figure}{Data attributes have int values 0-16.}
 \end{center}
 
@@ -1117,7 +1117,7 @@ We see that since each instance has 64 attributes in the range 0-16, this makes 
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/printdigits.png}
+    \includegraphics[width=.5\linewidth]{media/printdigits.png}
     \captionof{figure}{Will output the data target.}
 \end{center}
 
@@ -1127,7 +1127,7 @@ From here we will be using the SVC algorithm to train and eventually test that m
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/svmSVC.png}
+    \includegraphics[width=.5\linewidth]{media/svmSVC.png}
     \captionof{figure}{Fitting the data using the SVC model.}
 \end{center}
 
@@ -1144,7 +1144,7 @@ We will now see if the prediction part of the model will be correct, Scikit-lear
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/CLFpredict.png}
+    \includegraphics[width=.5\linewidth]{media/CLFpredict.png}
     \captionof{figure}{Prints out the predicted value of the last two digits.}
 \end{center}
 
@@ -1187,7 +1187,7 @@ An accuracy close to 0 means our model performed very badly, and an accuracy clo
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/AccuracyScore.png}
+    \includegraphics[width=.7\linewidth]{media/AccuracyScore.png}
     \captionof{figure}{Accuracy calculation using Scikit-learn.}
 \end{center}
 
@@ -1203,7 +1203,7 @@ A disadvantage of MSE is that it heavily weights outliers. If we have a datapoin
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/MSEcode.png}
+    \includegraphics[width=.7\linewidth]{media/MSEcode.png}
     \captionof{figure}{Calculating MSE using Scikit-learn.}
 \end{center}
 
@@ -1366,50 +1366,64 @@ The beauty of sc2reader is that we can load an entire folder of replays and run 
 From using sc2reader we are able to see the key information such as:
 
 The player details:
+\vspace*{-.9cm}
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
     \item The races chosen (Zerg, Protoss, Terran).
     \item Who won/loss.
 \end{itemize}
+\vspace*{-.4cm}
 The map details:
+\vspace*{-.9cm}
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
     \item Map size, version of the map.
 \end{itemize}
+\vspace*{-.4cm}
 General match details:
+\vspace*{-.9cm}
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
-    \item Map size, version of the map.
+    \item The map chosen, game length.
 \end{itemize}
+\vspace*{-.4cm}
 Unit selection/unit commands
+\vspace*{-.9cm}
 \begin{itemize}[,]
     \setlength\itemsep{-.1cm}
-    \item Map size, version of the map.
+    \item Which units are being selected and hotkeys are being used at every frame of the match for both players.
+    \item Unit commands such as attacking, using abilities, moving, etc.
 \end{itemize}
-
-
-The map chosen, game length
-Unit Selection/Unit Commands
-Which units are being selected and hotkeys are being used at every frame of the match for both players
-Unit commands such as attacking, using abilities, moving, etc.
-
-Camera Movements and APM
- Camera movements for the players can be extracted per frame
-Action per minute can be extracted as well as EPM which is the same as actions per minute except it only calculated "effective" actions, these would be valid commands.
-
-EPM is a subset of APM, effective actions per minute excludes all "dead-actions" or clicks/actions that do not actually provide useful vision or utility.
-
+\vspace*{-.4cm}
+Camera movements and APM
+\vspace*{-.9cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Camera movements for the players can be extracted per frame.
+    \item Action per minute can be extracted as well as EPM which is the same as actions per minute except it only calculated "effective" actions, these would be valid commands. \\
+    EPM is a subset of APM, effective actions per minute excludes all "dead-actions" or clicks/actions that do not actually provide useful vision or utility.
+\end{itemize}
+\vspace*{-.4cm}
 Economies
-Players mineral, Vespene gas, and supply of army is recorded and displayed as averages or whole numbers depending on the function. 
- Unit Classification
-Break down units by mineral, gas, and supply costs
- Break down units by classification
-Is the unit a worker, army, building
+\vspace*{-.9cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Players mineral, Vespene gas, and supply of army is recorded and displayed as averages or whole numbers depending on the function.
+\end{itemize}
+\vspace*{-.4cm}
+Unit Classification
+\vspace*{-.9cm}
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Break down units by mineral, gas, and supply costs.
+    \item Break down units by classification. \\
+    Is the unit a worker, army, building.
+\end{itemize}
 
 These are all the current parsing capabilities of the sc2reader that we would be implementing in our analysis. However, there is some additional parsing that we will have to perform for models predictions. One key detail that we will have to manually code and parse out of the sc2reader is recording the actual armies at each instance for both players. Knowing what units and buildings that are at any point of time will be important not only in strategy classification but also in predicting if a player could be falling behind in build orders.
 
 
-Small Example of sc2reader:
+\subsubsection{Small Example of sc2reader}
 
 Here is a really simple example of how sc2reader can be used practically, the replay file used to show this only has a sample size of 25 replays.
 
@@ -1423,13 +1437,13 @@ In the sc2reader library there is a load\_replays function that grabs all the re
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.5\linewidth]{media/SC2readerwinner.png}
+    \includegraphics[width=.9\linewidth]{media/SC2readerwinner.png}
     \captionof{figure}{Classifies the map size}
 \end{center}
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.5\linewidth]{media/winneroutput.png}
+    \includegraphics[width=.9\linewidth]{media/winneroutput.png}
     \captionof{figure}{Classifies the map size}
 \end{center}
 
@@ -1447,48 +1461,89 @@ Knowing the map’s width and height we are able to implement a way to scale our
 
 Adding the classification of the map size to the replays will allow us to find any differences in gameplay resulting from the map size. Unfortunately, sc2reader doesn’t have any way to analyze the number of mineral/gas fields which would be another interesting statistic we could’ve used to analyze if it affects gameplay.
 
-
-Sc2reader Objects:
+\subsubsection{Sc2reader Objects}
 Sc2reader provides multiple objects that represent the entire SC2 replay, the majority of all of our parsing work will be involved with the player object, mentioned above,  which holds all the detail data throughout the match. Basic information of the player can also be gathered just by calling some of the attribute data connected with the player object. Information such as the race the player chose, if the player won or lost, and all the unit’s the player had throughout the game can be accessed solely with the player object.
 
 However, the player object is just used to find basic information; we instead look at the class GameEvent which is the baseline for all the Event objects that are produced throughout the game. Every event has a specific frame time, the second it happened in the game, and is always connected to a player object. For simplicity terms, think of an event as anytime the player does an action in the game, such as creating a new unit etc.
 
 The event object is where all the important data comes from, this is where frames, units, materials, essentially every metric is grabbed and can be used. The event object and more specifically seeing the players commands can be shown by calling an instance of a CommandEvent. The CommandEvent is made every time a player issues a command to a unit or building. It is broken down into three main classes:
+
 TargetUnitCommand
-o   The event is given this command type when they issue a command that is targeting a unit, the targeted unit is also recorded.
-  DataCommand
-o   The event is given this command type when an ability or a command is given that has no target, this could be like a stop command for an army
- TargetPointCommand
-o   The event is given this command type when an ability or command is given that targets a specific location on the map
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The event is given this command type when they issue a command that is targeting a unit, the targeted unit is also recorded.
+\end{itemize}
+\vspace*{-.4cm}
+DataCommand
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The event is given this command type when an ability or a command is given that has no target, this could be like a stop command for an army.
+\end{itemize}
+\vspace*{-.4cm}
+TargetPointCommand
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The event is given this command type when an ability or command is given that targets a specific location on the map.
+\end{itemize}
 
 The other event classes may be beyond the scope of our project but parts of them can be applied if we need to do additional parsing in Senior Design 2:
+
 SelectionEvent
-Gets called when the player clicks and drags implying that they will be selecting a larger array of units instead of clicking on an individual unit. 
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when the player clicks and drags implying that they will be selecting a larger array of units instead of clicking on an individual unit. 
+\end{itemize}
+\vspace*{-.4cm}
 ControlGroupEvent
-Called when a player either adds or gets a controls group, typically this would coincide with the CommandEvent but apply to the entire group.
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Called when a player either adds or gets a controls group, typically this would coincide with the CommandEvent but apply to the entire group.
+\end{itemize}
+\vspace*{-.4cm}
 CameraEvent
-Tracks the player's camera movement at every state of the game. 
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Tracks the player's camera movement at every state of the game.
+\end{itemize}
 
 Although the event classes listed above can provide useful data for us to record for data analytics, often the information gathered from these classes above can be used more as a way to verify that our gathered data is accurate. But, the event object that we want to use to gather and record data is in the TrackerEvent object.
 
 The TrackerEvent does exactly what it sounds like, it generates events that specifically track the unit and economy statistics. The most useful class is the PlayerStatsEvent, which will be described more in depth below. Additional TrackerEvent classes track the data records of when a unit is born, dies, changes, upgraded etc.
 
 
-Sc2reader PlayerStatsEvent:
+\subsubsection{PlayerStatsEvent}
 
 The most crucial event class to our project is the PlayerStatsEvent, an example will be demonstrated below. This gathers and displays key information every 10 seconds about the players current stats such as collection rate, resources in queue, the value of the current army and much more useful data. There are other useful classes that the TrackerEvent can provide such as UnitBorn where it sees when a unit is created and gives it an ID, and UnitDiedEvent that shows what killed a unit and where it died on the map.
 
 All the data that PlayerStatsEvent provides for analysis:
+
 Current Worker Count
-Food Used/Available
-Food determines how large the user’s army can be
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Current Worker Count
+    \item Food Used/Available \\
+    Food determines how large the user’s army can be.
+\end{itemize}
+\vspace*{-.4cm}
 Current Vespene (Gas)/Mineral Count
-Count of the resources that have yet to be used
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Count of the resources that have yet to be used.
+\end{itemize}
+\vspace*{-.4cm}
 Vespene/Minerals Collection rate
+\vspace*{-.4cm}
 Vespene/Minerals in use
-The economic value of the player’s current army
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The economic value of the player’s current army.
+\end{itemize}
+\vspace*{-.4cm}
 Vespene/Minerals lost
-The economic value of units that got killed
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item The economic value of units that got killed.
+\end{itemize}
 
 Here is an example that takes advantage of the PlayerStatsEvent, here we are looking at only one replay:
 
@@ -1498,7 +1553,9 @@ Here is an example that takes advantage of the PlayerStatsEvent, here we are loo
     \captionof{figure}{A single replay file is grabbed this time; workers array is made}
 \end{center}
 
-Similar to the first sc2reader example, this time only a single replay file is loaded. Inside the replay file we want to loop through the events of the game and only single out events that are categorized as PlayerStatsEvent. After validating that the event is a PlayerStatsEvent, we check to see which player is connected to the event. The only way we can link a player to a certain event is by checking the player’s pid, which is initialized when the replay is loaded, and the event’s pid, which copies the player’s pid that is connected to that event. A row is then added to the workers array that holds the player’s name, the player’s race, how many workers are alive, the current collection rate of minerals, and finally what the game time is. In this smaller example only a couple of stats are grabbed, the actual datasets have all the statistics being grabbed from PlayerStatsEvent.
+Similar to the first sc2reader example, this time only a single replay file is loaded. Inside the replay file we want to loop through the events of the game and only single out events that are categorized as PlayerStatsEvent. After validating that the event is a PlayerStatsEvent, we check to see which player is connected to the event. The only way we can link a player to a certain event is by checking the player’s pid, which is initialized when the replay is loaded, and the event’s pid, which copies the player’s pid that is connected to that event.
+
+A row is then added to the workers array that holds the player’s name, the player’s race, how many workers are alive, the current collection rate of minerals, and finally what the game time is. In this smaller example only a couple of stats are grabbed, the actual datasets have all the statistics being grabbed from PlayerStatsEvent.
 
 Note: The PlayerStatsEvent only collects the data every 10 seconds. A further improvement would be optimizing the event object to be able to optimize the time between data is collection.
 
@@ -1535,42 +1592,82 @@ After grabbing all of the PlayerStatsEvents, we implemented counters that would 
 The JSON data file was converted to a dictionary that had the names of all units, setting the key’s values to zero. The original JSON data had a multitude of information such as the unit’s cost but using the PlayerStatsEvent class, all that data is redundant. The logic was to increase the values when a unit was created and decremented when a unit is killed, however it became much more complicated than that. 
 
 The \textit{sc2reader} tracker event also implemented additional classes other than \textit{PlayerStastEvent} to help gather this type of information:
+
+\vspace*{-.4cm}
 UnitBornEvent
-Gets called when a unit is created, this only works for army units that are created and not warped in which applies Protoss units
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when a unit is created, this only works for army units that are created and not warped in which applies Protoss units.
+\end{itemize}
+\vspace*{-.4cm}
 UnitDiedEvent
-Gets called when a unit gets killed, morphs, or merges into another unit. Morphing applies to zerg, merging applies to Protoss. 
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when a unit gets killed, morphs, or merges into another unit. Morphing applies to zerg, merging applies to Protoss.
+\end{itemize}
+\vspace*{-.4cm}
 UnitInitEvent
-Gets called when a unit is initiated, this applies to buildings and protoss army units.
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when a unit is initiated, this applies to buildings and protoss army units.
+\end{itemize}
+\vspace*{-.4cm}
 UnitTypeChangeEvent
-Gets called every time a unit’s type changes, this applies to mode changes or any upgrades to buildings
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called every time a unit’s type changes, this applies to mode changes or any upgrades to buildings.
+\end{itemize}
+\vspace*{-.4cm}
 UnitDoneEvent
-Gets called every time an initiated unit or building is finished
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called every time an initiated unit or building is finished.
+\end{itemize}
+\vspace*{-.4cm}
 UnitPositionsEvent
-Gets called every 15 seconds and records the units that got damaged in combat or self-damage
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called every 15 seconds and records the units that got damaged in combat or self-damage.
+\end{itemize}
+\vspace*{-.4cm}
 UpgradeCompleteEvent
-Gets called when an upgrade is completed and is active on those units
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when an upgrade is completed and is active on those units.
+\end{itemize}
+\vspace*{-.4cm}
 UnitOwnerChangeEvent
-Gets called when control of a unit is changed
-Only applies if a player is playing as Zerg in 1v1 matchups 
-Sc2reader Additional Plugins:
+\begin{itemize}[,]
+    \setlength\itemsep{-.1cm}
+    \item Gets called when control of a unit is changed. \\
+    Only applies if a player is playing as Zerg in 1v1 matchups.
+\end{itemize}
+
+\subsubsection{Sc2reader Additional Plugins}
 Sc2reader also implements additional plugins that can be included to grab other specifics that we will want to include in our data sets. For example, APM is a statistic that we mentioned before that we believe is going to be a pivotal attribute; this statistic can only be calculated by including the APMTracker plugin. The list of  sc2reader plugins that we utilized in making our datasets are:
-ContextLoader
-APMTracker
-SelectionTracker
+\begin{itemize}
+    \setlength\itemsep{-.1cm}
+    \item ContextLoader
+    \item APMTracker
+    \item SelectionTracker
+\end{itemize}
 The ContextLoader is the main plugin that we utilize and is almost necessary for getting all the data from the tracker events. Without the ContextLoader plugin the tracker events are unable to grab any of the JSON unit and ability data. This plugin is essentially the way we are able to keep track of what the players current army looks like in a numerical fashion.
-The APMTracker is a plugin designed to calculate not only the actions per minute, but it can also find the actions per second as well as the average apm for the entire game. According to sc2reader’s documentation, the APMTracker keeps track of actions that only pertain to selections, abilities, or hotkeys. Camera movement is not included in counting actions per minute, which is very useful as these 
+
+The APMTracker is a plugin designed to calculate not only the actions per minute, but it can also find the actions per second as well as the average apm for the entire game. According to sc2reader’s documentation, the APMTracker keeps track of actions that only pertain to selections, abilities, or hotkeys. Camera movement is not included in counting actions per minute, which is very useful as these.
+
 The SelectionTracker is necessary to accurately track the player’s selections which the other plugins also rely on. The problem with this class however, is that the selection tracking sometimes repeats or will report illegal and incorrect units or buildings sometimes depending on the replay.
 
-Complications with sc2reader:
+\subsubsection{Complications with sc2reader}
 
-Differences in Unit Creation
+\begin{enumerate}
+\item Differences in Unit Creation \\
 First it’s important to understand some of the mechanics of Starcraft 2 units before addressing this issue with sc2reader. In Starcraft there is the traditional way to create army units, this can be done by "buying" the unit from a building and waiting until it is done training before the player can use it. However, two of the races Zerg and Protoss have an additional way to acquire new units. 
 
 Protoss units are acquired not by training but by "warping" in units, this caused some complications as we found the UnitBornEvent wasn’t correctly grabbing the protoss units that were appearing in the game. Instead the Protoss army units are created from the UnitInitEvent class, this was considered an easy fix since the code could be copied from the UnitBornEvent and pasted into the UnitInitEvent. However, another complication came along with Protoss. Protoss units have the ability to merge into a stronger unit, for example the unit "Archon:" is formed by merging, thus killing, two "High Templar" units. This caused some complications as neither the UnitBornEvent nor the UnitInitEvent was tracking this action.
 
 Similarly with Zerg, most units come from another unit "morphing" from these basic units called Larvae. The sc2reader is pretty consistent with keeping track of Zerg units morphing and creating new units.
 
- Naming Inconsistencies
+\item Naming Inconsistencies \\
 Initially, the dictionary created had the names of every unit including all the possible versions that the unit could be. For example, the dictionary for Terran had "SiegeTank" and "SiegeTankSieged" which are the two possible modes that the tank can switch between throughout the match. However, we decided to remove all variations of the unit and edited the dictionary to only have the basic unit name. This also nullified the UnitTypeChangeEvent, since it was unnecessary to keep track what mode/ability the unit is using as long as we make sure that the unit is recorded correctly upon creation and upon death.
 
 \begin{center}
@@ -1593,8 +1690,7 @@ Another naming inconsistency is that some of the event classes have an attribute
 
 In order to avoid this issue we first check if the unit\_type\_name exist in our dictionary, if not then the unit.name will catch the unit unless it is in one of our edge cases that are specifically labeled for each race.
 
-Unit Abilities
-
+\item Unit Abilities \\
 The original JSON unit data also listed all the abilities for the units, this would have been a useful statistic to keep record of however the way sc2reader handled unit abilities caused us to have to remove the unit abilities from our dataset. 
 
 Almost every unit in Starcraft 2 has something called an ability, this is an action that can do a variety of things to the unit such as increasing movement speed, increasing damage, becoming invisible, and much more. Some abilities have cooldowns, others just require energy to use. For example, some Terran "Widowmines" have an ability to cast "Active Mine" which allows the Widowmine to burrow into the ground and self-destruct if an enemy gets too close, thus killing itself and  the enemy unit.
@@ -1609,19 +1705,19 @@ The problem is that sc2reader does a terrible job of tracking the difference bet
 
 The solution to this problem was cutting out all of the abilities in the dataset as well as removing the UnitTypeChangeEvent. Instead of keeping track of the mode that the unit is in, we instead record and keep track of the basic unit type. So regardless of which mode any unit dies or is born in, the basic name of that unit will be incremented or decremented accordingly. 
 
-UnitDoneEvent
+\item UnitDoneEvent
 The first approach was to only record when a unit is done being built or being warped into the game, this would be done by incrementing whenever the UnitDoneEvent is called for a unit. We quickly realized that this event class would cause a few errors in keeping track of the accurate army size. In Starcraft 2, every unit being created takes time to be made whether it be buildings, army units, or upgrades. Relying solely on UnitDoneEvent to correctly increment when a building was part of a player’s current army, there would be numerous negative numbers throughout the dataset.
 
 The error is that if we only incremented our dictionary value when a building is finished, this can cause a negative value if the building or unit being warped in dies in the process of being made. The UnitDiedEvent doesn’t keep track if a building is in the process of being created, it just knows when a building has been destroyed. If a building is in the process of being built and gets cancelled or killed by the enemy, that dictionary value was left with a net value of -1 every time that situation occurred. 
 
 To avoid this recording error, we instead removed the UnitDoneEvent and replaced it with UnitInitEvent class. This remedied the net negative value, since the unit is incremented immediately while it’s in the process of being created and if it gets killed or canceled it gets decremented back to zero. The biggest concern with this method is that there is the chance for a unit to be recorded as part of the current army although it has not been finished being built. 
+\end{enumerate}
 
-
-Future Optimization to be done in SD2:
-
+\subsubsection{Future Optimization to be done in SD2}
 Over winter break and going into next semester we are hoping to further optimize our current python script that extracts all the data into .csv files. Our first task would to create a dictionary that can hold not only the current number of units, but also a list of all the unique ID’s in that are currently alive. Upon the unit being created we would simply increment the unit by one and append the unique ID to the list of other ID’s. Similarly, upon death of a unit we would decrement the list by one and remove the ID of that unit.
 
 By implementing the unique ID of a unit we should be able to re-implement mode variations as long as we keep track of that ID throughout every event that triggers for that unit. We will also have to keep track of units that are morphed or merged into new units.
+
 There are two concerns with implementing this feature into our current data parser, first the runtime of the python script may be significantly longer depending on how many times the dictionary and list of unique ID’s need to be searched. The search time of the dictionary is O(1) but the search time for iterating the list of ID’s may be inhibiting us from collecting and testing to see if the parser is working correctly.
 
 The other concern is that this ID feature won’t solve the third sc2reader complication stated above, regarding unit abilities. Tracking the unit’s abilities relies on the UnitTypeChange event, but this event is bugged and often tries to repeat and reverse the unit that is changing giving it the same name. For example, there will be an event that is triggered saying "WidowmineBurrowed turned into WidowmineBurrowed" which would break our current incrementing system. So another way to optimize our data parsing would be to fully breakdown and understand the UnitTypeChangeEvent to find out why these repeats happen.
@@ -1634,7 +1730,7 @@ Currently, when we grab data from both players the data is presented in the .csv
     \captionof{figure}{Current .csv alternates between player 1 and 2}
 \end{center}
 
-Datasets Comparing Players of Same Race:
+\subsection{Datasets Comparing Players of Same Race}
 
 We will be dividing our data into four different datasets, all using the same replays. The largest of all the datasets will have the player stats and current unit counts for both players in the replays being recorded every 30 seconds. This dataset is where we will find the majority of our analysis for the first three goals of our project.
 
@@ -1642,9 +1738,7 @@ The next three datasets will be separated based on the playing race of the playe
 
 By separating the datasets by race, we are able to create models such a Terran only model that can predict if a Terran player is falling behind based on the previous replay outcomes only involving Terran. 
 
-
-TerranStats.py Example:
-
+\subsubsection{TerranStats.py Example}
 Here is some of the code excerpt that collected all the stats and recorded the current army count every 30 seconds for only Terran Players:
 
 \begin{center}
