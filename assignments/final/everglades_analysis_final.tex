@@ -824,12 +824,13 @@ This would be a very tedious task to do by hand if we have a lot of data points.
 
 To demonstrate how linear regression works and how we can use functions readily available from Scikit-learn to achieve this, we will be looking at a dataset from \link{http://www.espn.com/college-football/rankings}{AP Top 25 2018} College football rankings for week 8. Simple linear regression only has one independent variable and one dependent variable. So, for this example, we have chosen our dependent variable $(y)$ to be Points Scored per Game, and our independent variable $(x)$ is Passing Yards per Game.
 
-We can first plot the scatterplot, which is useful in detecting visual evidence of linear relationship between the two variables. If there does not appear to be any visual evidence of linear relationship, then linear regression is probably not the right approach for this dataset. Figure 10 shows the $x$ values and $y$ values stored in arrays. As well as using the scatter() function from matplotlib, we get a visual representation of our datapoints. The scatterplot does appear to show that there exist somewhat of a positive linear relationship between the dependent and independent variables. 
+We can first plot the scatterplot, which is useful in detecting visual evidence of linear relationship between the two variables. If there does not appear to be any visual evidence of linear relationship, then linear regression is probably not the right approach for this dataset. Figure \ref{fig:scatterplotmatplot} shows the $x$ values and $y$ values stored in arrays. As well as using the scatter() function from matplotlib, we get a visual representation of our datapoints. The scatterplot does appear to show that there exist somewhat of a positive linear relationship between the dependent and independent variables. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/scatterplotmatplot.png}
     \captionof{figure}{Plotting the scatterplot}
+    \label{fig:scatterplotmatplot}
 \end{center}
 
 Next, we would like to use Scikit-learn’s LinearRegression() function to find our least square regression line.
@@ -838,16 +839,18 @@ Next, we would like to use Scikit-learn’s LinearRegression() function to find 
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/sklearnregressionfit.png}
     \captionof{figure}{Finding $\beta_0$ and $\beta_1$ using Scikit-Learn.}
+    \label{fig:sklearnregressionfit}
 \end{center}
 
-By simply calling LinearRegression() as shown in Figure 11 and fitting it with our independent and dependent arrays, we can get the value for $\beta_0$ and $\beta_1$. Therefore, our least squares regression line for this simple linear regression problem is:
+By simply calling LinearRegression() as shown in Figure \ref{fig:sklearnregressionfit} and fitting it with our independent and dependent arrays, we can get the value for $\beta_0$ and $\beta_1$. Therefore, our least squares regression line for this simple linear regression problem is:
 $$Y=21.1619+.0599X$$
-What this can tell us is that for every one-yard increase in Passing Yards per Game, we can expect the mean Points per Game to increase by 0.0599. Now, that we have our regression line, we can use it to predict Points per Game. In Figure 12, we can see the data points and the linear regression line plotted. The line does appear to somewhat fit the points on the scatterplot. 
+What this can tell us is that for every one-yard increase in Passing Yards per Game, we can expect the mean Points per Game to increase by 0.0599. Now, that we have our regression line, we can use it to predict Points per Game. In Figure \ref{fig:scatterplotmatplot}, we can see the data points and the linear regression line plotted. The line does appear to somewhat fit the points on the scatterplot. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/scatterplotmatplot.png}
     \captionof{figure}{Bivariate fit of points per game by passing yards per game}
+    \label{fig:scatterplotmatplot}
 \end{center}
 
 If a college football team has 145.5 yards per game, we can use our regression line to predict how many Points per Game this team will have, 
@@ -860,7 +863,7 @@ Comparing this predicted result with the actual result 29.3, we can see that our
     \captionof{figure}{$R^2$ value for our college football simple linear regression.}
 \end{center}
 
-Figure 11 shows the $R^2$ value of $0.291$ for our college football example. This can be interpreted as approximately 29.\% of the variability in the Points per Game can be explained by this linear model containing Passing Yards per Game. Since we have the $R^2$ value, we can calculate the Pearson’s Correlation Coefficient:
+Figure \ref{fig:sklearnregressionfit} shows the $R^2$ value of $0.291$ for our college football example. This can be interpreted as approximately 29.\% of the variability in the Points per Game can be explained by this linear model containing Passing Yards per Game. Since we have the $R^2$ value, we can calculate the Pearson’s Correlation Coefficient:
 
 % formula
 
@@ -872,7 +875,7 @@ If there are two or more independent variables that have linear relationships wi
 $$Y=\beta_0+\beta_1X_1+...+\beta_k\beta_k$$
 Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the regression coefficient for some independent variable $X_1$. Since, for multiple linear regression we have more than one independent variable, the $k$ in the equation stands for the number of independent variables.
 
-Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure 14 shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
+Returning to the college football team example, we can attempt to add more independent variables with the goal of improving our linear model. Apart from using the independent variable Passing Yards per Game, we will be adding two additional independent variables, Total Yards and Rushing Yards per Game to predict for Points per Game. Utilizing the same LinearRegression() function available from Scikit-learn that was used for simple linear regression, we can use it to perform a multiple linear regression. Figure \ref{fig:fullRegressionPic} shows a new data frame with $X_1$, $X_2$, $X_3$, and $y$. Where $X_1$ is Passing Yards per Game, $X_2$ is Total Yards, $X_3$ is Rushing Yards per Game, and $y$ is the dependent variable, Points per Game. By calling LinearRegression() on the independent variables and the dependent variable, we get the constant and coefficients for the multiple linear regression line.
 $$Y=-15.4618+.0939X_1+.0027X_2+.0908X_3$$
 What this equation means:
 \vspace*{-.9cm}
@@ -889,7 +892,8 @@ Now that we have a multiple linear regression model, checking its $R^2$ value us
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/fullRegressionPic.png}
-    \captionof{figure}{Multiple linear regression using Scikit-learn}
+    \captionof{figure}{Multiple linear regression using Scikit-learn.}
+    \label{fig:fullRegressionPic}
 \end{center}
 
 \subsubsection{Interaction Models}
@@ -899,12 +903,13 @@ Where $Y$ is the dependent variable, $\beta_0$ is the constant, $\beta_1$ is the
 
 Continuing with the college football team example that we have been working with, we can further attempt to improve our model by including an interaction term. Similar to the previous example, we have three independent variables. Passing Yards per Game $(x_1)$, Total Yards $(x_2)$, and Rushing Yards per Game $(x_3)$, which we used to predict Points per Game $(y)$. In order to identify which of these independent variables may have interaction effects, we will take two independent variables and make one of the independent variables a boolean series. Which means if the observed value is larger than the median for that independent variable, we will label it as 1, and if it is lower or equal to the median value, we will label it as 0.
 
-Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure 15. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
+Python has a built-in library for descriptive statistics called statistics, which we can use to easily get the median value for each independent variable, as shown in Figure \ref{fig:statMedian}. After the boolean series are created, we continue by creating a scatterplot, plotting one of the independent variables against our dependent variable, and setting the hue to be the boolean series of the other independent variable. Python also has a data visualization library called seaborn that allows us to create scatterplots with hue (grouping variables that will produce points with different colors). If there appears to be separation between the colors in the scatterplot, then that could be an indication of interaction between those two independent variables. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/statMedian.png}
-    \captionof{figure}{Statistics' median for independent variables.}
+    \captionof{figure}{Statistics's median for independent variables.}
+    \label{fig:statMedian}
 \end{center}
 
 \begin{center}
@@ -925,33 +930,37 @@ Since we have 3 independent variables, the possible interaction terms are:
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/football.png}
     \captionof{figure}{Scatter plots with hue for interaction terms.}
+    \label{fig:football}
 \end{center}
 
-Figure 17 shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure 18 shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
+Figure \ref{fig:football} shows the scatterplots for each possible interaction term. None of them appears to have a really sharp separation between the orange and blue points. Figure \ref{fig:SalesvsTV} shows an example of how a scatter plot would look like if there are strong visual signs of interaction between two independent variables.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/SalesvsTV.png}
     \captionof{figure}{Caron, Kyle. "Sales vs. TV x radio." 2020.}
+    \label{fig:SalesvsTV}
 \end{center}
 
-For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
+For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure \ref{fig:statsmoduleformula}, provides us with the coefficients necessary to represent our model in a formula.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/statsmoduleformula.png}
     \captionof{figure}{Finding coefficients using statsmodel.}
+    \label{fig:statsmoduleformula}
 \end{center}
 
 Hence, our model to predict for Points per Game by using Passing Yards per Game, Total Yards, Rushing Yards per Game, and the interaction term between Passing Yards per Game and Rushing Yards per Game can be represented as below:
 $$Y=-21.9477+.1119X_1+.0032X_2+.1270X_3-.0001X_1X_3$$
 
-It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure 19 provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure 20 shows the $R^2$ value for our model with interaction terms.
+It seems that the interaction term for our model has a rather small coefficient. Additionally, Figure \ref{fig:statsmoduleformula} provides us with $P>|t|$, the p-value which equals to 0.648 for the interaction term between $x_1$ and $x_3$. If the p-value is larger than , that means there is insufficient evidence to indicate that the term is useful for prediction.  is the significance level, it is the probability of rejecting the null hypothesis when it is actually true. Most of the time, the  value is 0.05 (\%) or 0.1 (1\%). Since, our $p-value$ 0.648 is larger than 0.1, we can say that at 1\% significance level there is not enough evidence to indicate that the interaction term is useful in predicting Points per Game. Just as we have previously checked the $R^2$  value for each of our model, Figure \ref{fig:rsquaredmodel} shows the $R^2$ value for our model with interaction terms.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/rsquaredmodel.png}
     \captionof{figure}{$R^2$ for interaction model.}
+    \label{fig:rsquaredmodel}
 \end{center}
 
 It is clear that adding the interaction term did not really increase our $R^2$ value. For the multiple linear regression, where we only used the three independent variables, without interaction terms gave us a $R^2$ value of 0.7354. Considering the small number of differences in the $R^2$ value, the interaction term itself failing a hypothesis test, as well as adding complexity to our model, the interaction term will not be included in our future models.
@@ -964,12 +973,13 @@ Quadratic regression is also known as a second-order model, as its name states, 
 $$Y=\beta_0-\beta_1X+\beta_2X^2$$
 Where $\beta_0$ is the intercept or constant, $\beta1$ is the shift parameter, and $\beta2$ is the rate of curvature for some independent variable.
 
-Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure 17 previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure 21 shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
+Since, plotting the independent variables against the dependent variable for the college football team example does not appear to have a UU shape, inverted U shape or much curvature at all, as seen in Figure \ref{fig:football} previously, it is likely not appropriate to use quadratic regression. Therefore, we will be using a new dataset, \link{https://online.stat.psu.edu/stat462/node/159/}{Yield dataset}. This Yield dataset contains measurement of yield from an experiment done at different temperatures. We have our dependent variable Yield $(y)$ and our independent variable Temperature $(x)$ in Fahrenheit. Figure \ref{fig:scatterTemperature} shows the dataset as well as the scatterplot. There appears to be some curvature in the scatterplot. So, we can continue attempting to run a quadratic regression analysis on this dataset.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/scatterTemperature.png}
     \captionof{figure}{Yield Data Set.}
+    \label{fig:scatterTemperature}
 \end{center}
 
 To find the coefficients for our quadratic model, we can use the Python module statsmodels, similar to what was done for our interaction model example. 
@@ -978,16 +988,18 @@ To find the coefficients for our quadratic model, we can use the Python module s
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/smfols.png}
     \captionof{figure}{Finding the coefficients for quadratic model with statsmodel.}
+    \label{fig:smfols}
 \end{center}
 
-Figure 22 gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
+Figure \ref{fig:smfols} gives us the coefficient for $\beta_0$, $\beta_1$, and $\beta_2$ and their p-values. Since the p-value of temperature squared is 0.001, which is smaller than 0.1, we can say that at 10\% significance level there is sufficient evidence to indicate that temperature is curvilinearly related to our dependent variable, Yield. So, for the Yield data set our quadratic model is:
 $$Y=7.9605-.1537X+.0011X^2$$
-Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure 23. 
+Using Python’s maplotlib, we can plot our quadratic regression model line onto the scatterplot and visualize how our line looks, as shown in Figure \ref{fig:tempyieldsplot}. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/tempyieldsplot.png}
     \captionof{figure}{Plotting the quadratic regression line.}
+    \label{fig:tempyieldsplot}
 \end{center}
 
 As always, checking the $R^2$ value for our current model, we get a value of 0.6732. Meaning approximately 67.3\% of the variability in Yield can be explained by our current quadratic model. 
@@ -1011,12 +1023,13 @@ Meaning, the model learns too many details and noise from the training data to t
     \captionof{figure}{Number of variables for regression.}
 \end{center}
 
-Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure 25, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
+Since the first step of fitting a regression model to a dataset is plotting a scatter plot to see the shape of the data. In Figure \ref{fig:functiondegrees}, we can see an overview of how the graph of different degrees of polynomial looks like, which we can then use to compare our data set’s scatter plot and see which one it seems to fit the best. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/functiondegrees.png}
     \captionof{figure}{"Polynomial Functions Graph." 2019.}
+    \label{fig:functiondegrees}
 \end{center}
 
 \subsubsection{Lasso Regression}
@@ -1024,20 +1037,22 @@ Lasso Regression is also known as the Least Absolute Shrinkage and Selection Ope
 
 Multicollinearity is when two or more independent variables are highly linearly related. It uses a technique called $L1$ regularization. Regularization is used to solve the problem of overfitting, which is a common problem when there is a large data set with a lot of features involved. $L1$ regularization adds a penalty that equals to the absolute value of the magnitude of the coefficients to the loss function. The Lasso Regression’s loss function is:
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p|\beta_j|$$
-Where $n$ is the number of data points, $p$ is the number of independent variables, $x_{ij}$ is the value of the $j$th variable for the $i$th data point, $\beta_j$ is the coefficient for the $j$th variable, and $\lambda$ is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set $\lambda$ to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase $\lambda$ the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure 26, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
+Where $n$ is the number of data points, $p$ is the number of independent variables, $x_{ij}$ is the value of the $j$th variable for the $i$th data point, $\beta_j$ is the coefficient for the $j$th variable, and $\lambda$ is the tuning parameter, it controls the strength of the $L1$ penalty, or it can also be known as the amount of shrinkage. If we set $\lambda$ to zero, parameters will not be eliminated, and it will basically be a regular linear regression. If we increase $\lambda$ the bias will increase and more coefficients will be set to zero, ultimately eliminating some parameters from the function. Scikit-learn has the option for Lasso under linear\_model, which can be used to fit a model for a data set using Lasso Regression. Returning back to the college football example as demonstrated in the linear regression section of this design document. As shown in Figure \ref{fig:lassocoeff}, if we set the or value to zero, we get a basic linear regression. The intercept, coefficients and $R^2$ values are all the same as a linear regression. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/lassocoeff.png}
-    \captionof{figure}{Lasso regression with lambda = 0.}
+    \captionof{figure}{Lasso regression with $\lambda = 0$.}
+    \label{fig:lassocoeff}
 \end{center}
 
-If we increase $\lambda$ the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure 27 shows the intercept, coefficients, and $R^2$ values for $\lambda=0.3$.
+If we increase $\lambda$ the value, some of the parameters might be shrunk to zero, which causes them to be eliminated from the function. Figure \ref{fig:LassoCoeff2} shows the intercept, coefficients, and $R^2$ values for $\lambda=0.3$.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/LassoCoeff2.png}
-    \captionof{figure}{Lasso regression with lambda = 0.3.}
+    \captionof{figure}{Lasso regression with $\lambda = 0.3$.}
+    \label{fig:LassoCoeff2}
 \end{center}
 
 The independent variable $x_3$, Rushing Yards per Game has a coefficient of 0, which yields us the function:
@@ -1047,28 +1062,31 @@ Meaning the independent variable  can be removed from our function. This led to 
 \subsubsection{Ridge Regression}
 Ridge Regression is also a type of linear regression that is similar to Lasso Regression. It uses a type of shrinkage estimator that is called the ridge estimator. This ridge estimator creates new estimators that are shrunk to be closer to the true population parameters. Similar to the Lasso Regression, the Ridge Regression is also appropriate for dataset that have a lot of multicollinearity. The main difference between those two are the penalty term in the loss function. Lasso Regression adds an absolute value of magnitude of coefficient as the penalty, meanwhile Ridge Regression adds a squared magnitude of the coefficients as the penalty term. This is called the $L2$ regularization, which gives us the Ridge Regression’s loss function:
 $$\sum_{i=1}^n\left(y_i-\sum_{j=1}^px_{ij}\beta_j\right)^2+\lambda\sum_{j=1}^p\beta_j^2$$
-Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If $\lambda$ is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure 28 shows that when $\lambda=0$, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would.
+Since for the Ridge Regression, the coefficients are all shrunk by the same factor, none of them will be eliminated, unlike the Lasso Regression that can reduce the model complexity by removing some variables. Here, when  equals zero, the Ridge regression is the same as least squares regression. If $\lambda$ is infinity, then the coefficients are shrunk to zero. Therefore, Ridge Regression is a better technique when the data has features that we know are relevant. Ridge Regression is also easily applicable by using the Ridge feature under Sciki-learn’s linear-model class. Figure \ref{fig:Ridge1} shows that when $\lambda=0$, Ridge Regression results in the exact same intercept, coefficients and $R^2$ value as linear regression would.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/Ridge1.png}
     \captionof{figure}{Ridge regression with lambda = 0.}
+    \label{fig:Ridge1}
 \end{center}
 
-If we increase $\lambda$ to 0.3, as shown in Figure 29, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
+If we increase $\lambda$ to 0.3, as shown in Figure \ref{fig:Ridge2}, we can see that the coefficients got shrunk towards zero but, none of them has been eliminated as with the Lasso Regression. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/Ridge2.png}
     \captionof{figure}{Ridge regression with lambda = 0.3.}
+    \label{fig:Ridge2}
 \end{center}
 
-If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in Figure 30, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
+If we increase $\lambda$ even more, for example to $\lambda=10$, we can see in Figure \ref{fig:Ridge3}, that the coefficients got pushed towards zero even more, but none of them is actually zero. Meaning we are not able to eliminate any of the variables completely, but by being able to shrink the coefficients closer to zero, this will lead to a model that can perform better on unknown data sets. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/Ridge3.png}
     \captionof{figure}{Ridge regression with lambda = 10.}
+    \label{fig:Ridge3}
 \end{center}
 
 In general, the Ridge Regression and the Lasso Regression are both great techniques when dealing with data set that has a lot of features and/or multicollinearity, and we know that for our StarCraft II data set, we do indeed have a lot of features.
@@ -1192,9 +1210,10 @@ An accuracy close to 0 means our model performed very badly, and an accuracy clo
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/AccuracyScore.png}
     \captionof{figure}{Accuracy calculation using Scikit-learn.}
+    \label{fig:AccuracyScore}
 \end{center}
 
-In Figure 1, we can see an array called y\_pred that has our predicted classes and y\_true is the true label for these samples, and by simply calling the accuracy\_score function we get an accuracy of 0.83, which is pretty good.
+In Figure \ref{fig:AccuracyScore}, we can see an array called y\_pred that has our predicted classes and y\_true is the true label for these samples, and by simply calling the accuracy\_score function we get an accuracy of 0.83, which is pretty good.
 
 \subsubsection{Mean Squared Error}
 
@@ -1202,32 +1221,35 @@ Mean Squared Error (MSE) is the sum over all the datapoints, of the square of th
 $$MSE=\frac{1}{n}\sum_{i=1}^n(y_i-\hat{y}_i)^2$$
 Where $n$ is the total number of datapoints, $y_i$ is the actual output $\hat{y}_i$ and  is the predicted output by the model. The $MSE$ is most commonly used for regression. It tells us how close our regression line is to the points. The further our predicted output is compared to the actual output, the larger this value. Therefore, we would like to see an MSE that is closer to 0, meaning the predicted value is exactly or very close to the actual value.
 
-A disadvantage of MSE is that it heavily weights outliers. If we have a datapoint that is an outlier, that will mean the distance from the actual and predicted value would be large, and squaring that value would make it even larger, hence the disadvantage of MSE. Scikit-learn also has an MSE function available, in Figure 2 we can see that by simply calling mean\_squared\_error and providing it with our array of predicted values and their corresponding true values, we get an MSE value of 0.014, and since it is extremely close to 0, this means our predicted values are close to the actual values.
+A disadvantage of MSE is that it heavily weights outliers. If we have a datapoint that is an outlier, that will mean the distance from the actual and predicted value would be large, and squaring that value would make it even larger, hence the disadvantage of MSE. Scikit-learn also has an MSE function available, in Figure \ref{fig:MSEcode} we can see that by simply calling mean\_squared\_error and providing it with our array of predicted values and their corresponding true values, we get an MSE value of 0.014, and since it is extremely close to 0, this means our predicted values are close to the actual values.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/MSEcode.png}
     \captionof{figure}{Calculating MSE using Scikit-learn.}
+    \label{fig:MSEcode}
 \end{center}
 
 \subsubsection{Mean Absolute Error}
 
 Due to the disadvantage of MSE, which is very undesirable in machine learning, we have another evaluation/loss function, the mean absolute error (MAE). This is the sum of the absolute differences between our actual and predicted value divided by the total number of datapoints.
 $$MAE=\frac{1}{n}\sum_{i=1}^n|y_i-\hat{y}_i|$$
-Where  is the total number of datapoints,  is the actual output and  is the predicted output by the model. MAE is very useful for datasets that has a lot of outliers. As it is with the other evaluation functions, MAE also has its problems. It cannot give us the direction of our error, so we do not know if we are overpredicting or underpredicting the data. It is also not very good for neural networks because the gradient is same throughout, meaning the gradient will be large even for small differences. Meanwhile, MSE can handle this problem because the gradient is high for larger differences and the gradient decreases as the MSE lowers. For the purpose of understanding what this means, the gradient in short is the value calculated by the gradient descent algorithm and it can tell us the direction and magnitude we need to take in order to reduce loss as quickly as possible. We can calculate the MAE using Scikit-learn as shown in Figure 3. By calling mean\_absolute\_error with our true values and predicted values, the MAE is calculated as 3.37.
+Where  is the total number of datapoints,  is the actual output and  is the predicted output by the model. MAE is very useful for datasets that has a lot of outliers. As it is with the other evaluation functions, MAE also has its problems. It cannot give us the direction of our error, so we do not know if we are overpredicting or underpredicting the data. It is also not very good for neural networks because the gradient is same throughout, meaning the gradient will be large even for small differences. Meanwhile, MSE can handle this problem because the gradient is high for larger differences and the gradient decreases as the MSE lowers. For the purpose of understanding what this means, the gradient in short is the value calculated by the gradient descent algorithm and it can tell us the direction and magnitude we need to take in order to reduce loss as quickly as possible. We can calculate the MAE using Scikit-learn as shown in Figure \ref{fig:MAEcode}. By calling mean\_absolute\_error with our true values and predicted values, the MAE is calculated as 3.37.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.6\linewidth]{media/MAEcode.png}
     \captionof{figure}{Calculating MAE using Scikit-learn.}
+    \label{fig:MAEcode}
 \end{center}
 
-We have purposely chosen a very large difference between one of the predicted and true value, 0.25 as predicted value and 20 as the true value. If  we have used the MSE instead of MAE, we would get a value of 65.02 as shown in Figure 4. Which is a huge difference compared to what MAE is telling us, this example was used to show how MAE can work better than MSE when we have outliers in our dataset.
+We have purposely chosen a very large difference between one of the predicted and true value, 0.25 as predicted value and 20 as the true value. If  we have used the MSE instead of MAE, we would get a value of 65.02 as shown in Figure \ref{fig:MSEcode2}. Which is a huge difference compared to what MAE is telling us, this example was used to show how MAE can work better than MSE when we have outliers in our dataset.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.6\linewidth]{media/MSEcode2.png}
     \captionof{figure}{Using MSE instead of MAE.}
+    \label{fig:MSEcode2}
 \end{center}
  
 \subsubsection{Precision}
@@ -1249,20 +1271,22 @@ $$\text{Harmonic Mean}=\frac{n}{(\frac{1}{a})+(\frac{1}{b})+...+(\frac{1}{n})}$$
 Where $n$ is the total number of datapoints and $a$, $b$ are the values.
 We calculate the $F1$ score using the precision and recall. The formulas for calculating precision and recall are under the "Precision" and "Recall" sections. 
 $$F1=2\frac{1}{(\frac{1}{\text{precision}})+(\frac{1}{\text{recall}})}$$
-The closer our $F1$ score is to 1, the better it means our model is doing. If our $F1$ score is close to 0 that means our precision or recall is extremely bad. A problem that $F1$ score can have is that it gives equal importance to both precision and recall when in fact different types of misclassifications should have different weight. Additionally, since $F1$ score is computed with precision and recall, there is no consideration for the $TN$, true negative. This could be a problem if we have imbalanced classes. Using Scikit-learn we can easily calculate the $F1$ score by calling f1\_score as shown in Figure 5.
+The closer our $F1$ score is to 1, the better it means our model is doing. If our $F1$ score is close to 0 that means our precision or recall is extremely bad. A problem that $F1$ score can have is that it gives equal importance to both precision and recall when in fact different types of misclassifications should have different weight. Additionally, since $F1$ score is computed with precision and recall, there is no consideration for the $TN$, true negative. This could be a problem if we have imbalanced classes. Using Scikit-learn we can easily calculate the $F1$ score by calling f1\_score as shown in Figure \ref{fig:F1Code}.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/F1Code.png}
     \captionof{figure}{Calculating $F1$ Score with Scikit-Learn.}
+    \label{fig:F1Code}
 \end{center}
 
-There are several options for the average parameter, in the code above we used micro, which calculates the $F1$ score globally by counting the total true positive, false negative, and false positive. Followed by macro, which calculates the $F1$ score for each label and finds their unweighted mean, macro does not take class imbalances into account. Lastly, we have weighted, which calculates the $F1$ score for each label and finds their average weighted by support, this option does consider the imbalances. The results are shown in Figure 6. Our $F1$ score in general for all 3 options is relatively close to 1, meaning our classifier is doing well.
+There are several options for the average parameter, in the code above we used micro, which calculates the $F1$ score globally by counting the total true positive, false negative, and false positive. Followed by macro, which calculates the $F1$ score for each label and finds their unweighted mean, macro does not take class imbalances into account. Lastly, we have weighted, which calculates the $F1$ score for each label and finds their average weighted by support, this option does consider the imbalances. The results are shown in Figure \ref{fig:F1Results}. Our $F1$ score in general for all 3 options is relatively close to 1, meaning our classifier is doing well.
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/F1Results.png}
     \captionof{figure}{$F1$ Score results.}
+    \label{fig:F1Results}
 \end{center}
 
 \subsubsection{Confusion Matrix}
@@ -1273,9 +1297,10 @@ Confusion matrix is also known as an error matrix and it is usually used to eval
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/ConfusionMatrix.png}
     \captionof{figure}{Confusion Matrix.}
+    \label{fig:ConfusionMatrix}
 \end{center}
  
-Figure 7 is a confusion matrix for the glass data set available at the UC Irvine Machine Learning Repository. In this glass data set, there are seven types of glasses, or in other words seven classes that we are trying to classify using features that are not shown on the confusion matrix. The confusion matrix above shows class one through seven but, it does not include class four. The reason being that there are no data points belonging to class four even though that class exists. The true class label is shown as rows and the predicted labels using our model of choice, in this case we are using an RBF (Radial bases function) kernel for our SVM (Support Vector Machine) is shown as columns.
+Figure \ref{fig:ConfusionMatrix} is a confusion matrix for the glass data set available at the UC Irvine Machine Learning Repository. In this glass data set, there are seven types of glasses, or in other words seven classes that we are trying to classify using features that are not shown on the confusion matrix. The confusion matrix above shows class one through seven but, it does not include class four. The reason being that there are no data points belonging to class four even though that class exists. The true class label is shown as rows and the predicted labels using our model of choice, in this case we are using an RBF (Radial bases function) kernel for our SVM (Support Vector Machine) is shown as columns.
 
 What we would like to see in a confusion matrix, is that the numbers on the main diagonal line of the matrix is high, and in our case we also want the color on our main diagonal matrix to be darker as well. For example, the number ten on the first row and first column, indicates that we have predicted ten sample glasses to be of class 1 glass, and indeed the true label tells us that our glass samples are from class 1. But, if we look at the first row, second column, we can see a one. This means that our model predicted a single sample glass to be from class 2, when in fact it was from class 1. This is also the reason why; we want to see high numbers on the main diagonal of the matrix and not elsewhere.
 
@@ -1283,9 +1308,10 @@ What we would like to see in a confusion matrix, is that the numbers on the main
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/ConfusionMatrixCode.png}
     \captionof{figure}{Confusion Matrix Code.}
+    \label{fig:ConfusionMatrixCode}
 \end{center}
 
-Generating the confusion matrix can be done using a function that is readily available with Scikit-learn, plot\_confusion\_matrix. In Figure 8, we can see the code for generating the confusion matrix shown in Figure 7. First, we label the name for each class, so it is easier to understand when we look at the confusion matrix by itself. Followed by calling the Scikit-learn function plot\_confusion\_matrix. The first parameter is the estimator or our model that we are going to use to predict the classes.
+Generating the confusion matrix can be done using a function that is readily available with Scikit-learn, plot\_confusion\_matrix. In Figure \ref{fig:ConfusionMatrixCode}, we can see the code for generating the confusion matrix shown in Figure \ref{fig:ConfusionMatrix}. First, we label the name for each class, so it is easier to understand when we look at the confusion matrix by itself. Followed by calling the Scikit-learn function plot\_confusion\_matrix. The first parameter is the estimator or our model that we are going to use to predict the classes.
 
 The second parameter is the data samples that we have split in the beginning and saved for testing purposes. Continuing with the third parameter, it is the true class label for those data samples and the last parameter is just choosing the color of the matrix. Confusion matrix is basically a way to visually output the performance of a model by showing you how many data points the model classified correctly and incorrectly. It is also a basis for other types of metrics, such as using the confusion matrix we can easily calculate accuracy.
 
@@ -1309,9 +1335,10 @@ Where $y_{ij}$ indicates if a sample $i$ belongs to class $j$, $p_{ij}$ is the p
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/LogLosscode.png}
     \captionof{figure}{Calculating Logarithmic Loss with Scikit-learn.}
+    \label{fig:LogLosscode}
 \end{center}
 
-In Figure 9, we can see that we have an array of y\_true with the true class label for our small sample, win or loss. y\_pred being the predicted probabilities for a loss or a win for each data point, and by calling log\_loss with our two arrays we get a Logarithmic loss value of 0.97. Considering that Logarithmic loss’s values can be anywhere from 0 to $\infty$, it appears that it is not bad. But since this is used to compare models, we would need to calculate the Logarithmic loss value for the other competing models as well and compare them to find the lowest one loss value.
+In Figure \ref{fig:LogLosscode}, we can see that we have an array of y\_true with the true class label for our small sample, win or loss. y\_pred being the predicted probabilities for a loss or a win for each data point, and by calling log\_loss with our two arrays we get a Logarithmic loss value of 0.97. Considering that Logarithmic loss’s values can be anywhere from 0 to $\infty$, it appears that it is not bad. But since this is used to compare models, we would need to calculate the Logarithmic loss value for the other competing models as well and compare them to find the lowest one loss value.
 
 \section{Data Collection and Preparation}
 
@@ -1963,7 +1990,6 @@ The image above shows the data is scaled.
 
 The KNN calculation depends on this supposition that being genuine enough for the algorithm to be useful. The KNN algorithm catches the possibility of likeness with some arithmetic strategy we may already know to calculate the distance between the data points on a graph.
 
-
 Euclidean Distance Formula:
 $$d(p,q)=d(q,p)=\sqrt{(q_1-p)1)^2+(q_2-p_2)^2+...+(q_n-p_n)^2}$$
 $$=\sqrt{\sum_{i=1}^n(q_i-o_i)^2}$$
@@ -2170,16 +2196,14 @@ Sprint 3 & 02/11/2021
 
 Following through with the final design documentation will require juxtaposition from several distinct platforms including but not limited to Jira, Trello, TensorFlow, and GitHub. Constructing a clear, concise, and coherent document is the goal in which all team-members will cooperate.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \subsection{Sample Descriptive Data by Match Up}
-Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure 35 displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
+Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure \ref{fig:MatchUpsDivisionPieChart} displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/MatchUpsDivisionPieChart.png}
-    \captionof{figure}{Matchups division}
+    \captionof{figure}{Matchups division.}
+    \label{fig:MatchUpsDivisionPieChart}
 \end{center}
 
 We will be going over some descriptive statistics: mean, median, mode, standard deviation, minimum and maximum for each type of matchup in this randomly selected group of replays. Since, there are a lot of variables involved in our full data set, we will only be looking at a selected few: Current Workers, Mineral Collection Rate, and Vespene Collection Rate for the winners and the losers. Lastly, we will also take a look at the match result for each type of match up and how the differences races fared. 
@@ -2190,7 +2214,7 @@ There were a total of 31 PvP matchups in the selected sample data and in the fig
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/WorkersCollection.png}
-    \captionof{figure}{PvP descriptive statistics}
+    \captionof{figure}{PvP descriptive statistics.}
 \end{center}
 
 \subsubsection{Terran vs Terran}
@@ -2276,12 +2300,13 @@ The 138 randomly selected StarCraft II replay files were also divided based on t
 Similarly, to how we looked at some basic descriptive statistics of these 138 sample replay files, we will be looking at the same statistics for the same features but divided by race instead of the type of match up. We will be taking a look at the mean, median, mode, standard deviation, minimum and maximum for the features Current Workers, Mineral Collection Rate, and Vespene Collection Rate. We will also be comparing the statistics for each race, split up by the result of the match: win or loss. 
 
 \subsubsection{Protoss}
-First, we will be taking a look at the general statistics for all Protoss players in the sample replay data set in Figure 46. 
+First, we will be taking a look at the general statistics for all Protoss players in the sample replay data set in Figure \ref{fig:ProtossDescriptive}. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/ProtossDescriptive.png}
     \captionof{figure}{Protoss descriptive statistics}
+    \label{fig:ProtossDescriptive}
 \end{center}
 
 We will then compare the descriptive statistics of Protoss winners vs Protoss losers. 
@@ -2301,12 +2326,13 @@ Below is the statistics for the 70 Terran players.
     \captionof{figure}{Terran decriptive statistics}
 \end{center}
 
-Figure 49 shows the descriptive statistics for Terran players who won and Terran players who lost. 
+Figure \ref{fig:TerranWinnervsLoser} shows the descriptive statistics for Terran players who won and Terran players who lost. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/TerranWinnervsLoser.png}
     \captionof{figure}{Terran winners vs Terran losers}
+    \label{fig:TerranWinnervsLoser}
 \end{center}
 
 \subsubsection{Zerg}
@@ -2326,7 +2352,9 @@ As well as the statistics for Zerg players who resulted in a win and Zerg player
     \captionof{figure}{Zerg winners vs Zerg losers}
 \end{center}
 
-It appears that similar to the conclusion we were able to draw from dividing the sample replay files into match up types, when we divided the data based on race, the winner had higher number of current workers, higher rate of mineral and vespene collection, regardless of race. Comparing the statistics of the three races, it seems that Zerg had the most current workers, the highest mineral and vespene collection rate as well. Meanwhile, Protoss had the lowest averages out of the three for these selected features. Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
+It appears that similar to the conclusion we were able to draw from dividing the sample replay files into match up types, when we divided the data based on race, the winner had higher number of current workers, higher rate of mineral and vespene collection, regardless of race. Comparing the statistics of the three races, it seems that Zerg had the most current workers, the highest mineral and vespene collection rate as well. Meanwhile, Protoss had the lowest averages out of the three for these selected features.
+
+Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
 
 \chapter{Conclusion \& Looking Forward}
 
@@ -2334,7 +2362,9 @@ It appears that similar to the conclusion we were able to draw from dividing the
 At this point of the project, there is the framework for the beginning of the analysis stage of the project. The initial Research step of the project is fully complete and through it we have been able to analyze a plethora of machine learning algorithms and models to use as well as refine a set of features that will be used within these models. Using SC2Reader in conjunction with the code we developed for sorting and exporting replay data to CSV we have been successful in creating data files on sample sets with the features used that were determined to be influential to win prediction. The following semester will begin to show the success of the research and preparation work that has been completed to get an efficient and working repository.
 
 \section{Looking Forward}
-At the culmination of the first semester, the work we have done has laid an effective groundwork for the project. Moving into the next semester we have a set of goals and predictions on our timing as laid out by the project schedule and diagrams mentioned earlier. This means within the next semester the project will enter full work on the training and development of the win prediction model and the following side by side live win prediction program. We believe the work done there will be an extremely helpful tool for players interested in StarCraft 2 and win prediction in the same way as the ability to evaluate chess games live is a huge boost to learning the game in an online fashion. Additionally, we believe the software we produce could be ported with minimal effort to be used alongside the completed Everglades project in the future due to the Everglades software being a much simpler version of a RTS game than StarCraft 2 but sharing many similar aspects with it.
+At the culmination of the first semester, the work we have done has laid an effective groundwork for the project. Moving into the next semester we have a set of goals and predictions on our timing as laid out by the project schedule and diagrams mentioned earlier. This means within the next semester the project will enter full work on the training and development of the win prediction model and the following side by side live win prediction program. We believe the work done there will be an extremely helpful tool for players interested in StarCraft 2 and win prediction in the same way as the ability to evaluate chess games live is a huge boost to learning the game in an online fashion.
+
+Additionally, we believe the software we produce could be ported with minimal effort to be used alongside the completed Everglades project in the future due to the Everglades software being a much simpler version of a RTS game than StarCraft 2 but sharing many similar aspects with it.
 
 \chapter{Works Cited}
 \pagenumbering{Alph}
@@ -2351,7 +2381,6 @@ At the culmination of the first semester, the work we have done has laid an effe
 \item \url{https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html}
 \item \url{http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/}
 \item \url{https://provalisresearch.com/products/qualitative-data-analysis-software/}
-
 \item "Main Page," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Main_Page}. [Accessed: 09-Nov-2020].
 \item C. Ballinger, S. Liu, and S. J. Louis, "Identifying Players and Predicting Actions from RTS Game Replays," 2014.
 \item Z. Lin, J. Gehring, and V. Khalidov, STARDATA: A StarCraft AI Research Dataset , Aug. 2017.
