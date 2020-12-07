@@ -2,7 +2,7 @@
 \usepackage[hmargin=1in, vmargin=1in]{geometry}
 \usepackage[shortlabels,inline]{enumitem}
 \usepackage[labelfont=bf]{caption}
-\usepackage{xcolor, amsmath, amssymb, array, booktabs, multicol, multirow, setspace, hyperref, graphicx, rotating, pgf, hyperref, tikz}
+\usepackage{xcolor, amsmath, amssymb, array, booktabs, multicol, multirow, setspace, hyperref, graphicx, rotating, pgf, hyperref, tikz, url}
 \usetikzlibrary{automata, positioning, arrows, calc}
 
 \hypersetup{
@@ -10,7 +10,7 @@
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=blacks
+    urlcolor=black
 }
 
 \newcommand{\link}[2]{\hyperlink{#1}{\underline{#2}}}
@@ -392,7 +392,7 @@ Some interesting data points that can be analyzed for the military would be, are
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.7\linewidth]{media/SupplyGraph.png}
-    \captionof{figure}{Supply of losing player Source: “STARDATA: A StarCraft AI Research Dataset”}
+    \captionof{figure}{Supply of losing player Source: "STARDATA: A StarCraft AI Research Dataset"}
 \end{center}
 
 When discussing the economy of the game the most important winning statistics to look at are the rates of acquisition of varying resources per minute. When looking at this statistic the race that the player is playing is also a key detail as some resources are more valuable for some races, for example zerg is generally considered a gas heavy race and thus will prioritize it for their mid to late game units whereas terran often will more heavily prioritize minerals. The other important economics-based stats to look at would be base improvement, this can be separated into two different parts buildings and workers. Workers are what is used to gather resources in StarCraft 2 it is important to note they can attack and be used to explore but generally the more workers produced the higher economical value a player will have. The other category will be the buildings that are gas producing buildings which are hard to quantify and number of bases owned, for each base a player is able to have a mineral field and two gas nodes. The number of bases expanded to is generally related to the map and the race but understanding the effects of base expansions can be an interesting note on winning strategies.
@@ -400,7 +400,7 @@ When discussing the economy of the game the most important winning statistics to
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/ratiogasoremined.png}
-    \captionof{figure}{Ratio of Minerals and Gas Mined per matchup source: “STARDATA: A StarCraft AI Research Dataset”}
+    \captionof{figure}{Ratio of Minerals and Gas Mined per matchup source: "STARDATA: A StarCraft AI Research Dataset"}
 \end{center}
 
 For Research it is exceedingly difficult to classify numerically how each upgrade has an influence versus another player as each race has their own research options of which they are varied and unique to certain strategies. Because of this it may be hard to use research timings to identify winning strategies, but it could be used to determine specific unit strategies and time these to winning strategies to determine their influence on the game.
@@ -761,30 +761,33 @@ The Iris dataset is available at the \link{https://archive.ics.uci.edu/ml/datase
     \item Problem 3: Iris-virginica vs [Iris-setosa, Iris-versicolor]
 \end{itemize}
  
-Since we are required to use three different models, it could be a very slow model if we have a large data set. In the case that there are only two possible outcomes, this would not be a problem. In Figure 31, we can see that by calling LogisticRegression from Scikit-learn, the Iris data can be fitted, and we get a mean accuracy of 95.5\% for this model.
+Since we are required to use three different models, it could be a very slow model if we have a large data set. In the case that there are only two possible outcomes, this would not be a problem. In Figure \ref{fig:sklearnRegression}, we can see that by calling LogisticRegression from Scikit-learn, the Iris data can be fitted, and we get a mean accuracy of 95.5\% for this model.
 
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/sklearnRegression.png}
+    \includegraphics[width=.5\linewidth]{media/sklearnRegression.png}
     \captionof{figure}{OvR Logistic Regression}
+    \label{fig:sklearnRegression}
 \end{center}
 
 \subsection{Neural Networks}
 
-Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set. The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure 32, we can see a basic input, output, and hidden layer neural network. 
+Neural networks can be considered supervised and unsupervised depending on how the problem is set up. It is a supervised learning algorithm if we know what the outcome is and want to use a neural network to classify and learn the correlations between data and labels. It is an unsupervised learning algorithm if we do not have the answer for what the outcome is, meaning we do not have labels for our data. If we decide to use a neural network as an algorithm for our senior design project, it will probably be used for classification. Neural networks contain layers that work together to learn patterns in the data set. The simplest neural network is called a perceptron or a single layer neural network, which contains an Input Layer and an Output Layer. It takes data input and produces a single binary output. Usually after adding the first input layer we add a hidden layer. Each node in these layers multiplies the input value by some weight and normalizes the output with an activation function. In Figure \ref{fig:NeuralNetwork}, we can see a basic input, output, and hidden layer neural network. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/NeuralNetwork.png}
     \captionof{figure}{Neural Network}
+    \label{fig:NeuralNetwork}
 \end{center}
 
-The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure 33 shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer. Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
+The entire neural network process is long and complicated but luckily, Python has several libraries for neural networks that we can use. One example is the Keras API. After randomly generating some data we can import the necessary classes from Keras. Figure \ref{fig:kerasmodels} shows that by using Keras we can create a simple input and output layer sequential neural network with the Sigmoid function as the activation function, the binary cross entropy loss function as the loss function, and Adam as the optimizer. Using Keras, we have control of how many layers we want to add to our neural network, as well as how many nodes on each layer, which activation function and loss function we would like to use. We can select our preferred optimizer and fit the model according to the number of epochs and batch size we would like. 
 
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/kerasmodels.png}
     \captionof{figure}{Keras nerual network}
+    \label{fig:kerasmodels}
 \end{center}
 
 \subsection{Regression}
@@ -929,7 +932,7 @@ Figure 17 shows the scatterplots for each possible interaction term. None of the
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/SalesvsTV.png}
-    \captionof{figure}{Caron, Kyle. “Sales vs. TV x radio.” 2020.}
+    \captionof{figure}{Caron, Kyle. "Sales vs. TV x radio." 2020.}
 \end{center}
 
 For the sake of demonstration, we will choose which interaction term to further explore based on which of the three scatterplots seem to have the most separation between orange and blue, which appears to be $x_1$ and $x_3$, Passing Yards per Game and Rushing Yards per Game. Using a Python module called statsmodels, we are able to find the coefficients for our interaction model. The table shown in Figure 19, provides us with the coefficients necessary to represent our model in a formula.
@@ -1013,7 +1016,7 @@ Since the first step of fitting a regression model to a dataset is plotting a sc
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/functiondegrees.png}
-    \captionof{figure}{“Polynomial Functions Graph.” 2019.}
+    \captionof{figure}{"Polynomial Functions Graph." 2019.}
 \end{center}
 
 \subsubsection{Lasso Regression}
@@ -1082,7 +1085,7 @@ One of these included datasets are a group of pixelated numbers that represent "
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/digit.png}
-    \captionof{figure}{Examples from the handwritten digit dataset. “Recognizing Hand-Written Digits.png” Scikit}
+    \captionof{figure}{Examples from the handwritten digit dataset. "Recognizing Hand-Written Digits.png" Scikit}
 \end{center}
 
 \msection{Loading the dataset}
@@ -1341,7 +1344,7 @@ PySC2 is deep mind’s python component for the StarCraft 2 learning environment
 \begin{center}
     \captionsetup{type=figure}
     \includegraphics[width=.9\linewidth]{media/PYSC2.png}
-    \captionof{figure}{PySC2 UI for a replay}
+    \captionof{figure}{PySC2 UI for a replay.}
 \end{center}
 
 Although PySC2 is specifically a learning environment for Starcraft 2 AI, it is not necessarily what we are looking for to gather and parse data from the .SC2Replay files. We instead put our attention to finding an open source software that can parse through the unique replay file and grab data. Even though PySC2 didn’t help much with the goal of this project, we can credit it with pointing us in the right direction to S2protocol.
@@ -1349,13 +1352,14 @@ Although PySC2 is specifically a learning environment for Starcraft 2 AI, it is 
 \subsection{S2protocol}
 Prior to fully understanding and using sc2reader, we looked into s2protocol as another tool that we might be able to use in order to grab data from the StarCraft II replay files. s2protocol is a reference Python library by Blizzard Entertainment, and it is a tool that is used to decode StarCraft II replay files into Python data structures.
 
+It can provide us with information regarding game details, game events, message events, tracker events, which we believe would be useful for analysis. It also gives us the option to look at more than just a single StarCraft II replay output at once. In Figure \ref{fig:S2Protocol}, we can see an example of the output s2protocol is able to give us based on a StarCraft II replay file. It provides us with very basic information, such as the action per minute (APM) of the users, their race, the player that won, the game duration, name of the map etc.
+
 \begin{center}
     \captionsetup{type=figure}
-    \includegraphics[width=.9\linewidth]{media/S2Protocol.png}
-    \captionof{figure}{Example of s2protocol output}
+    \includegraphics[width=.7\linewidth]{media/S2Protocol.png}
+    \captionof{figure}{Example of s2protocol output.}
+    \label{fig:S2Protocol}
 \end{center}
-
-It can provide us with information regarding game details, game events, message events, tracker events, which we believe would be useful for analysis. It also gives us the option to look at more than just a single StarCraft II replay output at once. In Figure 34, we can see an example of the output s2protocol is able to give us based on a StarCraft II replay file. It provides us with very basic information, such as the action per minute (APM) of the users, their race, the player that won, the game duration, name of the map etc.
 
 Additionally, s2protocol gave us information regarding the state of the match’s lobby and the users’ initial data, which proved to not be useful for our analysis. We quickly discover that everything that s2protocol is able to do, sc2reader can do it as well and produce more useful output that we need for our analysis. 
 
@@ -2335,43 +2339,48 @@ At the culmination of the first semester, the work we have done has laid an effe
 \chapter{Works Cited}
 \pagenumbering{Alph}
 
-% All images of SC2 are own by Blizzard, and is used acceptably under their guidelines: https://www.blizzard.com/en-us/legal
-%  ©2013 Blizzard Entertainment, Inc. All rights reserved. Heart of the Swarm and StarCraft are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
-% https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm
-% https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning
-% https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47
-% https://en.wikipedia.org/wiki/Support_vector_machine
-% https://scikit-learn.org/stable/modules/svm.html
-% https://scikit-learn.org/stable/modules/lda_qda.html
-% https://en.wikipedia.org/wiki/Quadratic_classifier
-% https://online.stat.psu.edu/stat508/book/export/html/696
-% https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html
-% http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/
-% https://provalisresearch.com/products/qualitative-data-analysis-software/
-% “Main Page,” Liquipedia StarCraft 2 Wiki. [Online]. Available: https://liquipedia.net/starcraft2/Main_Page. [Accessed: 09-Nov-2020].
-% C. Ballinger, S. Liu, and S. J. Louis, “Identifying Players and Predicting Actions from RTS Game Replays,” 2014.
-% Z. Lin, J. Gehring, and V. Khalidov, STARDATA: A StarCraft AI Research Dataset , Aug. 2017.
-% I. Helmke, D. Kreymer, and K. Wiegand, “Approximation Models of Combat in Starcraft 2,” Dec. 2012.
-% M. Čertický, M. Sarnovský and T. Varga, "Use of Machine Learning Techniques in Real-Time Strategy Games," 2018 World Symposium on Digital Intelligence for Systems and Machines (DISA), Kosice, 2018, pp. 159-164, doi: 10.1109/DISA.2018.8490528.
-% H. Blockeel, “Hypothesis Space,” SpringerLink, 01-Jan-1970. [Online]. Available: https://doi.org/10.1007/978-0-387-30164-8_373. [Accessed: 14-Oct-2020]. 
-% K. Graylin, “GraylinKim/sc2reader,” GitHub. [Online]. Available: https://github.com/GraylinKim/sc2reader. [Accessed: 01-Oct-2020]. 
-% A. A. Sanchez-Ruiz, Predicting the Winner in Two Player StarCraft Games.
-% P. Domingos, “A Few Useful Things to Know About Machine Learning,” homes.cs.washington.edu, Oct-2012. [Online]. Available: https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf. [Accessed: 01-Oct-2020]. 
-% D. Leblanc and S. Louis, “Early Prediction of a Game Outcome in StarCraft 2,” cse.unr.edu. [Online]. Available: https://www.cse.unr.edu/~sushil/pubs/newestPapers/2012/pdfs/Sc2Prediction.pdf. [Accessed: 12-Oct-2020]. 
-% B. Entertainment, “s2protocol Documentation,” readthedocs, 14-Nov-2017. [Online]. Available: https://readthedocs.org/projects/s2protocol/downloads/pdf/latest/. [Accessed: 08-Oct-2020]. 
-% “2018 College Football Rankings for Preseason,” ESPN, 14-Oct-2018. [Online]. Available: https://www.espn.com/college-football/rankings/_/year/2018/seasontype/2. [Accessed: 26-Oct-2020]. 
-% “Polynomial Regression Examples,” PennState Eberly College of Science, 2018. [Online]. Available: https://online.stat.psu.edu/stat462/node/159/. [Accessed: 27-Oct-2020]. 
-% K. Caron, “Introduction to Linear Regression, Part 3: Polynomial Regression, Interaction Terms, and Feature Transformations,” Medium, 24-Mar-2020. [Online]. Available: https://medium.com/@kylecaron/introduction-to-linear-regression-part-3-polynomial-regression-interaction-terms-and-feature-c70293d2038d. [Accessed: 09-Oct-2020]. 
-% “Algebra II/Polynomial Functions,” Wikiversity, 30-Jan-2019. [Online]. Available: https://en.wikiversity.org/wiki/Algebra_II/Polynomial_Functions. [Accessed: 23-Oct-2020]. 
-% A. Mishra, “Metrics to Evaluate your Machine Learning Algorithm,” Medium, 28-Feb-2018. [Online]. Available: https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234. [Accessed: 19-Oct-2020]. 
-% “WEKA,” Weka 3 - Data Mining with Open Source Machine Learning Software in Java. [Online]. Available: https://www.cs.waikato.ac.nz/ml/weka/. [Accessed: 12-Oct-2020]. 
-% “Siege Tank (Legacy of the Void),” Liquipedia StarCraft 2 Wiki. [Online]. Available: https://liquipedia.net/starcraft2/Siege_Tank_(Legacy_of_the_Void). [Accessed: 07-Nov-2020]. 
-% “Viking (Legacy of the Void),” Liquipedia StarCraft 2 Wiki. [Online]. Available: https://liquipedia.net/starcraft2/Viking_(Legacy_of_the_Void). [Accessed: 07-Nov-2020]. 
-% “Widow Mine (Legacy of the Void),” Liquipedia StarCraft 2 Wiki. [Online]. Available: https://liquipedia.net/starcraft2/Widow_Mine_(Legacy_of_the_Void). [Accessed: 07-Nov-2020]. 
-% “Recognizing hand-written digits,” scikit. [Online]. Available: https://scikit-learn.org/stable/auto_examples/classification/plot_digits_classification.html. [Accessed: 10-Oct-2020]. 
-% Deepmind, “deepmind/pysc2,” GitHub. [Online]. Available: https://github.com/deepmind/pysc2. [Accessed: 25-Oct-2020].
+\begin{enumerate}
+\item \url{https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm}
+\item \url{https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning}
+\item \url{https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47}
+\item \url{https://en.wikipedia.org/wiki/Support_vector_machine}
+\item \url{https://scikit-learn.org/stable/modules/svm.html}
+\item \url{https://scikit-learn.org/stable/modules/lda_qda.html}
+\item \url{https://en.wikipedia.org/wiki/Quadratic_classifier}
+\item \url{https://online.stat.psu.edu/stat508/book/export/html/696}
+\item \url{https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html}
+\item \url{http://thatdatatho.com/2018/02/12/linear-vs-quadratic-discriminant-analysis/}
+\item \url{https://provalisresearch.com/products/qualitative-data-analysis-software/}
+
+\item "Main Page," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Main_Page}. [Accessed: 09-Nov-2020].
+\item C. Ballinger, S. Liu, and S. J. Louis, "Identifying Players and Predicting Actions from RTS Game Replays," 2014.
+\item Z. Lin, J. Gehring, and V. Khalidov, STARDATA: A StarCraft AI Research Dataset , Aug. 2017.
+\item I. Helmke, D. Kreymer, and K. Wiegand, "Approximation Models of Combat in Starcraft 2," Dec. 2012.
+\item M. Čertický, M. Sarnovský and T. Varga, "Use of Machine Learning Techniques in Real-Time Strategy Games," 2018 World Symposium on Digital Intelligence for Systems and Machines (DISA), Kosice, 2018, pp. 159-164, doi: 10.1109/DISA.2018.8490528.
+\item H. Blockeel, "Hypothesis Space," SpringerLink, 01-Jan-1970. [Online]. Available: \url{https://doi.org/10.1007/978-0-387-30164-8_373}. [Accessed: 14-Oct-2020].
+\item K. Graylin, "GraylinKim/sc2reader," GitHub. [Online]. Available: \url{https://github.com/GraylinKim/sc2reader}. [Accessed: 01-Oct-2020].
+\item A. A. Sanchez-Ruiz, Predicting the Winner in Two Player StarCraft Games.
+\item P. Domingos, "A Few Useful Things to Know About Machine Learning," homes.cs.washington.edu, Oct-2012. [Online]. Available: \url{https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf}. [Accessed: 01-Oct-2020]. 
+\item D. Leblanc and S. Louis, "Early Prediction of a Game Outcome in StarCraft 2," cse.unr.edu. [Online]. Available: \url{https://www.cse.unr.edu/~sushil/pubs/newestPapers/2012/pdfs/Sc2Prediction.pdf}. [Accessed: 12-Oct-2020]. 
+\item B. Entertainment, "s2protocol Documentation," readthedocs, 14-Nov-2017. [Online]. Available: \url{https://readthedocs.org/projects/s2protocol/downloads/pdf/latest/}. [Accessed: 08-Oct-2020]. 
+\item "2018 College Football Rankings for Preseason," ESPN, 14-Oct-2018. [Online]. Available: \url{https://www.espn.com/college-football/rankings/_/year/2018/seasontype/2}. [Accessed: 26-Oct-2020]. 
+\item "Polynomial Regression Examples," PennState Eberly College of Science, 2018. [Online]. Available: \url{https://online.stat.psu.edu/stat462/node/159/}. [Accessed: 27-Oct-2020]. 
+\item K. Caron, "Introduction to Linear Regression, Part 3: Polynomial Regression, Interaction Terms, and Feature Transformations" Medium, 24-Mar-2020. [Online]. Available: \url{https://medium.com/@kylecaron/introduction-to-linear-regression-part-3-polynomial-regression-interaction-terms-and-feature-c70293d2038d}. [Accessed: 09-Oct-2020]. 
+\item "Algebra II/Polynomial Functions," Wikiversity, 30-Jan-2019. [Online]. Available: \url{https://en.wikiversity.org/wiki/Algebra_II/Polynomial_Functions}. [Accessed: 23-Oct-2020]. 
+\item A. Mishra, "Metrics to Evaluate your Machine Learning Algorithm," Medium, 28-Feb-2018. [Online]. Available: \url{https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234}. [Accessed: 19-Oct-2020]. 
+\item "WEKA," Weka 3 - Data Mining with Open Source Machine Learning Software in Java. [Online]. Available: \url{https://www.cs.waikato.ac.nz/ml/weka/}. [Accessed: 12-Oct-2020]. 
+\item "Siege Tank (Legacy of the Void)," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Siege_Tank_(Legacy_of_the_Void)}. [Accessed: 07-Nov-2020]. 
+\item "Viking (Legacy of the Void)," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Viking_(Legacy_of_the_Void)}. [Accessed: 07-Nov-2020]. 
+\item "Widow Mine (Legacy of the Void)," Liquipedia StarCraft 2 Wiki. [Online]. Available: \url{https://liquipedia.net/starcraft2/Widow_Mine_(Legacy_of_the_Void)}. [Accessed: 07-Nov-2020]. 
+\item "Recognizing hand-written digits," scikit. [Online]. Available: \url{https://scikit-learn.org/stable/auto_examples/classification/plot_digits_classification.html}. [Accessed: 10-Oct-2020]. 
+\item Deepmind, "deepmind/pysc2," GitHub. [Online]. Available: \url{https://github.com/deepmind/pysc2}. [Accessed: 25-Oct-2020].
+\end{enumerate}
 
 \chapter{Appendix}
 \section{Copyright Permissions}
+
+All images of SC2 are own by Blizzard, and is used acceptably under their guidelines: \url{https://www.blizzard.com/en-us/legal}.
+
+© 2013 Blizzard Entertainment, Inc. All rights reserved. Heart of the Swarm and StarCraft are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
 
 \end{document}
