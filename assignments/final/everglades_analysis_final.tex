@@ -197,6 +197,8 @@ Initial building and unit decisions are among the most important parts of the ga
 
 \section{Distribution of Work}
 
+
+
 \section{Project Block Diagram}
 \begin{center}
     \captionsetup{type=figure}
@@ -520,9 +522,17 @@ In forward modeling we attempt to predict the future. Meaning that given the cur
 
 There are several different methods of handling partial information. Heuristically, professional StarCraft gamers are very efficient in handling partial observations. These methods include: simply sending out scouts to uncover the fog-of-war, create a specific model whose task is to derive more information from partial information, use algorithms like particle filters or Kalman filters to estimate enemy position.
 
-\msection{Partial information handling}
+\msection{Battle detection}
 
-\includegraphics[width=.6\linewidth]{media/battle.png}
+\begin{enumerate}
+\item Find the location of every death in the game.
+\item Perform Mean Shift with flat kernel of size 1 on the deaths in $x-y-t$ space, normalizing such that a unit ball corresponds to 20 seconds on $t$ axis and 200 walktiles on $x$ and $y$ axes.
+\item Merge modes that are within a unit ball from each other, assign unit death events to the closest modes within a unit ball.
+\item Filter out all clusters with fewer than 3 deaths.
+\item Add 6 seconds before and after each cluster on the t axis to be sure to include tactical maneuvers before and after the battle.
+\item Set battle bounding box to a $200x200$ rectangle around the cluster center in $x-y$ space.
+\item Greedily merge all clusters with bounding boxes in $x-y-t$ space whose Jaccard similarity scores are greater than 0.6, restricting the $x-y$ space to be a 200x200 rectangle.
+\end{enumerate}
 
 \subsection{Early Prediction of a Game Outcome in StarCraft 2}
 
@@ -1281,13 +1291,13 @@ By changing the value digit.images[-2] to digit.images[-1] and we get the two fo
 \captionsetup{type=figure}
 \begin{minipage}[c]{.45\linewidth}
     \centering
-    \includegraphics[width=1\linewidth]{media/digit8.png}
+    \includegraphics[width=1\linewidth]{media/digit9.png}
 \end{minipage}
 \begin{minipage}[c]{.45\linewidth}
     \centering
-    \includegraphics[width=1\linewidth]{media/digit9.png}
+    \includegraphics[width=1\linewidth]{media/digit8.png}
 \end{minipage}
-\captionof{figure}{Predicted 8 and predicted 9 on the right.}
+\captionof{figure}{Predicted 9 and predicted 8 on the right.}
 \end{center}
 
 Comparing those two images with our predicted output we can see that our model has successfully predicted the last two digits in the dataset. We also have the ability to make our own datasets if we really wanted to test the accuracy of this model.
