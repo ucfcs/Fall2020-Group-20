@@ -6,6 +6,10 @@ import os,glob
 import pandas as pd
 import json
 
+sc2reader.engine.register_plugin(APMTracker())
+sc2reader.engine.register_plugin(SelectionTracker())
+sc2reader.engine.register_plugin(ContextLoader())
+
 counter = 0;
 path = "C:/Users/tluka/Desktop/HSC XIII Replay Pack"
 os.chdir(path)
@@ -14,30 +18,37 @@ unit_data = json.loads(data.unit_data)
 unit_map = {}
 df = []
 T_gang = []
+id_list = []
 
 for k in unit_data:
     unit_map[k] = list(unit_data[k].keys())
 
-terran_dict = {'armory': 0, 'autoturret': 0, 'banshee': 0, 'barracks': 0, 'barrackstechlab': 0, 
-'barracksreactor': 0, 'battlecruiser': 0,'bunker': 0,'commandcenter': 0,'cyclone': 0, 'engineeringbay': 0, 'factory': 0,
-'factoryreactor': 0, 'factorytechlab': 0, 'fusioncore': 0, 'ghost': 0, 
-'ghostacademy': 0, 'hellion': 0, 'liberator': 0,'marauder': 0, 'marine': 0, 'medivac': 0, 'missileturret': 0, 
-'mule': 0, 'nuke':0, 'orbitalcommand': 0, 'planetaryfortress': 0, 'raven': 0, 'reactor':0,
-'reaper': 0, 'refinery': 0, 'scv': 0, 'sensortower': 0, 'siegetank': 0, 'starport': 0, 
-'starportreactor': 0, 'starporttechlab': 0, 'supplydepot': 0, 
-'techlab': 0, 'thor': 0, 'viking': 0, 'warhound': 0, 'widowmine': 0}
+terran_dict = {
+'armory': 0, 'autoturret': 0, 'banshee': 0, 'barracks': 0, 'barrackstechlab': 0,'barracksreactor': 0, 
+'battlecruiser': 0,'bunker': 0,'commandcenter': 0,'cyclone': 0,'engineeringbay': 0,'factory': 0,
+'factoryreactor': 0, 'factorytechlab': 0, 'fusioncore': 0,'ghost': 0,'ghostacademy': 0, 'hellion': 0, 
+'liberator': 0,'marauder': 0, 'marine': 0, 'medivac': 0,'missileturret': 0, 'mule': 0, 'nuke':0, 
+'orbitalcommand': 0, 'planetaryfortress': 0, 'raven': 0, 'reactor':0,'reaper': 0, 'refinery': 0, 
+'scv': 0, 'sensortower': 0, 'siegetank': 0, 'starport': 0,'starportreactor': 0, 'starporttechlab': 0, 
+'supplydepot': 0, 'techlab': 0, 'thor': 0, 'viking': 0, 'warhound': 0, 'widowmine': 0
+}
 
 for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=True)):
+	#print(replay.players)
 	if replay.players[0].pick_race[0] == 'T' or replay.players[1].pick_race[0] == 'T':
 		pt_dict = dict.fromkeys(terran_dict,0)
 		pt_dict2 = dict.fromkeys(terran_dict,0)
+		id_list.clear()
 		
 		for event in replay.events:
-			if event.second %30 == 0:
+			if event.second % 30 == 0:
 				if type(event) is PlayerStatsEvent:
 					if replay.players[0].pid == event.pid and replay.players[0].pick_race[0] == 'T':
+						
+						lower_bound = 0 if event.second == 0 else event.second-30 
+						ap30s = sum(list(replay.players[0].aps.values())[lower_bound:event.second])
 
-						T_gang.append([counter, event.second, replay.players[0].result, event.player, replay.players[0].pid, replay.players[0].pick_race[0], event.workers_active_count,
+						T_gang.append([counter, event.second, replay.players[0].result, event.player, ap30s, replay.players[0].pick_race[0], event.workers_active_count,
                                 event.food_used, event.food_made, event.minerals_current, event.minerals_collection_rate, 
                                 event.minerals_used_in_progress, event.minerals_used_current, event.minerals_used_active_forces, 
                                 event.minerals_lost, event.vespene_current, event.vespene_collection_rate, 
@@ -52,7 +63,10 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
                                 pt_dict['viking'], pt_dict['warhound'], pt_dict['widowmine']])
 
 					if replay.players[1].pid == event.pid and replay.players[1].pick_race[0] == 'T':
-						T_gang.append([counter, event.second, replay.players[1].result, event.player, replay.players[1].pid, replay.players[1].pick_race[0], event.workers_active_count,
+						lower_bound = 0 if event.second == 0 else event.second-30 
+						ap30s = sum(list(replay.players[1].aps.values())[lower_bound:event.second])
+
+						T_gang.append([counter, event.second, replay.players[1].result, event.player, ap30s, replay.players[1].pick_race[0], event.workers_active_count,
                                 event.food_used, event.food_made, event.minerals_current, event.minerals_collection_rate, 
                                 event.minerals_used_in_progress, event.minerals_used_current, event.minerals_used_active_forces, 
                                 event.minerals_lost, event.vespene_current, event.vespene_collection_rate, 
@@ -68,112 +82,175 @@ for replay in sc2reader.load_replays(glob.glob('../**/*.SC2Replay', recursive=Tr
 
 			if type(event) is UnitBornEvent:
 				if replay.players[0].pid == event.control_pid and replay.players[0].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict['orbitalcommand']+=1
-						pt_dict['commandcenter']+=1
+					if event.unit_type_name.lower() in pt_dict:
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict[event.unit_type_name.lower()] +=1
 					elif event.unit.name.lower() in pt_dict:
-						pt_dict[event.unit.name.lower()] +=1
-					elif event.unit_type_name.lower() in pt_dict:
-						pt_dict[event.unit_type_name.lower()] +=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict[event.unit.name.lower()] +=1
 					elif event.unit.name.lower() == 'liberatorag':
-						pt_dict['liberator']+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict['liberator']+=1
 					elif event.unit.name.lower() == 'vikingassault':
-						pt_dict['viking']+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict['viking']+=1
 			
 				if replay.players[1].pid == event.control_pid and replay.players[1].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict2['orbitalcommand']+=1
-						pt_dict2['commandcenter']+=1
+					if event.unit_type_name.lower() in pt_dict2:
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2[event.unit_type_name.lower()] +=1
 					elif event.unit.name.lower() in pt_dict2:
-						pt_dict2[event.unit.name.lower()] +=1
-					elif event.unit_type_name.lower() in pt_dict2:
-						pt_dict2[event.unit_type_name.lower()] +=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2[event.unit.name.lower()] +=1
 					elif event.unit.name.lower() == 'liberatorag':
-						pt_dict2['liberator']+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2['liberator']+=1
 					elif event.unit.name.lower() == 'vikingassault':
-						pt_dict2['viking']+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2['viking']+=1
 
 			if type(event) is UnitDiedEvent:
 				if replay.players[0] == event.unit.owner and  replay.players[0].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict['orbitalcommand']-=1
-						pt_dict['commandcenter']-=1
-					elif event.unit.name.lower() in pt_dict:
-						pt_dict[event.unit.name.lower()] -=1
+					if event.unit.name.lower() in pt_dict:
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict[event.unit.name.lower()] -=1
 					elif event.unit.name.lower() == 'liberatorag':
-						pt_dict['liberator']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['liberator']-=1
 					elif event.unit.name.lower() == 'vikingassault':
-						pt_dict['viking']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['viking']-=1
 					elif event.unit.name.lower() == 'siegetanksieged':
-						pt_dict['siegetank']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['siegetank']-=1
 					elif event.unit.name.lower() == 'widowmineburrowed':
-						pt_dict['widowmine']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['widowmine']-=1
 					elif event.unit.name.lower() == 'battlehellion':
-						pt_dict['hellion']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['hellion']-=1
 					elif event.unit.name.lower() == 'supplydepotlowered':
-						pt_dict['supplydepot']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['supplydepot']-=1
 					elif event.unit.name.lower() == 'orbitalcommandflying':
-						pt_dict['orbitalcommand']-=1
-						pt_dict['commandcenter']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['orbitalcommand']-=1
 					elif event.unit.name.lower() == 'commandcenterflying':
-						pt_dict['commandcenter']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['commandcenter']-=1
+					elif event.unit.name.lower() == 'factoryflying':
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['factory']-=1
+					elif event.unit.name.lower() == 'barracksflying':
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['barracks']-=1
 					elif event.unit.name.lower() == 'thorap':
-						pt_dict['thor']-=1
-			
-				if replay.players[1].pid == event.unit.owner and  replay.players[1].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict2['orbitalcommand']-=1
-						pt_dict2['commandcenter']-=1
-					elif event.unit.name.lower() in pt_dict2:
-						pt_dict2[event.unit.name.lower()] -=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict['thor']-=1
+				
+				if replay.players[1] == event.unit.owner and  replay.players[1].pick_race[0] == 'T':
+					if event.unit.name.lower() in pt_dict2:
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2[event.unit.name.lower()] -=1
 					elif event.unit.name.lower() == 'liberatorag':
-						pt_dict2['liberator']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['liberator']-=1
 					elif event.unit.name.lower() == 'vikingassault':
-						pt_dict2['viking']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['viking']-=1
 					elif event.unit.name.lower() == 'siegetanksieged':
-						pt_dict2['siegetank']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['siegetank']-=1
 					elif event.unit.name.lower() == 'widowmineburrowed':
-						pt_dict2['widowmine']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['widowmine']-=1
 					elif event.unit.name.lower() == 'battlehellion':
-						pt_dict2['hellion']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['hellion']-=1
 					elif event.unit.name.lower() == 'supplydepotlowered':
-						pt_dict2['supplydepot']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['supplydepot']-=1
 					elif event.unit.name.lower() == 'orbitalcommandflying':
-						pt_dict2['orbitalcommand']-=1
-						pt_dict2['commandcenter']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['orbitalcommand']-=1
 					elif event.unit.name.lower() == 'commandcenterflying':
-						pt_dict2['commandcenter']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['commandcenter']-=1
+					elif event.unit.name.lower() == 'factoryflying':
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['factory']-=1
+					elif event.unit.name.lower() == 'barracksflying':
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['barracks']-=1
 					elif event.unit.name.lower() == 'thorap':
-						pt_dict2['thor']-=1
+						if event.unit_id in id_list:
+							id_list.remove(event.unit_id)
+							pt_dict2['thor']-=1
 
 			if type(event) is UnitInitEvent:
 				if replay.players[0].pid == event.control_pid and replay.players[0].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict['orbitalcommand']+=1
-						pt_dict['commandcenter']+=1
-					elif event.unit.name.lower() in pt_dict:
-						pt_dict[event.unit.name.lower()]+=1
+					if event.unit.name.lower() in pt_dict:
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict[event.unit.name.lower()]+=1
 					elif event.unit.name.lower() == 'supplydepotlowered':
-						pt_dict['supplydepot']+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict['supplydepot']+=1
+					else:
+						print(event)
 					
 				if replay.players[1].pid == event.control_pid and replay.players[1].pick_race[0] == 'T':
-					if event.unit.name.lower() == 'orbitalcommand':
-						pt_dict2['orbitalcommand']+=1
-						pt_dict2['commandcenter']+=1
 					if event.unit.name.lower() in pt_dict2:
-						pt_dict2[event.unit.name.lower()]+=1
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2[event.unit.name.lower()]+=1
 					elif event.unit.name.lower() == 'supplydepotlowered':
-						pt_dict2['supplydepot']+=1
-					
-				
+						if event.unit_id not in id_list:
+							id_list.append(event.unit_id)
+							pt_dict2['supplydepot']+=1
+					else:
+						print(event)
+			
 		counter+=1
 
 T_gang = pd.DataFrame(T_gang)
 pd.set_option("display.max_rows", None, "display.max_columns", None)
-columns =  ["Match ID", "Second", "Result", "Player", "Player#", "Race", "Current Workers", "Food Used", "Food Available",
+columns =  ["Match ID", "Second", "Result", "Player", "Player APM", "Race", "Current Workers", "Food Used", "Food Available",
                     "Current Minerals", "Minerals Collection Rate", "Minerals Used in Progress", "Minerals Used", 
                     "Minerals Used Active Forces", "Minerals Lost", "Current Vespene", "Vespene Collection Rate", 
                     "Vespene Used in Progress", "Vespene Used", "Vespene Used Active Forces", "Vespene Lost",]
 columns.extend(pt_dict.keys())
 T_gang.columns = columns
-T_gang.to_csv(r'C:\Users\tluka\Desktop\data.csv', index=False)
+T_gang.to_csv(r'C:\Users\tluka\Desktop\data2.csv', index=False)
