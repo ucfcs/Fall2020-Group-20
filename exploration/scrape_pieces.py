@@ -56,6 +56,7 @@ if __name__ == '__main__':
     # To get all output change verbose_level >= 3
     stuff = GetStuff(results, verbose_level=2)
 
+    # Set to True to save as whatever file_ value
     if False:
         file_ = './units_dump.json'
         with open(file_, 'w') as f:
