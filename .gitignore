@@ -9,3 +9,6 @@
 *.out
 *.synctex.gz
 *.toc
+
+_*
+.vscode/
