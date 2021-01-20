@@ -2,9 +2,10 @@ import glob
 
 from sc2reader import load_replays
 from sc2reader.engine import GameEngine
-from sc2reader.engine.plugins import APMTracker, SelectionTracker
+from sc2reader.engine.plugins import APMTracker, ContextLoader, SelectionTracker
 
 from .WorkReplays import WorkReplays
+
 
 class Generator(WorkReplays):
     '''
@@ -67,17 +68,20 @@ class Generator(WorkReplays):
 
         paths = [path for path in glob.glob(glob_path, recursive=True)]
         loader_amount = len(paths) if limit is None or limit > len(paths) else limit
+        n_replays = len(paths)
 
         replays = load_replays(
             paths[:limit],
             engine=GameEngine(plugins=[
                 APMTracker(),
+                ContextLoader(),
                 SelectionTracker()
             ])
         )
         
         if verbose:
-            print('Loaded {} replays.'.format(loader_amount))
+            print('Loaded {} replays out of {}.'.format(loader_amount, n_replays))
 
         self.replays = replays
+        self.n_replays = n_replays
         self.loader_amount = loader_amount

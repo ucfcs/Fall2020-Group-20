@@ -21,9 +21,10 @@ class UseReplay:
 
 
 	# only look at first player
-	def __getData__(self, replay=None, match_id=None, race=None):
+	def __getData__(self, replay=None, match_id=None):
 		rows = []
 
+		race = replay.players[0].pick_race[0]
 		attr_race = self.attr_map[race]
 		units_dict = dict.fromkeys(attr_race['units'], 0)
 		attr_race_conversion_keys = attr_race['conversion'].keys()
@@ -34,7 +35,7 @@ class UseReplay:
 		for event in replay.events:
 			if event.second % 30 == 0:
 				if isinstance(event, events.PlayerStatsEvent):
-					if replay.players[0].pid == event.pid and replay.players[0].pick_race == race:
+					if replay.players[0].pid == event.pid:
 						lower_bound = 0 if event.second == 0 else event.second-30
 						ap30s = sum(list(replay.players[0].aps.values())[
 												lower_bound:event.second])
@@ -73,7 +74,7 @@ class UseReplay:
 				some_units_to_be_converted = attr_race['unit_born'] # ['liberatorag','vikingassault']
 
 				for i in range(2):
-					if replay.players[0].pid == event.control_pid and replay.players[0].pick_race[0] == race:
+					if replay.players[0].pid == event.control_pid:
 
 						# We first check if the variable for the unit_type or unit_name exists in our dictionary, and  if true then
 						# check to see if the unit's special id, which is unique for every individual unit, exist.
@@ -94,7 +95,7 @@ class UseReplay:
 							id_list.add(event.unit_id)
 
 			if isinstance(event, events.UnitDiedEvent):
-				if replay.players[0] == event.unit.owner and replay.players[0].pick_race[0] == race:
+				if replay.players[0] == event.unit.owner:
 					unit_name = event.unit.name.lower() 
 
 					# Same as UnitBornEvent, except when we find a matching unit name and ID in the id_list, we then remove that ID.
@@ -114,7 +115,7 @@ class UseReplay:
 				some_units_to_be_converted = attr_race['unit_init'] # ['supplydepotlowered']
 
 				# Same as UnitBorn, this class typically is called when a building has been intialized
-				if replay.players[0].pid == event.control_pid and replay.players[0].pick_race[0] == race:
+				if replay.players[0].pid == event.control_pid:
 					if unit_name in matchup[0]:
 						if event.unit_id not in id_list:
 							matchup[0][unit_name] += 1

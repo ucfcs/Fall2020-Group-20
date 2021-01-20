@@ -29,22 +29,21 @@ class WorkReplays(UseReplay):
             'Z': []
         }
 
-        valid_match = 0
+        valid_matches = dict.fromkeys(df_data.keys(), 0)
 
         for i, replay in enumerate(self.replays):
             if not verbose:
                 print('\rLoading replay {:4}/{:04} | Loaded {:6.2f}% of total!'.format(
                     i+1, self.loader_amount, (i+1)/self.loader_amount*100), end='', flush=True)
 
-            race = replay.players[1].pick_race[0]
+            race = replay.players[0].pick_race[0]
 
             if race in self.attr_map.keys():
                 if verbose:
-                    print('\n{} Game #{:03} | {} vs. {} {}'.format(
-                        '-'*17, i+1, replay.players[0].pick_race, replay.players[1].pick_race, '-'*17))
+                    print('\n{} Game #{:03} | {} vs. {} {}'.format('-'*17, i+1, replay.players[0].pick_race, replay.players[1].pick_race, '-'*17))
 
-                valid_match += 1
-                rows = self.__getData__(replay=replay, match_id=i, race=race)
+                rows = self.__getData__(replay=replay, match_id=i)
+                valid_matches[race] += 1
                 df_data[race].extend(rows)
 
         dfs = {}
@@ -53,7 +52,7 @@ class WorkReplays(UseReplay):
             dfs[k] = DataFrame(df_data[k])
 
         if verbose:
-            print('\n\nEND: ({}, {}) found {} valid games out of {}.'.format(
-                *dfs.shape, valid_match, len(self.replays)))
+            total_valid_matches = sum(valid_matches.values())
+            print('\n\nEND: Found {} valid games (total={}) out of {}.'.format(valid_matches, total_valid_matches, self.n_replays))
 
         return dfs
