@@ -1,0 +1,21 @@
+{
+    "PlayerStatsEvent": [
+        "minerals_current",
+        "vespene_current",
+        "minerals_collection_rate",
+        "vespene_collection_rate",
+        "workers_active_count",
+        "minerals_used_in_progress",
+        "vespene_used_in_progress",
+        "minerals_used_current",
+        "vespene_used_current",
+        "minerals_lost",
+        "vespene_lost",
+        "minerals_killed",
+        "vespene_killed",
+        "food_used",
+        "food_made",
+        "minerals_used_active_forces",
+        "vespene_used_active_forces"
+    ]
+}

@@ -13,6 +13,6 @@ _*
 *.synctex.gz
 *.toc
 
+launch.json
+_*
 .vscode/
-.ipynb_checkpoints
-.cache/
