@@ -3,7 +3,7 @@ import pandas as pd
 import glob
 import os
 
-cache_dir = './cache'
+cache_dir = './_cache'
 if not os.path.exists(cache_dir):
     os.makedirs(cache_dir)
 
