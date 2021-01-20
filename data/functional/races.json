@@ -13,12 +13,14 @@
       "minerals_used_current",
       "minerals_used_active_forces",
       "minerals_lost",
+      "minerals_killed",
       "vespene_current",
       "vespene_collection_rate",
       "vespene_used_in_progress",
       "vespene_used_current",
       "vespene_used_active_forces",
-      "vespene_lost"
+      "vespene_lost",
+      "vespene_killed"
     ],
     "units": [
       "armory",
