@@ -1,8 +1,23 @@
-from sc2reader import data, events
-import json
+from sc2reader import events
 
 
-class Terran:
+'''
+Terran
+TT
+TP
+TZ
+
+Protoss
+PT
+PP
+PZ
+
+Zerg
+ZT
+ZP
+ZZ
+'''
+class RaceGetter:
 	def __init__(self, attr_map):
 		# unit_data = json.loads(data.unit_data)
 
@@ -13,28 +28,28 @@ class Terran:
 		# with open('../../constants/terran.json', 'rb') as f:
 		# 	self.attr_map = json.load(f)
 
-		# self.terran_dict = dict.fromkeys(self.attr_map['units'], 0)
-		# self.self.attr_map_conversion_keys = self.attr_map['conversion'].keys()
+		# self.units_dict = dict.fromkeys(self.attr_map['units'], 0)
+		# self.attr_map_conversion_keys = self.attr_map['conversion'].keys()
 
 		self.attr_map = attr_map
-		self.terran_dict = dict.fromkeys(attr_map['units'], 0)
-		self.self.attr_map_conversion_keys = attr_map['conversion'].keys()
+		self.units_dict = dict.fromkeys(attr_map['units'], 0)
+		self.attr_map_conversion_keys = attr_map['conversion'].keys()
 
 
-	def get(self, replay, match_id):
+	def get(self, replay, match_id, race):
 		self.rows = []
-		matchup = [self.terran_dict.copy(), self.terran_dict.copy()]
+		matchup = [self.units_dict.copy(), self.units_dict.copy()]
 		id_list = set()
 
 		for event in replay.events:
 			if event.second % 30 == 0:
 				for i in range(2):
 					if isinstance(event, events.PlayerStatsEvent):
-						if replay.players[i].pid == event.pid and replay.players[i].pick_race[0] == 'T':
+						if replay.players[i].pid == event.pid and replay.players[i].pick_race == race:
 							lower_bound = 0 if event.second == 0 else event.second-30
 							ap30s = sum(list(replay.players[i].aps.values())[lower_bound:event.second])
 
-							race = replay.players[i].pick_race[0]
+							# race = replay.players[i].pick_race[0]
 							win = replay.players[i].result == 'Win'
 
 							map_name = replay.map_name
@@ -67,10 +82,11 @@ class Terran:
 					# some_units_to_be_converted special are two special cases for names that need to be converted to keep consitency within our dictionary
 					unit_name = event.unit.name.lower()
 					unit_type = event.unit_type_name.lower()
-					some_units_to_be_converted = ['liberatorag','vikingassault']
+					some_units_to_be_converted = self.attr_map['unit_born']
+					# ['liberatorag','vikingassault']
 
 					for i in range(2):
-						if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == 'T':
+						if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == race:
 
 							# We first check if the variable for the unit_type or unit_name exists in our dictionary, and  if true then
 							# check to see if the unit's special id, which is unique for every individual unit, exist.
@@ -84,14 +100,14 @@ class Terran:
 								if event.unit_id not in id_list:
 									matchup[i][unit_name] += 1
 								id_list.add(event.unit_id)
-							elif unit_name in some_units_to_be_converted and unit_name in self.self.attr_map_conversion_keys:
+							elif unit_name in some_units_to_be_converted and unit_name in self.attr_map_conversion_keys:
 								converted_unit_name = self.attr_map['conversion'][unit_name]
 								if event.unit_id not in id_list:
 									matchup[i][converted_unit_name] += 1
 								id_list.add(event.unit_id)
 
 				if isinstance(event, events.UnitDiedEvent):
-					if replay.players[i] == event.unit.owner and replay.players[i].pick_race[0] == 'T':
+					if replay.players[i] == event.unit.owner and replay.players[i].pick_race[0] == race:
 						unit_name = event.unit.name.lower() 
 
 						# Same as UnitBornEvent, except when we find a matching unit name and ID in the id_list, we then remove that ID.
@@ -100,7 +116,7 @@ class Terran:
 							if event.unit_id in id_list:
 								id_list.remove(event.unit_id)
 								matchup[i][unit_name] -= 1
-						elif unit_name in self.self.attr_map_conversion_keys:
+						elif unit_name in self.attr_map_conversion_keys:
 							converted_unit_name = self.attr_map['conversion'][unit_name]
 							if event.unit_id in id_list:
 								id_list.remove(event.unit_id)
@@ -108,15 +124,16 @@ class Terran:
 
 				if isinstance(event, events.UnitInitEvent):
 					unit_name = event.unit.name.lower()
-					some_units_to_be_converted = ['supplydepotlowered']
+					some_units_to_be_converted = self.attr_map['unit_init']
+					# ['supplydepotlowered']
 
 					# Same as UnitBorn, this class typically is called when a building has been intialized
-					if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == 'T':
+					if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == race:
 						if unit_name in matchup[i]:
 							if event.unit_id not in id_list:
 								matchup[i][unit_name] += 1
 							id_list.add(event.unit_id)
-						elif unit_name in some_units_to_be_converted and unit_name in self.self.attr_map_conversion_keys:
+						elif unit_name in some_units_to_be_converted and unit_name in self.attr_map_conversion_keys:
 							converted_unit_name = self.attr_map['conversion'][unit_name]
 							if event.unit_id not in id_list:
 								matchup[i][converted_unit_name] += 1
