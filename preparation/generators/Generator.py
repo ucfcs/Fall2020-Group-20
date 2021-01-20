@@ -3,7 +3,7 @@ import pandas as pd
 import glob
 import os
 
-cache_dir = './_cache'
+cache_dir = './cache'
 if not os.path.exists(cache_dir):
     os.makedirs(cache_dir)
 
@@ -185,7 +185,7 @@ class WorkReplays:
 
 
         if verbose:
-            print('\nEND: ({}, {}) found {} valid games out of {}.'.format(*df.shape, valid_match, len(self.replays)))
+            print('\nEND: ({}, {}) found {} valid games out of {}.'.format(*dfs.shape, valid_match, len(self.replays)))
 
         return dfs
 

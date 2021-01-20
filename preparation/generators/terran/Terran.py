@@ -3,18 +3,22 @@ import json
 
 
 class Terran:
-	def __init__(self):
-		unit_data = json.loads(data.unit_data)
+	def __init__(self, attr_map):
+		# unit_data = json.loads(data.unit_data)
 
-		unit_map = {}
-		for k in unit_data:
-			unit_map[k] = list(unit_data[k].keys())
+		# unit_map = {}
+		# for k in unit_data:
+		# 	unit_map[k] = list(unit_data[k].keys())
 
-		with open('./constants/terran.json', 'rb') as f:
-			self.attr_map = json.load(f)
+		# with open('../../constants/terran.json', 'rb') as f:
+		# 	self.attr_map = json.load(f)
 
-		self.terran_dict = dict.fromkeys(self.attr_map['units'], 0)
-		self.self.attr_map_conversion_keys = self.attr_map['conversion'].keys()
+		# self.terran_dict = dict.fromkeys(self.attr_map['units'], 0)
+		# self.self.attr_map_conversion_keys = self.attr_map['conversion'].keys()
+
+		self.attr_map = attr_map
+		self.terran_dict = dict.fromkeys(attr_map['units'], 0)
+		self.self.attr_map_conversion_keys = attr_map['conversion'].keys()
 
 
 	def get(self, replay, match_id):

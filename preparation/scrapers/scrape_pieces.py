@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 
 
+file_ = '../contants/units_dump.json'
+
+
 def GetStuff(results, verbose_level=0):
     races = {}
 
@@ -58,7 +61,6 @@ if __name__ == '__main__':
 
     # Set to True to save as whatever file_ value
     if False:
-        file_ = './units_dump.json'
         with open(file_, 'w') as f:
             json.dump(stuff, f)
         print('Saved as', file_)
