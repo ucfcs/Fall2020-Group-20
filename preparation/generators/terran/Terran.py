@@ -59,14 +59,23 @@ class Terran:
 
 							self.rows.append(row_data)
 
+			# If event is a unit being created, typically the start of the game and military units being created such as marines, liberators etc.
 			for i in range(2):
 				if isinstance(event, events.UnitBornEvent):
+
+					# unit_name and unit_type are sometimes two different names so we need to check for both names to see if it's in our Terran Dictionary
+					# some_units_to_be_converted special are two special cases for names that need to be converted to keep consitency within our dictionary
 					unit_name = event.unit.name.lower()
 					unit_type = event.unit_type_name.lower()
 					some_units_to_be_converted = ['liberatorag','vikingassault']
 
 					for i in range(2):
 						if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == 'T':
+
+							# We first check if the variable for the unit_type or unit_name exists in our dictionary, and  if true then
+							# check to see if the unit's special id, which is unique for every individual unit, exist.
+							# Sometimes sc2reader will wrongly re-read the creation of a unit so we keep track of the ID to get rid of any accidential duplication.
+							# The counter for that unit is then incremented by one.
 							if unit_type in matchup[i]:
 								if event.unit_id not in id_list:
 									matchup[i][unit_type] += 1
@@ -85,6 +94,8 @@ class Terran:
 					if replay.players[i] == event.unit.owner and replay.players[i].pick_race[0] == 'T':
 						unit_name = event.unit.name.lower() 
 
+						# Same as UnitBornEvent, except when we find a matching unit name and ID in the id_list, we then remove that ID.
+						# This way of checking for the ID before decrementing should get rid of the negative counts for units in the dataset
 						if unit_name in matchup[i]:
 							if event.unit_id in id_list:
 								id_list.remove(event.unit_id)
@@ -99,6 +110,7 @@ class Terran:
 					unit_name = event.unit.name.lower()
 					some_units_to_be_converted = ['supplydepotlowered']
 
+					# Same as UnitBorn, this class typically is called when a building has been intialized
 					if replay.players[i].pid == event.control_pid and replay.players[i].pick_race[0] == 'T':
 						if unit_name in matchup[i]:
 							if event.unit_id not in id_list:
