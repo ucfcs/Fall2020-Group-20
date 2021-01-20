@@ -16,6 +16,6 @@ _*
 .ipynb_checkpoints
 launch.json
 _*
-data/
-cache/
+data/processed
+data/raw
 .vscode/
