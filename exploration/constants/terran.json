@@ -1,26 +1,23 @@
 {
   "columns": [
-    "Match ID",
-    "Second",
-    "Result",
-    "Player",
-    "Player APM",
-    "Race",
-    "Current Workers",
-    "Food Used",
-    "Food Available",
-    "Current Minerals",
-    "Minerals Collection Rate",
-    "Minerals Used in Progress",
-    "Minerals Used",
-    "Minerals Used Active Forces",
-    "Minerals Lost",
-    "Current Vespene",
-    "Vespene Collection Rate",
-    "Vespene Used in Progress",
-    "Vespene Used",
-    "Vespene Used Active Forces",
-    "Vespene Lost"
+    "frame",
+    "second",
+    "player",
+    "workers_active_count",
+    "food_used",
+    "food_made",
+    "minerals_current",
+    "minerals_collection_rate",
+    "minerals_used_in_progress",
+    "minerals_used_current",
+    "minerals_used_active_forces",
+    "minerals_lost",
+    "vespene_current",
+    "vespene_collection_rate",
+    "vespene_used_in_progress",
+    "vespene_used_current",
+    "vespene_used_active_forces",
+    "vespene_lost"
   ],
   "units": [
     "armory",
@@ -66,5 +63,18 @@
     "viking",
     "warhound",
     "widowmine"
-  ]
+  ],
+  "conversion": {
+    "liberatorag": "liberator",
+    "vikingassault": "viking",
+    "siegetanksieged": "siegetank",
+    "widowmineburrowed": "widowmine",
+    "battlehellion": "hellion",
+    "supplydepotlowered": "supplydepot",
+    "orbitalcommandflying": "orbitalcommand",
+    "commandcenterflying": "commandcenter",
+    "factoryflying": "factory",
+    "barracksflying": "barracks",
+    "thorap": "thor"
+  }
 }
