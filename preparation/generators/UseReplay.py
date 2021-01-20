@@ -20,25 +20,9 @@ class UseReplay:
 	'''
 
 
-	def __init__(self, attr_map):
-		# unit_data = json.loads(data.unit_data)
-
-		# unit_map = {}
-		# for k in unit_data:
-		# 	unit_map[k] = list(unit_data[k].keys())
-
-		# with open('../../constants/races.json', 'rb') as f:
-		# 	self.attr_map = json.load(f)
-
-		# self.units_dict = dict.fromkeys(self.attr_map['units'], 0)
-		# self.attr_map_conversion_keys = self.attr_map['conversion'].keys()
-
-		self.attr_map = attr_map
-
-
 	# only look at first player
-	def get(self, replay=None, match_id=None, race=None):
-		self.rows = []
+	def __getData__(self, replay=None, match_id=None, race=None):
+		rows = []
 
 		attr_race = self.attr_map[race]
 		units_dict = dict.fromkeys(attr_race['units'], 0)
@@ -77,7 +61,7 @@ class UseReplay:
 
 						row_data['win'] = win
 
-						self.rows.append(row_data)
+						rows.append(row_data)
 
 			# If event is a unit being created, typically the start of the game and military units being created such as marines, liberators etc.
 			if isinstance(event, events.UnitBornEvent):
@@ -140,3 +124,5 @@ class UseReplay:
 						if event.unit_id not in id_list:
 							matchup[0][converted_unit_name] += 1
 						id_list.add(event.unit_id)
+			
+		return rows
