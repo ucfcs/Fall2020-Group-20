@@ -31,7 +31,71 @@
 Words are nice.
 
 ### Contents
-*Bash script missing*
+```
+.
+├── assignments
+│   ├── a4
+│   │   ├── everglades_analysis_a4.tex
+│   │   ├── everglades_analysis_a4.pdf
+│   │   └── media
+│   ├── a3
+│   │   ├── everglades_analysis_a3.tex
+│   │   ├── everglades_analysis_a3.pdf
+│   │   └── media
+│   ├── a2
+│   │   ├── everglades_analysis_a2.tex
+│   │   └── everglades_analysis_a2.pdf
+│   └── final
+│       ├── everglades_analysis_final.pdf
+│       ├── everglades_analysis_final.tex
+│       └── media
+├── bin
+│   ├── Tree.py
+│   └── updateReadme.py
+├── processing
+│   └── sc2reader_test.py
+├── README.md
+├── readings
+│   ├── tools
+│   │   ├── pysc2.pdf
+│   │   ├── stardata.pdf
+│   │   ├── alphastar.pdf
+│   │   ├── README.md
+│   │   └── sc2_win_prediction.pdf
+│   ├── intro
+│   │   ├── deep-learning.pdf
+│   │   ├── transformer.pdf
+│   │   ├── README.md
+│   │   ├── sparse-autoencoders.pdf
+│   │   ├── useful-ml.pdf
+│   │   └── first-cnns-backprop.pdf
+│   └── assigner.py
+├── data
+│   └── functional
+│       ├── races.json
+│       └── units_dump.json
+├── assets
+│   └── logo.png
+├── preparation
+│   ├── playerstatsevent.md
+│   ├── scrapers
+│   │   └── scrape_pieces.py
+│   └── generators
+│       ├── Ian
+│       │   ├── ZergStats.py
+│       │   └── MapPool.py
+│       ├── Elaine
+│       │   └── protoss.ipynb
+│       ├── WorkReplays.py
+│       ├── UseReplay.py
+│       └── Generator.py
+└── notebooks
+    ├── try_generator.ipynb
+    ├── initial.ipynb
+    ├── tryout.ipynb
+    └── generator.ipynb
+```
+
 
 ### Resources
 - [Readings](/readings)
