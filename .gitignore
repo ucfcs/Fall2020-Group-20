@@ -1,6 +1,3 @@
-# dev
-_*
-
 # mac
 .DS_Store
 
@@ -13,6 +10,10 @@ _*
 *.synctex.gz
 *.toc
 
-.vscode/
+# dev
 .ipynb_checkpoints
-.cache/
+launch.json
+_*
+data/processed
+data/raw
+.vscode
