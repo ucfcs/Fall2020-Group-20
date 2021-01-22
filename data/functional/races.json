@@ -81,7 +81,6 @@
     "unit_born": ["liberatorag","vikingassault"],
     "unit_init": ["supplydepotlowered"]
   },
-
   "P": {
     "columns": [
       "frame",
