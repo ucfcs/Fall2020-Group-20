@@ -37,11 +37,10 @@ class UseReplay:
 				if isinstance(event, events.PlayerStatsEvent):
 					if replay.players[0].pid == event.pid:
 						lower_bound = 0 if event.second == 0 else event.second-30
-						ap30s = sum(list(replay.players[0].aps.values())[
-												lower_bound:event.second])
 
+						ap30s = sum(list(replay.players[0].aps.values())[lower_bound:event.second])
 						win = replay.players[0].result == 'Win'
-
+						enemy_race = replay.players[1].pick_race[0]
 						map_name = replay.map_name
 						region = replay.region
 						game_length = replay.game_length.seconds
@@ -53,6 +52,7 @@ class UseReplay:
 						row_data['region'] = region
 						row_data['game_length'] = game_length
 						row_data['race'] = race
+						row_data['enemy_race'] = enemy_race
 						row_data['ap30s'] = ap30s
 
 						for col in attr_race['columns']:
