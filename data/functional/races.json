@@ -13,14 +13,12 @@
       "minerals_used_current",
       "minerals_used_active_forces",
       "minerals_lost",
-      "minerals_killed",
       "vespene_current",
       "vespene_collection_rate",
       "vespene_used_in_progress",
       "vespene_used_current",
       "vespene_used_active_forces",
-      "vespene_lost",
-      "vespene_killed"
+      "vespene_lost"
     ],
     "units": [
       "armory",
@@ -82,5 +80,76 @@
     },
     "unit_born": ["liberatorag","vikingassault"],
     "unit_init": ["supplydepotlowered"]
+  },
+
+  "P": {
+    "columns": [
+      "frame",
+      "second",
+      "player",
+      "workers_active_count",
+      "food_used",
+      "food_made",
+      "minerals_current",
+      "minerals_collection_rate",
+      "minerals_used_in_progress",
+      "minerals_used_current",
+      "minerals_used_active_forces",
+      "minerals_lost",
+      "vespene_current",
+      "vespene_collection_rate",
+      "vespene_used_in_progress",
+      "vespene_used_current",
+      "vespene_used_active_forces",
+      "vespene_lost"
+    ],
+    "units": [
+      "adept",
+      "archon",
+      "assimilator",
+      "carrier",
+      "colossus",
+      "cyberneticscore",
+      "darkshrine",
+      "darktemplar",
+      "disruptor",
+      "fleetbeacon",
+      "forge",
+      "gateway",
+      "hightemplar",
+      "immortal",
+      "interceptor",
+      "mothership",
+      "mothershipcore",
+      "nexus",
+      "observer",
+      "oracle",
+      "phoenix",
+      "photoncannon",
+      "probe",
+      "pylon",
+      "reactor",
+      "roboticsbay",
+      "roboticsfacility",
+      "sentry",
+      "shieldbattery",
+      "stalker",
+      "stargate",
+      "tempest",
+      "templararchive",
+      "twilightcouncil",
+      "voidray",
+      "warpgate",
+      "warpprism",
+      "zealot"
+    ],
+    "conversion": {
+      "warpprismphasing": "warpprism",
+      "observersiegemode": "observer",
+      "pylonovercharged": "pylon"
+    },
+    "unit_born": ["warpprismphasing"],
+    "unit_init": ["warpprismphasing"]
   }
+
 }
