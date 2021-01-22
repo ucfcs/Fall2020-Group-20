@@ -90,8 +90,10 @@ Words are nice.
 │       ├── UseReplay.py
 │       └── Generator.py
 └── notebooks
+    ├── normalize.ipynb
     ├── try_generator.ipynb
     ├── initial.ipynb
+    ├── plots
     ├── tryout.ipynb
     └── generator.ipynb
 ```

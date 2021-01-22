@@ -36,7 +36,7 @@ class Tree():
     def __init__(self, dir_path: Path, only_dirs: bool=False, ignore_dirs: list=[], level: int=-1):
         self.only_dirs = only_dirs
         self.dir_path = dir_path
-        self.ignore_dirs = set(ignore_dirs) | set(['/.git','media/'])
+        self.ignore_dirs = set(ignore_dirs) | set(['/.git','media/','plots/'])
         self.level = level
 
         self.files = 0
