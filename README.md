@@ -100,3 +100,4 @@ Words are nice.
 ### Resources
 - [Readings](/readings)
 - [StarData](https://github.com/TorchCraft/StarData)
+- [ESports Match Result Prediction](https://www.groundai.com/project/real-time-esports-match-result-prediction/1)
