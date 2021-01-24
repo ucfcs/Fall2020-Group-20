@@ -79,7 +79,8 @@
       "thorap": "thor"
     },
     "unit_born": ["liberatorag","vikingassault"],
-    "unit_init": ["supplydepotlowered"]
+    "unit_init": ["supplydepotlowered"],
+    "unit_type_change": []
   },
   "P": {
     "columns": [
@@ -148,7 +149,8 @@
       "pylonovercharged": "pylon"
     },
     "unit_born": ["warpprismphasing"],
-    "unit_init": ["warpprismphasing"]
+    "unit_init": ["warpprismphasing"],
+    "unit_type_change": []
   },
   "Z": {
     "columns": [
@@ -219,6 +221,7 @@
       "ultraliskburrowed": "ultralisk"
     },
     "unit_born": [],
-    "unit_init": []
+    "unit_init": [],
+    "unit_type_change": ["lair","hive"]
   }
 }

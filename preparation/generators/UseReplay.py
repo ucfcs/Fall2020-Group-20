@@ -71,7 +71,7 @@ class UseReplay:
 				# some_units_to_be_converted special are two special cases for names that need to be converted to keep consitency within our dictionary
 				unit_name = event.unit.name.lower()
 				unit_type = event.unit_type_name.lower()
-				some_units_to_be_converted = attr_race['unit_born'] # ['liberatorag','vikingassault']
+				some_units_to_be_converted = attr_race['unit_born']
 
 				for i in range(2):
 					if replay.players[0].pid == event.control_pid:
@@ -125,5 +125,14 @@ class UseReplay:
 						if event.unit_id not in id_list:
 							matchup[0][converted_unit_name] += 1
 						id_list.add(event.unit_id)
+
+			if isinstance(event, events.UnitTypeChangeEvent):
+				unit_name = event.unit.name.lower()
+				some_weird_units = attr_race['unit_type_change']
+
+				if replay.players[0].pid == event.control_pid:
+					if unit_name in some_weird_units:
+						if event.unit_id in id_list:
+							matchup[0][unit_name] += 1
 			
 		return rows
