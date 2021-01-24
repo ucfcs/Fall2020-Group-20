@@ -71,28 +71,27 @@ class UseReplay:
 				# some_units_to_be_converted special are two special cases for names that need to be converted to keep consitency within our dictionary
 				unit_name = event.unit.name.lower()
 				unit_type = event.unit_type_name.lower()
-				some_units_to_be_converted = attr_race['unit_born'] # ['liberatorag','vikingassault']
+				some_units_to_be_converted = attr_race['unit_born']
 
-				for i in range(2):
-					if replay.players[0].pid == event.control_pid:
+				if replay.players[0].pid == event.control_pid:
 
-						# We first check if the variable for the unit_type or unit_name exists in our dictionary, and  if true then
-						# check to see if the unit's special id, which is unique for every individual unit, exist.
-						# Sometimes sc2reader will wrongly re-read the creation of a unit so we keep track of the ID to get rid of any accidential duplication.
-						# The counter for that unit is then incremented by one.
-						if unit_type in matchup[0]:
-							if event.unit_id not in id_list:
-								matchup[0][unit_type] += 1
-							id_list.add(event.unit_id)
-						elif unit_name in matchup[0]:
-							if event.unit_id not in id_list:
-								matchup[0][unit_name] += 1
-							id_list.add(event.unit_id)
-						elif unit_name in some_units_to_be_converted and unit_name in attr_race_conversion_keys:
-							converted_unit_name = attr_race['conversion'][unit_name]
-							if event.unit_id not in id_list:
-								matchup[0][converted_unit_name] += 1
-							id_list.add(event.unit_id)
+					# We first check if the variable for the unit_type or unit_name exists in our dictionary, and  if true then
+					# check to see if the unit's special id, which is unique for every individual unit, exist.
+					# Sometimes sc2reader will wrongly re-read the creation of a unit so we keep track of the ID to get rid of any accidential duplication.
+					# The counter for that unit is then incremented by one.
+					if unit_type in matchup[0]:
+						if event.unit_id not in id_list:
+							matchup[0][unit_type] += 1
+						id_list.add(event.unit_id)
+					elif unit_name in matchup[0]:
+						if event.unit_id not in id_list:
+							matchup[0][unit_name] += 1
+						id_list.add(event.unit_id)
+					elif unit_name in some_units_to_be_converted and unit_name in attr_race_conversion_keys:
+						converted_unit_name = attr_race['conversion'][unit_name]
+						if event.unit_id not in id_list:
+							matchup[0][converted_unit_name] += 1
+						id_list.add(event.unit_id)
 
 			if isinstance(event, events.UnitDiedEvent):
 				if replay.players[0] == event.unit.owner:
@@ -125,5 +124,14 @@ class UseReplay:
 						if event.unit_id not in id_list:
 							matchup[0][converted_unit_name] += 1
 						id_list.add(event.unit_id)
+
+			if isinstance(event, events.UnitTypeChangeEvent):
+				unit_name = event.unit.name.lower()
+				some_weird_units = attr_race['unit_type_change']
+
+				if replay.players[0] == event.unit.owner:
+					if unit_name in some_weird_units:
+						if event.unit_id in id_list:
+							matchup[0][unit_name] += 1
 			
 		return rows
