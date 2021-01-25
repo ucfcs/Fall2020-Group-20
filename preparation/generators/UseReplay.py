@@ -133,5 +133,5 @@ class UseReplay:
 					if unit_name in some_weird_units:
 						if event.unit_id in id_list:
 							matchup[0][unit_name] += 1
-			
+
 		return rows
