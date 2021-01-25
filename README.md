@@ -81,15 +81,11 @@ Words are nice.
 │   ├── scrapers
 │   │   └── scrape_pieces.py
 │   └── generators
-│       ├── Ian
-│       │   ├── ZergStats.py
-│       │   └── MapPool.py
-│       ├── Elaine
-│       │   └── protoss.ipynb
 │       ├── WorkReplays.py
 │       ├── UseReplay.py
 │       └── Generator.py
 └── notebooks
+    ├── MapStuff.ipynb
     ├── normalize.ipynb
     ├── try_generator.ipynb
     ├── initial.ipynb
