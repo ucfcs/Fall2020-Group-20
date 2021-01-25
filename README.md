@@ -99,3 +99,5 @@ Words are nice.
 - [Readings](/readings)
 - [StarData](https://github.com/TorchCraft/StarData)
 - [ESports Match Result Prediction](https://www.groundai.com/project/real-time-esports-match-result-prediction/1)
+- [Replay packs](https://drive.google.com/drive/u/0/folders/1pJ1YhX--CKeL-LfHLv51RCu--aFAjj5P)
+- [Generated datasets](https://drive.google.com/drive/folders/1vX-kV6igbE20wPHGDbz-XEXTmzAwSst4?usp=sharing)
