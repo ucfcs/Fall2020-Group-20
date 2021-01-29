@@ -21,9 +21,9 @@
 
 ### Instructions
 
-1. Place all your raw `.SC2Replay` files in any structure inside `data/raw/`.
-2. Create the folder `data/processed/`.
-3. Use the jupyter notebook `notebooks/try_generator.ipynb` to generate your datasets for Protoss, Terran, and Zerg.
+1. Create the folders `data/processed/` and `data/raw/`.
+1. Place all your raw `.SC2Replay` files as any structure inside `data/raw/`.
+1. Use the jupyter notebook [notebooks/try_generator.ipynb](notebooks/try_generator.ipynb) to generate your datasets for Protoss, Terran, and Zerg.
 
 ### Collaborators
 <p>
