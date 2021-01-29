@@ -39,14 +39,6 @@ Map differences will be identified and studied to understand the effect it has o
 ```
 .
 ├── assignments
-│   ├── a4
-│   │   ├── everglades_analysis_a4.tex
-│   │   ├── everglades_analysis_a4.pdf
-│   │   └── media
-│   ├── a3
-│   │   ├── everglades_analysis_a3.tex
-│   │   ├── everglades_analysis_a3.pdf
-│   │   └── media
 │   ├── a2
 │   │   ├── everglades_analysis_a2.tex
 │   │   └── everglades_analysis_a2.pdf
@@ -99,7 +91,8 @@ Map differences will be identified and studied to understand the effect it has o
     ├── try_generator.ipynb
     ├── protoss
     │   ├── NOTES.md
-    │   └── protoss_exploration.ipynb
+    │   ├── protoss_exploration.ipynb
+    │   └── plots
     ├── initial.ipynb
     ├── plots
     ├── tryout.ipynb
