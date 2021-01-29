@@ -91,8 +91,15 @@ Map differences will be identified and studied to understand the effect it has o
 │       └── Generator.py
 └── notebooks
     ├── MapStuff.ipynb
+    ├── terran
+    │   └── NOTES.md
     ├── normalize.ipynb
+    ├── zerg
+    │   └── NOTES.md
     ├── try_generator.ipynb
+    ├── protoss
+    │   ├── NOTES.md
+    │   └── protoss_exploration.ipynb
     ├── initial.ipynb
     ├── plots
     ├── tryout.ipynb
