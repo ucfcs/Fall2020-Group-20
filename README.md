@@ -13,10 +13,17 @@
 *The best group out of all! (According to Rebecca)*  
 
 ### Index
+- [Instructions](#instructions)
 - [Collaborators](#collaborators)
 - [Description](#description)
 - [Contents](#contents)
 - [Resources](#resources)
+
+### Instructions
+
+1. Place all your raw `.SC2Replay` files in any structure inside `data/raw/`.
+2. Create the folder `data/processed/`.
+3. Use the jupyter notebook `notebooks/try_generator.ipynb` to generate your datasets for Protoss, Terran, and Zerg.
 
 ### Collaborators
 <p>
