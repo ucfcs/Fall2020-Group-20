@@ -10,9 +10,10 @@
 ![](https://img.shields.io/static/v1?label=MySQL&message=8.0.19&color=blue)
 -->
 
-*The best group out of all! (According to Rebecca)*  
+_The best group out of all! (According to Rebecca)_
 
 ### Index
+
 - [Instructions](#instructions)
 - [Collaborators](#collaborators)
 - [Description](#description)
@@ -26,6 +27,7 @@
 1. Use the jupyter notebook [notebooks/try_generator.ipynb](notebooks/try_generator.ipynb) to generate your datasets for Protoss, Terran, and Zerg.
 
 ### Collaborators
+
 <p>
   <a href="https://www.github.com/elaineng21"><img src="https://avatars2.githubusercontent.com/u/65362312?s=400&v=4" alt="elaineng21" width="50px" /></a>
   <a href="https://www.github.com/Ipleau"><img src="https://avatars2.githubusercontent.com/u/46537009?s=400&v=4" alt="Ipleau" width="50px" /></a>
@@ -35,14 +37,15 @@
 </p>
 
 ### Description
+
 The goal of this project is to analyze, evaluate data, and predict match outcomes for StarCraft II, a real-time strategy game by Blizzard Entertainment. The information that we learn from this analysis can be used to set the base line for Everglades. Data will be collected and different analytics methodologies such as descriptive and diagnostic analysis will be performed. Machine learning algorithms will also be utilized for outcome prediction. The StarCraft II data will be collected as replay files from professional tournaments. It will then be parsed and prepared for analysis and modeling.
 
 The first objective of this analysis is to find characteristics that can lead to wins in a StarCraft II match. To achieve this goal, descriptive analysis will be performed to provide basic information regarding the variables in our data set. Followed by an in-depth diagnostic analysis to find out details causing those outcomes. The second goal for this project is to find new metrics that can predict player’s performance. To achieve this goal, strategies similar to the first goal will be used, but we will be looking at different variables that can explain player’s performance such as action per minute (APM).
 
-Map differences will be identified and studied to understand the effect it has on match outcomes with similar game strategies. This will be achieved by performing descriptive and diagnostic analysis, as well as applying machine learning algorithms. For match outcome prediction, a supervised machine learning classification algorithm will be trained using the characterized behaviors that were determined to be statistically significant to predict the outcome of a match given the current game state. Lastly, a real-time analytics engine that can run simultaneously with StarCraft II match playback will be developed. This engine shall be at a minimum able to predict odds of winning. 
-
+Map differences will be identified and studied to understand the effect it has on match outcomes with similar game strategies. This will be achieved by performing descriptive and diagnostic analysis, as well as applying machine learning algorithms. For match outcome prediction, a supervised machine learning classification algorithm will be trained using the characterized behaviors that were determined to be statistically significant to predict the outcome of a match given the current game state. Lastly, a real-time analytics engine that can run simultaneously with StarCraft II match playback will be developed. This engine shall be at a minimum able to predict odds of winning.
 
 ### Contents
+
 ```
 .
 ├── assignments
@@ -106,8 +109,8 @@ Map differences will be identified and studied to understand the effect it has o
     └── generator.ipynb
 ```
 
-
 ### Resources
+
 - [Readings](/readings)
 - [StarData](https://github.com/TorchCraft/StarData)
 - [ESports Match Result Prediction](https://www.groundai.com/project/real-time-esports-match-result-prediction/1)
