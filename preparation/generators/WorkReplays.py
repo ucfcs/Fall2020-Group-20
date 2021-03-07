@@ -1,7 +1,7 @@
 from pandas import DataFrame
 from .UseReplay import UseReplay
 import time
-from .utils import getTime
+from .utils.getTime import getTime
 
 
 class WorkReplays(UseReplay):
@@ -51,14 +51,19 @@ class WorkReplays(UseReplay):
             for player_index in range(2):
                 race = replay.players[player_index].pick_race[0]
 
-                try:
-                    rows = self.__getData__(replay=replay, match_id=i, player_index=player_index)
-                    self.valid_matches[race] += 1
-                    df_data[race].extend(rows)
-                except Exception as e:
-                    self.invalid_matches[race] += 1
-                    print('\nSkipping replay #{} due to thrown exception.'.format(i))
-                    print(e)
+                if race in df_data.keys():
+                    try:
+                        rows = self.__getData__(replay=replay, match_id=self.valid_matches[race], player_index=player_index)
+                        self.valid_matches[race] += 1
+                        df_data[race].extend(rows)
+                    except Exception as e:
+                        self.invalid_matches[race] += 1
+                        print('\nSkipping replay #{} due to thrown exception.'.format(i))
+                        print(replay.players)
+                        print(e)
+                else:
+                    print('\nSkipping replay #{} due to invalid race.'.format(i))
+                    print(replay.players)
 
         dfs = {}
 
