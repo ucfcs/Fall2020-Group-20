@@ -68,7 +68,7 @@
     % \end{bottom}
 \end{titlepage}
 
-\setstretch{1.4}
+\setstretch{1.25}
 \pagenumbering{roman}
 
 \tableofcontents
@@ -939,6 +939,44 @@ Using Keras, we have control of how many layers we want to add to our neural net
     \includegraphics[width=.9\linewidth]{media/kerasmodels.png}
     \captionof{figure}{Keras nerual network}
     \label{fig:kerasmodels}
+\end{center}
+
+\subsubsection{Deep Neural Networks (DNNs)}
+
+Deep Neural Networks (DNNs) are networks in which data flows from the input layer to the output layer without going backward and the links between the layers are one way headed towards the forward direction while never touching a node again. The output is acquired through datasets we found via backpropagation.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/DNN_1.png}
+\end{center}
+
+A Recurrent Neural Network (RNN) is a network that is functional for developing a sequence of data $x(t) = x(1), . . . , x(\tau)$ with the timestamp index t ranging from 1 to $\tau$. They are imitative of Feedforward Neural Networks (FFNN) in that they develop sequences of inputs using their internal memory.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/DNN_2.png}
+    \captionof{figure}{Left side of the diagram shows a figure of an RNN while on the right side, an RNN is being unfolded into a full network.}
+\end{center}
+
+Gated Recurrent Units (GRU) solve the vanishing gradient issue from a standard RNN. There are essentially two vectors that decide what information is to be parsed. What’s interesting is that they know when to remove irrelevant information or to keep information that pertains to the study of the processes.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/GRU_1.png}
+    \captionof{figure}{Fully gated version of a GRU.}
+\end{center}
+
+Long Short Term Memory (LSTMs) are a special kind of RNN, capable of training long-term dependencies which make RNN smart at recollecting things that have happened in the past and finding patterns across time to make its next guesses be on the same wavelength. LSTMs are primarily used for improved Machine Translation, Language Modeling and Multilingual Language Processing.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LSTM_1.png}
+    \captionof{figure}{Repeating module in a standard RNN contains a single layer.}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/LSTM_2.png}
+    \captionof{figure}{Repeating module in an LSTM containing four interacting layers.}
 \end{center}
 
 \subsection{Regression}
@@ -2296,13 +2334,6 @@ This feature responds to events of the total vespene cost of all killed things. 
 
 This feature responds to events of the total vespene value of all active forces.
 
-% \section{Model Trainining}
-% \subsection{Subsections explaining what we did}
-% \section{Model Validation}
-% \subsection{Subsections explaining what we did}
-% \section{Database}
-% \subsection{Subsections explaining what we did}
-
 \subsection{Sample Descriptive Data by Match Up}
 Since we have a large number of observations in our full data set, to get a brief idea of how our data looks like, we have randomly selected 138 StarCraft II replay files and divided the replays into six groups based on their matchup type. Figure \ref{fig:MatchUpsDivisionPieChart} displays a visualization of how the 138 random replays were divided. The most popular type of match up from the replays were Protoss vs Terran, and the least popular matchup type was Terran vs Terran. 
 
@@ -2463,6 +2494,522 @@ It appears that similar to the conclusion we were able to draw from dividing the
 
 Though, we should note that in this randomly selected set of replay files, the match up types and races were not evenly distributed. We had almost double the number of Protoss players compared to the other two races. But this gives us a general idea of where the match ups and races currently stand, and as we head into Senior Design II, we will definitely be looking at our entire data set instead of just this sample set.
 
+\subsection{Key Metrics}
+
+Through exploratory research with our datasets, here is a list of the key metrics that can indicate a player's performance, and more specifically how one can separate a professional player from an average player. 
+
+\msection{Worker Count/Workers Active Count}
+
+The player in the match holding a higher count of active workers is also the player with an edge economy wise. An increase in workers is directly correlated with an increase in resource gathering.
+
+\msection{Number of Bases (Command Centers/Hatchery/Nexus)}
+
+Typically the player with the larger number of bases in a match also has a higher economy and resource gathering efficiency.
+
+\msection{Vespene/Minerals Used in Active Forces}
+
+Resources used in active forces is how we can track the strength of a player’s army at the timemark.
+
+\msection{Food Made}
+
+Any significant lead in food made for one player over another can shape the course of the next major battle since the player with less food made will have less units.
+
+\msection{Current Vespene/Minerals Count}
+
+The player with a lower current resource count is considered to be spending their resources more efficiently, since statistics like upgrades and units take time to build it is imperative to get these as soon as possible.
+
+\msection{APM}
+
+As mentioned, APM is typically correlated with higher skill players.
+
+\msection{Certain META Units in Early Game}
+
+Early game units such as Zerglings and Marines are considered to follow a META or “Most Efficient Tactics Available” which acts as a blueprint for how most professional Starcraft 2 matches play out.
+
+\subsection{Comparing Key Metrics of Average Starcraft Players vs Professionals: Zerg and Terran}
+
+Acquiring replays of average Starcraft 2 players was proven to be quite difficult in comparison to the way we acquired the professional replays. We had to use multiple sites to acquire about 400 replays of each race which is significantly less than the number of replays we hold in our main datasets. Note this is why for the professional players the curves on the graphs are smoother as opposed to the volatile graphs that the average players represent. The races of Terran and Zerg have the largest gap between professional and average Starcraft 2 players, where the Protoss race will be broken down in its own section.
+
+\msection{Food Made}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/food2.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/food1.png}
+    \captionof{figure}{Average food made comparisons.}
+\end{center}
+
+Here we can see that overall the professional Starcraft players on average have a much higher average food made count throughout the mid and late game. This can attribute to the idea that professional players know the most efficient way to spread their economy among infrastructure and units.
+
+\msection{Average Worker Count}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/worker1.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/worker2.png}
+    \captionof{figure}{Average worker count comparisons.}
+\end{center}
+
+Similar to the food made graphs above, we can see that the average Terran and Zerg players are again below the average professional player for those two races. This can be attributed to how pro’s are able to efficiently implement the highest skill in both increasing their economy and fighting their opponent in the mid game simultaneously.
+
+\msection{Current Vespene/Mineral Count}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/vespene.png}
+    \captionof{figure}{Average current vespene count comparison.}
+\end{center}
+
+At first glance, these graphs seem to imply that the average Starcraft 2 player is actually performing better in this certain statistic, however that is incorrect. This is actually because it is considered very inefficient to not spend resources almost as soon as they are gathered. So having a higher average Vespene and Mineral count can be correlated with an inexperienced player.
+
+\msection{Certain META Units in Early Game}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/meta1.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/meta2.png}
+    \captionof{figure}{META unit comparisons.}
+\end{center}
+
+One interesting thing about professional matches is the idea of there being a "meta" which is essentially a blueprint for how the average Starcraft 2 professional game looks and plays out. Meta stands for "most efficient tactics available" so looking at these graphs we can see that especially for Zerg and Terran players, the early game meta units such as Zerglings and Marines are very significant in professional games, and not so much with average players.
+
+\subsection{Comparing Key Metrics of Average Starcraft Players vs Professionals: Protoss}
+
+Protoss is considered by many to be the most beginner friendly race, typically player’s don’t have to display a high APM in order to be efficient unlike the other two races. Being a predictably economy heavy race, he playstyle that a lot of Protoss players in lower ranks, especially brand new players, implement which is to "build tall" or "turtle up". This is when a player invests heavily into their economy and defends until they garner a large enough army to completely overpower their enemy in one attack. This strategy however would be crushed in the professional scene, so looking at the bottom half of the slide we can see that specifically for this race, it is imperative to spend resources efficiently. For this reason, some of the metrics that had a large gap for Terran and Zerg aren't as present for the average Protoss players.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_1.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_2.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_3.png}
+\end{center}
+
+From these graphs we can see that for the most part, economy wise, the average player can keep up with the average professional Protoss player. This would attribute to the “turtle up” playstyle mentioned above, however what’s more important are the next two statistics.
+
+\msection{Current Vespene/Mineral Count}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_4.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_5.png}
+\end{center}
+
+So although the average player may be able to gather resources almost as efficiently as a professional player, they are still not efficient in spending those resources as well as a professional.
+
+\msection{APM}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_6.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_7.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/C_Protoss_8.png}
+\end{center}
+
+Here we can see that for all races there is a significant gap between the average APM in comparing professionals with pros. Another important thing to note is that Zerg has the highest average APM and Protoss has the lowest.
+
+\section{Map Differences}
+
+Looking into map differences in relation to winrate for players led to an interesting question of how to set a baseline for judging a map. From early research it became clear that general opinion of a map and it’s related fairness played the largest factor in whether or not a player played on certain maps or ignored those maps. It also became apparent that this opinion on maps could become extremely personalized with players of specific races preferring different maps and even further so within a race having players prefer maps based off of their strongest playstyle or unit composition.
+
+\subsection{Determining Top 5 Maps}
+
+Starcraft 2 is a game with hundreds of maps many of which are not competitive at all but still a large pool of competitive maps used for tournament play that have been vetted and determined to be more competitive than others. To begin analyzing map differences this large pool of maps needed to be shaved down to be a smaller pool that contained only the most played maps that players would regularly gravitate to. To do this we looked at the counts of games played on all of the maps within our pool of games and broke it down by map and by matchup and compiled a list containing these top 5 maps.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Top5Maps_1.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/Top5Maps_2.png}
+\end{center}
+
+\subsection{Map Selection in Game}
+
+Map popularity in SC2 is mostly determined first by the tournament organizers, each season there is a map pool of the most favored maps by players on the ladder. From that map pool tournament organizers usually pick 7 maps to run for their tournament. Given these 7 maps all of them will have a 100\% pick ban over the course of a tournament with the usual format being an AB pick ban format. An AB pick ban format features player A banning then B then alternating again giving ABAB bans followed by player A picking a map and then B with the remaining map being played on. Due to the amount of bans allowed this means if one map is disliked by the majority of players it can see almost no play over the course of the tournament. An example of a map pool for a tournament in 2020 is as follows below. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapSelectioninGame_1.png}
+\end{center}
+
+In the case of this map pool 5 of these 7 are in our favorite map pool with Golden Wall LE and Submarine LE being less favored. Golden Wall specifically is an extremely polarizing map seen to be very frustrating to play on by many players and submarines featuring a very bad winrate for protoss dragging its playrate down immensely.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapSelectioninGame_2.png}
+\end{center}
+
+\subsection{Map Scraper}
+
+To get a larger sample size for all tournament matches played on these maps for a more accurate breakdown of winrate we chose to build a python based scraper. This scraper pulls from a popular website liquid.gamepedia.com which holds data on almost every tournament played in Starcraft 2 history. The goal was to isolate win percentage in each matchup on a given map to not only be used as a baseline for model winrates but also to determine what makes a map favored. The scraper would pull info and format it into a CSV file with the format below this info was then plotted for a more visual look at the winrates of each matchup.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapScraper_1.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapScraper_2.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapScraper_3.png}
+\end{center}
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/MapScraper_4.png}
+\end{center}
+
+\subsection{Analyzing the Graphs}
+
+These graphs showing winrate confirmed the suspicions we had that popularity would be mostly related to how close a map was for a matchup, in the case of the graphs above almost all matchups fell within a reasonable range of + or - 3\% winrate in a specific matchup. However this left us with a few interesting matchups to look at where imbalance of map came into play.
+
+\subsection{Features}
+
+Researching into features players claimed to have a large effect on their specific race’s win rate on a map returned a few interesting features to look out for. Zerg players tended to claim the most important features were: 3+ defendable bases, Map Size, Open nature of map, limited ramps, and Xel’Naga towers. Terran: Walls, High Ground, Ramps, Large main base, and Airspace. Protoss: Chokepoints, 3 defendable bases, Air space, and tight ramps.
+
+\msection{Ice and Chrome LE}
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/IceandChrome_1.png}
+\end{center}
+
+In the pool of maps in the graph above 1 map stands out as the most extreme case of favoritism and it is Ice and Chrome LE favoring Protoss and Terran over Zerg by 5\% or more. An interesting point to note of the map is that it is one of the most balanced maps in the dataset for the PvT matchup, while protoss and terran do favor a lot of the same features it is immediately apparent the map may have features that cause zerg to struggle. Zerg players as previously mentioned prefer maps that have a large amount of bases that are defendable, in Ice and chrome 3+ bases become very hard to defend as there are many entrances into those bases. Another feature that zerg favors is an open map. This is where Ice and Chrome starts making a lot of sense as it is one of the most tight maps with very little open space. Looking at why Protoss and Terran are so solid it becomes apparent that they have access to a large main base, open airspace, and a large amount of ramps that can be easily walled off by a single building.
+
+
+\section{Data Preprocessing for Prediction Models}
+
+After the data has been parsed and saved in a csv file, we are able to read in that data, but it is still not ready for model training. First, we had to make sure there were not any missing values in our data set. Fortunately, our data set was complete. Secondly, we wanted to use scaling techniques on our data set because this is important for a lot of machine learning algorithms to work well. We have two options: Normalization and Standardization. Since, there is not a guaranteed way to decide which technique will yield us better prediction model results, we have decided to create a standardized and a normalized version of our data set. That way, we can train our model using both datasets and see which one is better.
+
+\subsection{Normalization}
+
+The figure below shows how we normalized our data set. There were some columns that we did not think normalization was necessary. As well as for the categorical variables, they are one hot encoded instead.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/norm.png}
+\end{center}
+
+As you can see, our data has been normalized. We have a total of 131 independent variables after normalization and one hot encoding, not all of them are shown in the figure below. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/foo1.png}
+\end{center}
+
+\subsection{Standardization}
+
+Here we have a figure that shows the code we used to standardize our data set.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/foo2.png}
+\end{center}
+
+The result for the standardized data set is shown below. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/foo3.png}
+\end{center}
+
+\subsection{Train, Test, and Validation Split}
+
+After we have created these new datasets that have been one hot encoded and normalized or standardized, we continue with splitting our data set for training, testing, and validation purposes. We decided 20\% will be reserved for testing and 80\% for training. From the 80\% training set, we took out 20\% for validation.
+
+\subsection{Sliding Window}
+
+Since we are planning to train our model using neural networks, we used the sliding window method in order to set up our input data. The reason for doing this is because we are dealing with a time series data set and normally time series data set are not structured in a way that is appropriate for neural network training. By using the sliding window method, we are able to restructure the data, by using the previous time steps’ information as input to predict for the next time step. During our model tweaking, we have testing out different window sizes such as 1, 2, 3, 5, 7, 15 etc. and currently we have found window size 2, giving us the best result. Having a window size 2, means that we are using the previous one-time step to predict for the next one-time step. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/window.png}
+\end{center}
+
+\section{Performance Baseline}
+
+Before we start training our prediction model, it is important to establish a baseline performance. Our prediction models should be an improvement upon the baseline performances.
+One of the algorithms that we used is called the Zero Rule Algorithm, this algorithm predicts the class value based on the training set. For example, if in our training set 60\% of players won the match and 40\% lost, then this algorithm will randomly predict 60\% to be wins and 40\% to be losses. The result for the Zero Rule Algorithm baseline performance for each of the race and scaling techniques is shown in the table below. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/foo4.png}
+\end{center}
+
+Another algorithm that we used is called Random Prediction. This algorithm predicts based on how many classes there are. In our case, we only have win or loss so there are only 2 classes. Then, this algorithm will randomly assign 50\% of them to be wins and 50\% to be losses. The results for the Random Prediction algorithm are shown below.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/foo5.png}
+\end{center}
+
+Based on these baseline performances, we would want a Terran prediction model to be above 55\% accuracy, Protoss prediction model above 50\%, and lastly a Zerg prediction model above 50\% accuracy as well.
+
+\section{Model Trainining}
+
+After doing some research, as well as discussing with our sponsor, we have come to the conclusion of focusing on mainly four neural networks: Simple RNN, Dense Neural Network, LSTM (Long-Short term memory network), and GRU (Gated Recurrent Unit). For our loss function, we used Binary Cross Entropy. The optimizer that we are using is Adam. As for our metrics, we are using Binary Accuracy, Precision, and Recall. All our models are trained using TensorFlow Keras, and we also have early stopping set in place. This stops the model from continuing to train when it has reached the minimum validation loss value.
+
+\subsection{Simple RNN}
+
+\subsubsection{Terran}
+
+The Simple RNN model that we used for the Terran data set is shown below. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_t1.png}
+\end{center}
+
+As for the result for the Normalized Terran Simple RNN, we have:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_t2.png}
+\end{center}
+
+The result for the Standardized Terran Simple RNN:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_t3.png}
+\end{center}
+
+Based on the metrics that we have chosen; it seems the standardized Terran data set gives us a lower value and a higher binary accuracy for the Simple RNN.
+
+\subsubsection{Protoss}
+
+For the Protoss Dense Neural Network, we have the same set up as the Terran one. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_p1.png}
+\end{center}
+
+The result for the Normalized Protoss DNN:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_p2.png}
+\end{center}
+
+The result for the Standardized Protoss DNN:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_p3.png}
+\end{center}
+
+Looking at both tables, it seems that the standardized gives a better binary accuracy, but it has a really bad recall score. Overall, the normalized data set for Protoss seems more balanced.
+
+\subsubsection{Zerg}
+
+For the Zerg model, we have the same layers except we slightly changed the units number. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_z1.png}
+\end{center}
+
+The result for the Normalized Zerg DNN:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_z2.png}
+\end{center}
+
+The result for the Standardized Zerg DNN:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/rnn_z3.png}
+\end{center}
+
+Based on the metrics, it seems that for the Zerg Dense Neural Network, the standardized one gives 4\% higher binary accuracy. But the recall for standardized models is nowhere near as good as the normalized one. But based on the other metrics, we would say the standardized is better in general.
+
+\subsection{LSTM}
+
+\subsubsection{Terran}
+
+The LSTM model for the Terran data set is shown below. We have an input layer, a dropout layer in the middle, and lastly an output layer. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_t1.png}
+\end{center}
+
+The result for the Normalized Terran LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_t2.png}
+\end{center}
+
+The result for the Standardized Terran LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_t3.png}
+\end{center}
+
+It appears that for the Terran LSTM model, standardized gives it a better result.
+
+\subsubsection{Protoss}
+
+The Protoss LSTM model is very similar to the Terran one, except we have changed the dropout layer value.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_p1.png}
+\end{center}
+
+The result for the Normalized Protoss LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_p2.png}
+\end{center}
+
+The result for the Standardized Protoss LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_p3.png}
+\end{center}
+
+For the Protoss LSTM model, it seems that both the normalized and standardized data set gives very close results. Since, we focused more on the Loss Value and Binary Accuracy out of the 4 metrics. We think the standardized Protoss LSTM is better.
+
+\subsubsection{Zerg}
+
+Our Zerg LSTM model is the same as the Protoss LSTM model, and it is shown below.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_z1.png}
+\end{center}
+
+The result for the Normalized Zerg LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_z2.png}
+\end{center}
+
+The result for the Standardized Zerg LSTM:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/lstm_z3.png}
+\end{center}
+
+Due to the lower loss value and the higher binary accuracy, for the Zerg LSTM model it is easy to see that the standardized version is better.
+
+\subsection{GRU}
+
+\subsubsection{Terran}
+
+The Terran GRU model has an input layer, a dropout layer, and an output layer as shown below.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_t1.png}
+\end{center}
+
+The result for the Normalized Terran GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_t2.png}
+\end{center}
+
+The result for the Standardized Terran GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_t3.png}
+\end{center}
+
+It is easy to see based on these two tables, the standardized Terran GRU model is definitely performing better than the normalized one.
+
+\subsubsection{Protoss}
+
+For the Protoss GRU model, it is exactly the same as the Terran GRU model.
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_p1.png}
+\end{center}
+
+The result for the Normalized Protoss GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_p2.png}
+\end{center}
+
+The result for the Standardized Protoss GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_p3.png}
+\end{center}
+
+It appears that for the Protoss GRU model, the normalized data set performs slightly better.
+
+\subsubsection{Zerg}
+
+Again, for the Zerg GRU model we have the exact same set up as the Protoss as well as the Terran one. 
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_z1.png}
+\end{center}
+
+The result for the Normalized Zerg GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_z2.png}
+\end{center}
+
+The result for the Standardized Zerg GRU:
+
+\begin{center}
+    \captionsetup{type=figure}
+    \includegraphics[width=.9\linewidth]{media/gru_z3.png}
+\end{center}
+
+Based on the four metrics from the table, we can say that the standardized version works better for the Zerg GRU model.
+
+\subsection{Conclusion}
+
+After comparing all the models, we have concluded that: 1) Standardized data set tends to lead to  better models in general and 2) Out of the 4 models, the Simple RNN gave us the best model based on the 4 metrics. The best Terran model gives us a 58\% accuracy, meanwhile for the Protoss we get 55\%, and for the best Zerg model 55\% accuracy as well. 
+
 \chapter{Administrative Content}
 \section{Project Budget}
 
@@ -2518,12 +3065,17 @@ Following through with the final design documentation will require juxtaposition
 \chapter{Conclusion \& Looking Forward}
 
 \section{Conclusion}
-At this point of the project, there is the framework for the beginning of the analysis stage of the project. The initial Research step of the project is fully complete and through it we have been able to analyze a plethora of machine learning algorithms and models to use as well as refine a set of features that will be used within these models. Using SC2Reader in conjunction with the code we developed for sorting and exporting replay data to CSV we have been successful in creating data files on sample sets with the features used that were determined to be influential to win prediction. The following semester will begin to show the success of the research and preparation work that has been completed to get an efficient and working repository.
+
+We have completed our analysis on professional Starcraft 2 gameplay and map metrics. Our findings and the framework we created over the course of these two semesters sets a baseline for any additional Starcraft 2 dataset implementations. There were a few metrics that we wanted to look into but unfortunately didn’t have the time such as recording when upgrades were acquired for each race.
 
 \section{Looking Forward}
-At the culmination of the first semester, the work we have done has laid an effective groundwork for the project. Moving into the next semester we have a set of goals and predictions on our timing as laid out by the project schedule and diagrams mentioned earlier. This means within the next semester the project will enter full work on the training and development of the win prediction model and the following side by side live win prediction program. We believe the work done there will be an extremely helpful tool for players interested in StarCraft 2 and win prediction in the same way as the ability to evaluate chess games live is a huge boost to learning the game in an online fashion.
 
-Additionally, we believe the software we produce could be ported with minimal effort to be used alongside the completed Everglades project in the future due to the Everglades software being a much simpler version of a RTS game than StarCraft 2 but sharing many similar aspects with it.
+Some of the future work that can be built upon the foundation laid by this project includes:
+\begin{itemize}
+    \item Implementing an algorithm that can take these professional replay averages to predict what the META looks like for each race
+    \item Implementing an algorithm that can detect if a low ranking player is a smurf. AKA a high level player intentionally playing on a low ranked account
+    \item Further improve the model predictor.
+\end{itemize}
 
 \chapter{Works Cited}
 \pagenumbering{Alph}
@@ -2534,7 +3086,7 @@ Additionally, we believe the software we produce could be ported with minimal ef
 \item "K-Nearest Neighbor(KNN) Algorithm for Machine Learning - Javatpoint," www.javatpoint.com. [Online]. Available: \url{https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning}. [Accessed: 26-Oct-2020].
 \item "Support vector machine," Wikipedia, 28-Nov-2020. [Online]. Available: \url{https://en.wikipedia.org/wiki/Support_vector_machine}. [Accessed: 18-Nov-2020].
 \item R. M. GmbH, "Quadratic Discriminant Analysis (RapidMiner Studio Core)," Quadratic Discriminant Analysis - RapidMiner Documentation. [Online]. Available: \url{https://docs.rapidminer.com/latest/studio/operators/modeling/predictive/discriminant_analysis/quadratic_discriminant_analysis.html}. [Accessed: 29-Oct-2020].
-\item 9.2.8 - Quadratic Discriminant Analysis (QDA). [Online]. Available: \url{https://online.stat.psu.edu/stat508/book/export/html/696}. [Accessed: 28-Oct-2020].
+\item 9.2.8 - Quadratic Discriminant Analysis (QDA). [Online]. Available: \url{https://online.stat.psu.edu/stat508/book/export/html/696}. [Accessed: 28-Oct-2020].d
 \item "Quadratic classifier," Wikipedia, 29-Mar-2020. [Online]. Available: \url{https://en.wikipedia.org/wiki/Quadratic_classifier}. [Accessed: 25-Oct-2020].
 \item "1.2. Linear and Quadratic Discriminant Analysis," scikit. [Online]. Available: \url{https://scikit-learn.org/stable/modules/lda_qda}.html. [Accessed: 18-Nov-2020].
 \item "1.4. Support Vector Machines," scikit. [Online]. Available: \url{https://scikit-learn.org/stable/modules/svm.html}. [Accessed: 29-Nov-2020].

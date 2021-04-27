@@ -33,7 +33,7 @@ class WorkReplays(UseReplay):
 
         t0 = time.time()
 
-        for i, replay in enumerate(self.replays):
+        for i, path, replay in zip(range(len(self.paths)), self.paths, self.replays):
             if not verbose:
                 time_elapsed = time.time() - t0
                 eta = (self.loader_amount - i+1) * (time_elapsed/(i+1))
@@ -53,7 +53,7 @@ class WorkReplays(UseReplay):
 
                 if race in df_data.keys():
                     try:
-                        rows = self.__getData__(replay=replay, match_id=self.valid_matches[race], player_index=player_index)
+                        rows = self.__getData__(replay=replay, match_id=self.valid_matches[race], player_index=player_index, path=path)
                         self.valid_matches[race] += 1
                         df_data[race].extend(rows)
                     except Exception as e:

@@ -21,7 +21,7 @@ class UseReplay:
 
 
 	# only look at first player
-	def __getData__(self, replay=None, match_id=None, player_index=0):
+	def __getData__(self, replay=None, match_id=None, player_index=0, path=None):
 		rows = []
 
 		# enemy_player_index is the opposite of player_index
@@ -59,6 +59,7 @@ class UseReplay:
 						row_data['race'] = race
 						row_data['enemy_race'] = enemy_race
 						row_data['ap30s'] = ap30s
+						row_data['path'] = path
 
 						for col in attr_race['columns']:
 							row_data[col] = eval('event.' + col)

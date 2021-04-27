@@ -78,6 +78,7 @@ class Generator(WorkReplays):
         if verbose:
             print('Loaded {} replays out of {}.'.format(loader_amount, n_replays))
 
+        self.paths = paths[:limit]
         self.replays = replays
         self.n_replays = n_replays
         self.loader_amount = loader_amount
